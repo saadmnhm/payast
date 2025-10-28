@@ -9,8 +9,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/site/css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css" integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 </head>
 <body>
     <!-- Top Bar -->
@@ -40,22 +43,161 @@
     <header class="header-main desktop-menu" id="header">
         <div class="container">
             <div class="header-content">
-                <a href="#" class="logo">PIASSAT</a>
+                <a href="#" class="logo">logo mohamad</a>
                 <div class="search-bar">
                     <input type="text" id="searchInput" placeholder="Rechercher des pièces auto...">
                     <button onclick="performSearch()"><i class="fas fa-search"></i></button>
                 </div>
                 <div class="header-icons">
+                    <a href="" class="header-icon">
+                        <i class="fas fa-heart"></i> Favoris
+                    </a>
                     <a href="#" class="header-icon">
                         <i class="fas fa-user"></i> Compte
                     </a>
                     <a href="#" class="header-icon" onclick="openCart(event)">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-badge" id="cartCount">0</span>
+                        <p class="m-0">Panier : <span class="" style="color: #e31e24;">0.00DH</span></p>
                     </a>
                 </div>
             </div>
         </div>
+
+        <!-- Navigation -->
+        <nav class="navbar mt-3 navbar-expand-lg p-0 desktop-menu">
+
+            <div class="container h-100 gap-3 ">
+                <div class="col-md-3  h-100 d-flex align-items-center justify-content-center">
+                    <div class="nav-links dropdown drop-categories">
+                        <ul class="nav-links ps-0">
+                            <li><a class=" dropdown-toggle" href="#">
+                                    <i class="fas fa-bars"></i>
+                                    Catégories
+                                </a>
+                            
+                                <ul class="drop-menu">
+                                    <li><a href="#">Drop menu 1</a></li>
+                                    <li><a href="#">Drop menu 2</a></li>
+                                    <li><a href="#">Drop menu 3</a></li>
+                                    <li><a href="#">Drop menu 4</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                            
+                        
+                    </div>
+                    <div class="promo-link">
+                        <a href="" >% PROMOTIONS</a>
+                    </div>
+                                        
+                </div>
+                <div class="collapse h-100 navbar-collapse" id="navbarNav">
+                    <div class="wrapper mb-0 mt-0">
+                        <ul class="nav-links">
+                        <li>
+                            <a
+                            href="{{ route('front.list') }}"
+                            class="desktop-item"
+                            >Mécanique</a
+                            >
+                            
+                            <div class="mega-box">
+                            <div class="content">
+                                <div class="row">
+                                    <ul class="mega-links">
+                                        <li><a href="#">Personal Email</a></li>
+                                        <li><a href="#">Business Email</a></li>
+                                        <li><a href="#">Mobile Email</a></li>
+                                        <li><a href="#">Web Marketing</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a
+                            href="#"
+                            class="desktop-item"
+                            >Filtration</a
+                            >
+                            
+                            <div class="mega-box">
+                            <div class="content">
+                                <div class="row">
+                                    sssssssssssssssssssss
+                                </div>
+                            </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a
+                            href="#"
+                            class="desktop-item"
+                            >Freinage</a
+                            >
+                            
+                            <div class="mega-box">
+                            <div class="content">
+                                <div class="row">
+                                    sssssssssssssssssssss
+                                </div>
+                            </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a
+                            href="#"
+                            class="desktop-item"
+                            >Lubrifiants</a
+                            >
+                            
+                            <div class="mega-box">
+                            <div class="content">
+                                <div class="row">
+                                    sssssssssssssssssssss
+                                </div>
+                            </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a
+                            href="#"
+                            class="desktop-item"
+                            >Batteries</a
+                            >
+                            
+                            <div class="mega-box">
+                            <div class="content">
+                                <div class="row">
+                                    sssssssssssssssssssss
+                                </div>
+                            </div>
+                            </div>
+                        </li>
+                        
+                        <li>
+                            <a
+                            href="#"
+                            class="desktop-item"
+                            >Entretien</a
+                            >
+                            
+                            <div class="mega-box">
+                            <div class="content">
+                                <div class="row">
+                                    sssssssssssssssssssss
+                                </div>
+                            </div>
+                            </div>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
     </header>
     <header class="header-main mobile-menu" id="header">
         <div class="container">
@@ -78,141 +220,7 @@
         </div>
     </header>
 
-    <!-- Navigation -->
-   
 
-    <nav class="navbar navbar-expand-lg p-0 desktop-menu">
-
-        <div class="container h-100 gap-3 ">
-            <div class="col-md-3  h-100 d-flex align-items-center justify-content-center">
-                <div class="nav-links dropdown drop-categories">
-                    <ul class="nav-links ps-0">
-                        <li><a class=" dropdown-toggle" href="#">
-                                 <i class="fas fa-bars"></i>
-                                 Catégories
-                            </a>
-                        
-                            <ul class="drop-menu">
-                                <li><a href="#">Drop menu 1</a></li>
-                                <li><a href="#">Drop menu 2</a></li>
-                                <li><a href="#">Drop menu 3</a></li>
-                                <li><a href="#">Drop menu 4</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                        
-                    
-                </div>
-                <div class="promo-link">
-                    <a href="" >% PROMOTIONS</a>
-                </div>
-                                    
-            </div>
-            <div class="collapse h-100 navbar-collapse" id="navbarNav">
-                <div class="wrapper mb-0 mt-0">
-                    <ul class="nav-links">
-                    <li>
-                        <a
-                        href="#"
-                        class="desktop-item"
-                        >Mécanique</a
-                        >
-                        
-                        <div class="mega-box">
-                        <div class="content">
-                            <div class="row">
-                                <ul class="mega-links">
-                                    <li><a href="#">Personal Email</a></li>
-                                    <li><a href="#">Business Email</a></li>
-                                    <li><a href="#">Mobile Email</a></li>
-                                    <li><a href="#">Web Marketing</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        </div>
-                    </li>
-                    <li>
-                        <a
-                        href="#"
-                        class="desktop-item"
-                        >Filtration</a
-                        >
-                        
-                        <div class="mega-box">
-                        <div class="content">
-                            <div class="row">
-                                sssssssssssssssssssss
-                            </div>
-                        </div>
-                        </div>
-                    </li>
-                    <li>
-                        <a
-                        href="#"
-                        class="desktop-item"
-                        >Freinage</a
-                        >
-                        
-                        <div class="mega-box">
-                        <div class="content">
-                            <div class="row">
-                                sssssssssssssssssssss
-                            </div>
-                        </div>
-                        </div>
-                    </li>
-                    <li>
-                        <a
-                        href="#"
-                        class="desktop-item"
-                        >Lubrifiants</a
-                        >
-                        
-                        <div class="mega-box">
-                        <div class="content">
-                            <div class="row">
-                                sssssssssssssssssssss
-                            </div>
-                        </div>
-                        </div>
-                    </li>
-                    <li>
-                        <a
-                        href="#"
-                        class="desktop-item"
-                        >Batteries</a
-                        >
-                        
-                        <div class="mega-box">
-                        <div class="content">
-                            <div class="row">
-                                sssssssssssssssssssss
-                            </div>
-                        </div>
-                        </div>
-                    </li>
-                    
-                    <li>
-                        <a
-                        href="#"
-                        class="desktop-item"
-                        >Entretien</a
-                        >
-                        
-                        <div class="mega-box">
-                        <div class="content">
-                            <div class="row">
-                                sssssssssssssssssssss
-                            </div>
-                        </div>
-                        </div>
-                    </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
     <!-- mobile sidebar -->
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -241,31 +249,118 @@
     @yield('content')
 
     <!-- Footer -->
+
+    <div class="footer-top pb-5">
+        <div class="container">
+            <div class="services-footer">
+                <div class="title-group mb-5 has-border">
+                    <h2>NOS ENGAGEMENTS</h2>
+                </div>
+                <div class="row service-wrapper">
+                    <div class="col-sm">
+                        <div class="service-item">
+                            <div class="image-service">
+                                <picture>
+                                    <source type="image/webp" srcset="https://piassaty.ma/media/wysiwyg/authentic.webp" loading="lazy" alt="Icon" width="100" height="100">
+                                    <img src="https://piassaty.ma/media/wysiwyg/authentic.png" loading="lazy" alt="Icon" width="100" height="100">
+                                </picture>
+                            </div>
+                            <div class="info-service">
+                                <h3>Marques en exclusivité</h3>
+                                <p>Pièces exclusives, neuves et au meilleur prix</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="service-item">
+                            <div class="image-service">
+                                <picture>
+                                    <source type="image/webp" srcset="https://piassaty.ma/media/wysiwyg/customer-service.webp" loading="lazy" alt="Icon" width="100" height="100">
+                                    <img src="https://piassaty.ma/media/wysiwyg/customer-service.png" loading="lazy" alt="Icon" width="100" height="100">
+                                </picture>
+                            </div>
+                            <div class="info-service">
+                                <h3>Conseil d'experts</h3>
+                                <p>Service client disponible du lundi au samedi</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="service-item">
+                            <div class="image-service">
+                                <picture>
+                                    <source type="image/webp" srcset="https://piassaty.ma/media/wysiwyg/delivery.webp" loading="lazy" alt="icon" width="100" height="100">
+                                    <img src="https://piassaty.ma/media/wysiwyg/delivery.png" loading="lazy" alt="icon" width="100" height="100">
+                                </picture>
+                            </div>
+                            <div class="info-service">
+                                <h3>Livraison express</h3>
+                                <p>Livraison à domicile ou retrait en magasin</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="service-item">
+                            <div class="image-service">
+                                <picture>
+                                    <source type="image/webp" srcset="https://piassaty.ma/media/wysiwyg/super-deals.webp" loading="lazy" alt="icon" width="100" height="100">
+                                    <img src="https://piassaty.ma/media/wysiwyg/super-deals.png" loading="lazy" alt="icon" width="100" height="100">
+                                </picture>
+                            </div>
+                            <div class="info-service">
+                                <h3>Remises inédites</h3>
+                                <p>Sur une large sélection de pièces et accessoires</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="service-item">
+                            <div class="image-service">
+                                <picture>
+                                    <source type="image/webp" srcset="https://piassaty.ma/media/wysiwyg/money-back.webp" loading="lazy" alt="icon" width="100" height="100">
+                                    <img src="https://piassaty.ma/media/wysiwyg/money-back.png" loading="lazy" alt="icon" width="100" height="100">
+                                </picture>
+                            </div>
+                            <div class="info-service">
+                                <h3>Satisfait ou remboursé</h3>
+                                <p>Garantie de retour pendant 30 jours</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="service-item">
+                            <div class="image-service">
+                                <picture>
+                                    <source type="image/webp" srcset="https://piassaty.ma/media/wysiwyg/secure-payment.webp" loading="lazy" alt="icon" width="100" height="100">
+                                    <img src="https://piassaty.ma/media/wysiwyg/secure-payment.png" loading="lazy" alt="icon" width="100" height="100">
+                                </picture>
+                            </div>
+                                <div class="info-service">
+                                <h3>Paiement sécurisé</h3>
+                            <p>Informations de transaction protégées lors de l'achat</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer id="contact">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
+            <div class="footer-content row">
+                <div class="footer-section col-md-3">
                     <h3>À PROPOS DE PIASSAT</h3>
                     <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">
                         Leader marocain de la distribution de pièces automobiles. Qualité garantie et service professionnel.
                     </p>
-                    <div class="social-links">
+                    <div class="social-links ">
                         <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-                <div class="footer-section">
-                    <h3>LIENS RAPIDES</h3>
-                    <ul>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Notre histoire</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Nos magasins</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Carrières</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Blog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
+                <div class="footer-section col-md-3">
                     <h3>AIDE CLIENT</h3>
                     <ul>
                         <li><a href="#"><i class="fas fa-angle-right"></i> Contact</a></li>
@@ -274,18 +369,13 @@
                         <li><a href="#"><i class="fas fa-angle-right"></i> FAQ</a></li>
                     </ul>
                 </div>
-                <div class="footer-section">
-                    <h3>INFORMATIONS LÉGALES</h3>
-                    <ul>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> CGV</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Mentions légales</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Confidentialité</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Cookies</a></li>
-                    </ul>
+                <div class="footer-section col-md-6">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1037.6641149144832!2d-7.5427905300841385!3d33.579669788451476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7cd003b6851df%3A0x2d8eea33b3b3528b!2sBEST%20ORIGINAL%20PARTS!5e1!3m2!1sfr!2sma!4v1761650349042!5m2!1sfr!2sma" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
+
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Piassat - Tous droits réservés | Développé avec ❤️ au Maroc</p>
+                <p>&copy; 2024 mohamad - Tous droits réservés | Développé avec ❤️ au Abdo Agency</p>
             </div>
         </div>
     </footer>
@@ -316,6 +406,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/plugins/ModifiersPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
     <script src="{{ asset('assets/site/js/script.js')}}"></script>
 </body>

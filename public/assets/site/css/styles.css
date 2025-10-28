@@ -4,8 +4,11 @@
     box-sizing: border-box;
 }
 
+p,h1,h2,h3,h4,h5,h6{
+    font-family: "Rubik" !important;
+}
 body {
-    font-family: "Rubik";
+    font-family: "Rubik" !important;
     color: #333;
     overflow-x: hidden;
   font-optical-sizing: auto;
@@ -94,8 +97,10 @@ a{
 }
 
 .header-main.scrolled {
-    padding: 10px 0;
+    padding: 10px 0 0 0;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    border-bottom: 2px solid rgb(223, 30, 38);
+
 }
 
 .header-content {
@@ -177,17 +182,18 @@ a{
 
 .cart-badge {
     position: absolute;
-    top: -8px;
-    right: -8px;
+    top: -19px;
+    right: -20px;
     background: #e31e24;
     color: white;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    padding: 0 1px 0 0;
+    height: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 11px;
+    font-size: 9px;
     font-weight: bold;
 }
 
@@ -209,7 +215,7 @@ a{
 .hero .container {
     background: linear-gradient(135deg, #1e2847 0%, #2d3f6f 100%);
     color: white;
-    padding: 35px 0;
+    padding: 35px 30px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -323,6 +329,32 @@ a{
 .brands {
     text-align: center;
     margin: 80px 0;
+    .item{
+        width: 120px !important;
+        height: 95px !important;
+        align-content: center;
+        border: 1px solid #00000024;
+    }
+    .owl-nav{
+        button{
+            width: 30px;
+            height: 30px;
+            border: 1px solid red !important;
+            border-radius: 44px;
+            color: #ff0000 !important;
+            font-size: 20px !important;
+        }
+        .owl-prev{
+            position: absolute;
+            left: -30px;
+            top: 25%;
+        }
+        .owl-next{
+            position: absolute;
+            right: -30px;
+            top: 25%;
+        }
+    }
 }
 
 .brands h2 {
@@ -345,15 +377,10 @@ a{
     color: #999;
     transition: all 0.3s;
     cursor: pointer;
-    padding: 15px 25px;
     border-radius: 8px;
 }
 
-.brand-logo:hover {
-    color: #e31e24;
-    transform: translateY(-5px);
-    background: #f5f5f5;
-}
+
 
 /* Services */
 .services {
@@ -428,10 +455,12 @@ a{
 }
 
 .categories h2 {
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     font-size: 28px;
     color: #1e2847;
 }
+
+
 
 .category-grid {
     display: grid;
@@ -474,7 +503,13 @@ a{
 .category-icon {
     font-size: 48px;
     color: #e31e24;
+    height: 160px;
     margin-bottom: 15px;
+    img{
+            width: 160px;
+    object-fit: contain;
+
+    }
 }
 
 .category-item h3 {
@@ -593,6 +628,7 @@ a{
     font-size: 20px;
     margin-bottom: 20px;
     text-align: center;
+    color: white;
 }
 
 .promo-discount {
@@ -665,6 +701,29 @@ a{
 }
 
 /* Footer */
+.footer-top{
+    text-align: center;
+    .title-group{
+        h2{
+            font-size: 43px;
+            font-weight: 700;
+        }
+    }
+    h3{
+        font-size: 14px;
+        margin: 0;
+
+    }
+    p{
+        font-size: 13px;
+    }
+    img{
+        height: 52px;
+        object-fit: contain;
+        margin: 0 0 20px 0;
+
+    }
+}
 footer {
     background: #1e2847;
     color: white;
@@ -672,9 +731,6 @@ footer {
 }
 
 .footer-content {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
     margin-bottom: 40px;
 }
 
@@ -696,7 +752,6 @@ footer {
     color: white;
     text-decoration: none;
     transition: all 0.3s;
-    display: inline-block;
 }
 
 .footer-section a:hover {
@@ -810,9 +865,7 @@ footer {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .footer-content {
-        grid-template-columns: repeat(2, 1fr);
-    }
+
 
     .search-form {
         flex-direction: column;
@@ -846,8 +899,7 @@ footer {
     .gallery,
     .service-cards,
     .category-grid,
-    .product-grid,
-    .footer-content {
+    .product-grid {
         grid-template-columns: 1fr;
     }
 
@@ -1225,10 +1277,62 @@ nav .wrapper {
 
 .title-page {
     font-size: 42px;
-    padding: 20px 0 0 0; 
+    padding: 30px 0 0 0; 
     margin-bottom: 20px;
     animation: fadeInUp 0.8s ease-out;
     text-align: center;
     margin: 25px 0;
     border-top: 2px solid rgb(223, 30, 38);
+}
+
+.slides-inner {
+  position: relative;
+   height: 400px;
+  width: 100%;  
+  overflow: hidden;
+}
+
+.slides-container {
+  position: relative;
+  overflow: hidden;  
+  display: flex;
+  flex: 1;
+}
+
+.slide {
+  position: absolute;
+  font-size: 90px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+.controls{
+    button{
+        z-index: 99999;
+        background: white;
+        border: none;
+        height: 30px;
+        width: 32px;
+        color: #e31e24;
+    }
+    #prevButton{
+        position: absolute;
+        left: 15px;
+        right: 0;
+        top: 50%;
+    }
+    #nextButton{
+        position: absolute;
+        right: 15px;
+        top: 50%;
+    }
 }

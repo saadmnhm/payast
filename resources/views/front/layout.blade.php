@@ -43,7 +43,7 @@
     <header class="header-main desktop-menu" id="header">
         <div class="container">
             <div class="header-content">
-                <a href="#" class="logo">logo mohamad</a>
+                <a href="{{ route('front.home') }}" class="logo">logo mohamad</a>
                 <div class="search-bar">
                     <input type="text" id="searchInput" placeholder="Rechercher des pièces auto...">
                     <button onclick="performSearch()"><i class="fas fa-search"></i></button>
@@ -55,11 +55,38 @@
                     <a href="#" class="header-icon">
                         <i class="fas fa-user"></i> Compte
                     </a>
-                    <a href="#" class="header-icon" onclick="openCart(event)">
+                    <a href="#" class="header-icon cart-trigger" onclick="toggleCart(event)">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-badge" id="cartCount">0</span>
-                        <p class="m-0">Panier : <span class="" style="color: #e31e24;">0.00DH</span></p>
+                        <p class="m-0">Panier : <span id="cartTotalHeader" style="color: #e31e24;">0.00DH</span></p>
                     </a>
+                    
+                    <!-- Cart Dropdown -->
+                    <div class="cart-dropdown" id="cartDropdown">
+                        <div class="cart-dropdown-header">
+                            <h4>Mon Panier</h4>
+                            <button class="cart-close" onclick="closeCartDropdown()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="cart-dropdown-body" id="cartItems">
+                            <p class="empty-cart">Votre panier est vide</p>
+                        </div>
+                        
+                        <div class="cart-dropdown-footer">
+                            <div class="cart-total-row">
+                                <span>Total:</span>
+                                <span id="cartTotal" style="color: #e31e24; font-weight: 600;">0.00 MAD</span>
+                            </div>
+                            <button onclick="checkout()" class="btn-checkout">
+                                <i class="fas fa-credit-card"></i> Passer la commande
+                            </button>
+                            <button onclick="closeCartDropdown()" class="btn-continue">
+                                Continuer mes achats
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -385,23 +412,7 @@
         <i class="fas fa-arrow-up"></i>
     </div>
 
-    <!-- Cart Modal -->
-    <div class="modal" id="cartModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeCart()">&times;</button>
-            <h2 style="margin-bottom: 20px; color: #1e2847;">Votre Panier</h2>
-            <div id="cartItems"></div>
-            <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #eee;">
-                <div style="display: flex; justify-content: space-between; font-size: 18px; font-weight: bold; margin-bottom: 20px;">
-                    <span>Total:</span>
-                    <span id="cartTotal" style="color: #e31e24;">0.00 MAD</span>
-                </div>
-                <button style="width: 100%; background: #e31e24; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;" onclick="checkout()">
-                    <i class="fas fa-credit-card"></i> Passer la commande
-                </button>
-            </div>
-        </div>
-    </div>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
@@ -411,5 +422,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/plugins/ModifiersPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
     <script src="{{ asset('assets/site/js/script.js')}}"></script>
+    @yield('scripts')
 </body>
 </html>

@@ -1,264 +1,213 @@
-        // Cart functionality
-        let cart = [];
+let cart = [];
 
-        function addToCart(product, price) {
-            cart.push({ product, price });
-            updateCartCount();
-            showNotification('Produit ajouté au panier!');
-        }
+const CART_KEY = 'piassat_cart';
 
-        function updateCartCount() {
-            document.getElementById('cartCount').textContent = cart.length;
-        }
+function saveCart() {
+    try {
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    } catch (e) {
+        console.warn('Could not save cart to localStorage', e);
+    }
+}
 
-        function openCart(e) {
-            e.preventDefault();
-            const modal = document.getElementById('cartModal');
-            const itemsDiv = document.getElementById('cartItems');
-
-            if (cart.length === 0) {
-                itemsDiv.innerHTML = '<p style="text-align: center; color: #666; padding: 40px 0;">Votre panier est vide</p>';
-                document.getElementById('cartTotal').textContent = '0.00 MAD';
-            } else {
-                let total = 0;
-                itemsDiv.innerHTML = cart.map((item, index) => {
-                    total += item.price;
-                    return `
-                        <div style="display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #eee;">
-                            <span>${item.product}</span>
-                            <div>
-                                <span style="color: #e31e24; font-weight: bold; margin-right: 15px;">${item.price} MAD</span>
-                                <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #999; cursor: pointer;">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-                document.getElementById('cartTotal').textContent = total.toFixed(2) + ' MAD';
-            }
-
-            modal.classList.add('active');
-        }
-
-        function closeCart() {
-            document.getElementById('cartModal').classList.remove('active');
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartCount();
-            openCart({ preventDefault: () => {} });
-        }
-
-        function checkout() {
-            if (cart.length === 0) {
-                alert('Votre panier est vide!');
-                return;
-            }
-            alert('Fonction de paiement - À implémenter');
+function loadCart() {
+    try {
+        const raw = localStorage.getItem(CART_KEY);
+        if (raw) {
+            cart = JSON.parse(raw) || [];
+        } else {
             cart = [];
-            updateCartCount();
-            closeCart();
         }
-
-        // Search functionality
-        function performSearch() {
-            const query = document.getElementById('searchInput').value;
-            if (query.trim()) {
-                showNotification(`Recherche: ${query}`);
-            }
-        }
-
-        // Vehicle search
-        function searchVehicle(e) {
-            e.preventDefault();
-            const brand = document.getElementById('brand').value;
-            const model = document.getElementById('model').value;
-            const version = document.getElementById('version').value;
-
-            if (!brand) {
-                alert('Veuillez sélectionner un constructeur');
-                return;
-            }
-
-            showNotification('Recherche de pièces en cours...');
-        }
-
-        function loadModels() {
-            const model = document.getElementById('model');
-            model.innerHTML = '<option value="">MODÈLE</option><option value="model1">Clio</option><option value="model2">Megane</option>';
-        }
-
-        function loadVersions() {
-            const version = document.getElementById('version');
-            version.innerHTML = '<option value="">VERSION</option><option value="v1">1.5 dCi</option><option value="v2">1.6 16V</option>';
-        }
-
-        // Filter functions
-        function filterByBrand(brand) {
-            showNotification(`Filtrage par marque: ${brand}`);
-        }
-
-        function filterCategory(category) {
-            showNotification(`Catégorie: ${category}`);
-        }
-
-        function showPromo() {
-            showNotification('Redirection vers les promotions...');
-        }
-
-        // Newsletter
-        function subscribeNewsletter(e) {
-            e.preventDefault();
-            const email = e.target.querySelector('input').value;
-            showNotification('Merci de votre inscription!');
-            e.target.reset();
-        }
-
-        // Notification system
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #e31e24;
-                color: white;
-                padding: 15px 25px;
-                border-radius: 8px;
-                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-                z-index: 3000;
-                animation: slideInLeft 0.3s ease-out;
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-
-            setTimeout(() => {
-                notification.style.animation = 'fadeInUp 0.3s ease-out reverse';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-
-        // Scroll functions
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Mobile menu
-        function toggleMenu() {
-            document.getElementById('navMenu').classList.toggle('active');
-        }
-
-        // Scroll event listeners
-        window.addEventListener('scroll', () => {
-            const scrollTop = document.getElementById('scrollTop');
-            const header = document.getElementById('header');
-
-            if (window.scrollY > 300) {
-                scrollTop.classList.add('visible');
-                header.classList.add('scrolled');
-            } else {
-                scrollTop.classList.remove('visible');
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Animate elements on scroll
-            const animateElements = document.querySelectorAll('.category-item, .product-card, .service-card');
-            animateElements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'all 0.6s ease-out';
-                observer.observe(el);
-            });
-
-            // Close modal on outside click
-            document.getElementById('cartModal').addEventListener('click', (e) => {
-                if (e.target.id === 'cartModal') {
-                    closeCart();
-                }
-            });
-        });
-
-
-// Slider Functionality
-var slideDelay = 1.5;
-var slideDuration = 0.3;
-
-var slides = document.querySelectorAll(".slide");
-var prevButton = document.querySelector("#prevButton");
-var nextButton = document.querySelector("#nextButton");
-
-for (var i = 0; i < slides.length; i++) {
-  TweenLite.set(slides[i], {
-    backgroundColor: Math.random() * 0xffffff,
-    xPercent: i * 100
-  });
+    } catch (e) {
+        console.warn('Could not load cart from localStorage', e);
+        cart = [];
+    }
 }
 
-var wrap = wrapPartial(-100, (slides.length - 1) * 100);
-var timer = TweenLite.delayedCall(slideDelay, autoPlay);
-var animation = null;
+function formatCurrency(amount) {
+    return Number(amount || 0).toFixed(2) + ' MAD';
+}
 
-prevButton.addEventListener("click", function() {
-  animateSlides(100);
-});
+function updateCartTotal() {
+    const total = cart.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
+    document.querySelectorAll('#cartTotal').forEach(el => el.textContent = formatCurrency(total));
+    return total;
+}
 
-nextButton.addEventListener("click", function() {
-  animateSlides(-100);
-});
-
-function animateSlides(delta) {
+function updateCartCount() {
+    const count = cart.length;
+    const total = cart.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
     
-  animation = TweenMax.to(slides, slideDuration, {
-    xPercent: function(i, target) {      
-      return (Math.round(target._gsTransform.xPercent / 100) * 100) + delta;
-    },
-    modifiers: {
-      xPercent: wrap
-    },
-    onComplete: restartTimer
-  });  
+    const countEl = document.getElementById('cartCount');
+    const headerTotalEl = document.getElementById('cartTotalHeader');
+    
+    if (countEl) countEl.textContent = count;
+    if (headerTotalEl) headerTotalEl.textContent = total.toFixed(2) + 'DH';
+    
+    updateCartTotal();
 }
 
-function autoPlay() {  
-  if (!animation) {
-    animateSlides(-100);
-  }
+function addToCart(product, price) {
+    cart.push({ product, price: Number(price) || 0 });
+    saveCart();
+    updateCartCount();
+    showNotification('Produit ajouté au panier!');
+    updateCartDropdown();
 }
 
-function restartTimer() {  
-  if (animation === this) {
-    animation = null;
-    timer.restart(true);
-  }
+function openCart(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const modal = document.getElementById('cartModal');
+    const itemsDiv = document.getElementById('cartItems');
+
+    if (!itemsDiv) {
+        console.warn('cartItems element not found in DOM');
+        return;
+    }
+
+    if (cart.length === 0) {
+        itemsDiv.innerHTML = '<p style="text-align: center; color: #666; padding: 40px 0;">Votre panier est vide</p>';
+        document.querySelectorAll('#cartTotal').forEach(el => el.textContent = formatCurrency(0));
+    } else {
+        let total = 0;
+        itemsDiv.innerHTML = cart.map((item, index) => {
+            total += Number(item.price) || 0;
+            return `
+                <div style="display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #eee;">
+                    <span>${item.product}</span>
+                    <div>
+                        <span style="color: #e31e24; font-weight: bold; margin-right: 15px;">${formatCurrency(item.price)}</span>
+                        <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #999; cursor: pointer;">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        document.querySelectorAll('#cartTotal').forEach(el => el.textContent = formatCurrency(total));
+    }
+
+    modal.classList.add('active');
 }
 
-function wrapPartial(min, max) {  
-  var r = max - min;  
-  return function(value) {
-    var v = value - min;
-    return ((r + v % r) % r) + min;
-  }
+function closeCart() {
+    const modal = document.getElementById('cartModal');
+    if (modal) modal.classList.remove('active');
 }
 
+function removeFromCart(index) {
+    if (index < 0 || index >= cart.length) return;
+    cart.splice(index, 1);
+    saveCart();
+    updateCartCount();
+    updateCartDropdown();
+    const modal = document.getElementById('cartModal');
+    if (modal && modal.classList.contains('active')) {
+        openCart({ preventDefault: () => {} });
+    }
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        alert('Votre panier est vide!');
+        return;
+    }
+    alert('Fonction de paiement - À implémenter');
+    cart = [];
+    saveCart();
+    updateCartCount();
+    updateCartTotal();
+    closeCart();
+}
+
+
+
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #e31e24;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        z-index: 3000;
+        animation: slideInLeft 0.3s ease-out;
+    `;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.style.animation = 'fadeInUp 0.3s ease-out reverse';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleMenu() {
+    document.getElementById('navMenu').classList.toggle('active');
+}
+
+window.addEventListener('scroll', () => {
+    const scrollTop = document.getElementById('scrollTop');
+    const header = document.getElementById('header');
+
+    if (window.scrollY > 300) {
+        scrollTop.classList.add('visible');
+        header.classList.add('scrolled');
+    } else {
+        scrollTop.classList.remove('visible');
+        header.classList.remove('scrolled');
+    }
+});
+
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const animateElements = document.querySelectorAll('.category-item, .product-card, .service-card');
+    animateElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.6s ease-out';
+        observer.observe(el);
+    });
+
+    const cartModal = document.getElementById('cartModal');
+    if (cartModal) {
+        cartModal.addEventListener('click', (e) => {
+            if (e.target.id === 'cartModal') {
+                closeCart();
+            }
+        });
+    }
+
+    loadCart();
+    
+    updateCartCount();
+    updateCartTotal();
+    
+    const cartDropdown = document.getElementById('cartDropdown');
+    if (cartDropdown) {
+        updateCartDropdown();
+    }
+});
 
 // Owl Carousel Initialization
 $('.owl-carousel').owlCarousel({
@@ -294,3 +243,76 @@ $('.owl-carousel2').owlCarousel({
         }
     }
 })
+// filter dropdown
+document.querySelectorAll('[id=btn-filter]').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const dropdown = btn.nextElementSibling;
+
+        document.querySelectorAll('[id=btn-filter]').forEach(other => {
+            if (other === btn) return;
+            other.classList.remove('active');
+            const otherDropdown = other.nextElementSibling;
+            if (otherDropdown) otherDropdown.classList.remove('show');
+        });
+
+        btn.classList.toggle('active');
+        if (dropdown) dropdown.classList.toggle('show');
+    });
+});
+
+// Cart functionality
+
+function toggleCart(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const dropdown = document.getElementById('cartDropdown');
+    dropdown.classList.toggle('active');
+    updateCartDropdown();
+}
+
+function closeCartDropdown() {
+    document.getElementById('cartDropdown').classList.remove('active');
+}
+
+function updateCartDropdown() {
+    const itemsDiv = document.getElementById('cartItems');
+    const totalSpan = document.getElementById('cartTotal');
+
+    if (!itemsDiv || !totalSpan) {
+        console.warn('Cart dropdown elements not found');
+        return;
+    }
+
+    if (cart.length === 0) {
+        itemsDiv.innerHTML = '<p class="empty-cart">Votre panier est vide</p>';
+        totalSpan.textContent = '0.00 MAD';
+    } else {
+        let total = 0;
+        itemsDiv.innerHTML = cart.map((item, index) => {
+            const price = Number(item.price) || 0;
+            total += price;
+            return `
+                <div class="cart-item">
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.product}</div>
+                        <div class="cart-item-price">${price.toFixed(2)} MAD</div>
+                    </div>
+                    <button class="cart-item-remove" onclick="removeFromCart(${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+        }).join('');
+        totalSpan.textContent = total.toFixed(2) + ' MAD';
+    }
+}
+
+document.addEventListener('click', function(e) {
+    const dropdown = document.getElementById('cartDropdown');
+    const trigger = document.querySelector('.cart-trigger');
+    
+    if (dropdown && !dropdown.contains(e.target) && !trigger.contains(e.target)) {
+        closeCartDropdown();
+    }
+});

@@ -100,6 +100,7 @@
                 <div class="col-md-3  h-100 d-flex align-items-center justify-content-center">
                     <div class="nav-links dropdown drop-categories">
                         <ul class="nav-links ps-0">
+                                
                             <li><a class=" dropdown-toggle" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-bars"></i>
                                     Catégories
@@ -125,102 +126,31 @@
                 <div class="collapse h-100 navbar-collapse" id="navbarNav">
                     <div class="wrapper mb-0 mt-0">
                         <ul class="nav-links">
-                        <li>
-                            <a
-                            href="{{ route('front.list') }}"
-                            class="desktop-item"
-                            >Mécanique</a
-                            >
-                            
-                            <div class="mega-box">
-                            <div class="content">
-                                <div class="row">
-                                    <ul class="mega-links">
-                                        <li><a href="#">Personal Email</a></li>
-                                        <li><a href="#">Business Email</a></li>
-                                        <li><a href="#">Mobile Email</a></li>
-                                        <li><a href="#">Web Marketing</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a
-                            href="#"
-                            class="desktop-item"
-                            >Filtration</a
-                            >
-                            
-                            <div class="mega-box">
-                            <div class="content">
-                                <div class="row">
-                                    sssssssssssssssssssss
-                                </div>
-                            </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a
-                            href="#"
-                            class="desktop-item"
-                            >Freinage</a
-                            >
-                            
-                            <div class="mega-box">
-                            <div class="content">
-                                <div class="row">
-                                    sssssssssssssssssssss
-                                </div>
-                            </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a
-                            href="#"
-                            class="desktop-item"
-                            >Lubrifiants</a
-                            >
-                            
-                            <div class="mega-box">
-                            <div class="content">
-                                <div class="row">
-                                    sssssssssssssssssssss
-                                </div>
-                            </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a
-                            href="#"
-                            class="desktop-item"
-                            >Batteries</a
-                            >
-                            
-                            <div class="mega-box">
-                            <div class="content">
-                                <div class="row">
-                                    sssssssssssssssssssss
-                                </div>
-                            </div>
-                            </div>
-                        </li>
-                        
-                        <li>
-                            <a
-                            href="#"
-                            class="desktop-item"
-                            >Entretien</a
-                            >
-                            
-                            <div class="mega-box">
-                            <div class="content">
-                                <div class="row">
-                                    sssssssssssssssssssss
-                                </div>
-                            </div>
-                            </div>
-                        </li>
+                            @foreach($navigationMenus as $menu)
+                                @if($menu->is_dropdown && $menu->children->count() > 0)
+
+                                <li>
+                                    <a
+                                    href="{{ route('front.list') }}"
+                                    class="desktop-item"
+                                    >{{ $menu->title }}</a
+                                    >
+                                    
+                                    <div class="mega-box">
+                                    <div class="content">
+                                        <div class="row">
+                                            <ul class="mega-links">
+                                                @foreach($menu->children as $child)
+                                                    <li><a href="{{ $child->url }}">{{ $child->title }}</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </li>
+
+                                @endif
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -254,22 +184,171 @@
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+            <a href="{{ route('front.home') }}" class="offcanvas-logo">
+                <h5 class="offcanvas-title m-0" id="offcanvasExampleLabel">PIASSAT</h5>
+            </a>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
-            <div>
-            Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+        <div class="offcanvas-body p-0">
+            <div class="mobile-account-section">
+                <a href="#" class="mobile-account-link">
+                    <i class="fas fa-user-circle"></i>
+                    <div>
+                        <strong>Mon Compte</strong>
+                        <small class="d-block text-muted">Connectez-vous</small>
+                    </div>
+                </a>
             </div>
-            <div class="dropdown mt-3">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                Dropdown button
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
+
+            <div class="accordion accordion-flush" id="mobileMenuAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesCollapse" aria-expanded="false">
+                            <i class="fas fa-bars me-2"></i> Catégories
+                        </button>
+                    </h2>
+                    <div id="categoriesCollapse" class="accordion-collapse collapse" data-bs-parent="#mobileMenuAccordion">
+                        <div class="accordion-body p-0">
+                            <ul class="mobile-submenu">
+                                <li><a href="#">Catégorie 1</a></li>
+                                <li><a href="#">Catégorie 2</a></li>
+                                <li><a href="#">Catégorie 3</a></li>
+                                <li><a href="#">Catégorie 4</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mecaniqueCollapse" aria-expanded="false">
+                            <i class="fas fa-tools me-2"></i> Mécanique
+                        </button>
+                    </h2>
+                    <div id="mecaniqueCollapse" class="accordion-collapse collapse" data-bs-parent="#mobileMenuAccordion">
+                        <div class="accordion-body p-0">
+                            <ul class="mobile-submenu">
+                                <li><a href="{{ route('front.list') }}">Personal Email</a></li>
+                                <li><a href="#">Business Email</a></li>
+                                <li><a href="#">Mobile Email</a></li>
+                                <li><a href="#">Web Marketing</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filtrationCollapse" aria-expanded="false">
+                            <i class="fas fa-filter me-2"></i> Filtration
+                        </button>
+                    </h2>
+                    <div id="filtrationCollapse" class="accordion-collapse collapse" data-bs-parent="#mobileMenuAccordion">
+                        <div class="accordion-body p-0">
+                            <ul class="mobile-submenu">
+                                <li><a href="#">Filtre à air</a></li>
+                                <li><a href="#">Filtre à huile</a></li>
+                                <li><a href="#">Filtre à carburant</a></li>
+                                <li><a href="#">Filtre d'habitacle</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#freinageCollapse" aria-expanded="false">
+                            <i class="fas fa-brake-warning me-2"></i> Freinage
+                        </button>
+                    </h2>
+                    <div id="freinageCollapse" class="accordion-collapse collapse" data-bs-parent="#mobileMenuAccordion">
+                        <div class="accordion-body p-0">
+                            <ul class="mobile-submenu">
+                                <li><a href="#">Plaquettes de frein</a></li>
+                                <li><a href="#">Disques de frein</a></li>
+                                <li><a href="#">Liquide de frein</a></li>
+                                <li><a href="#">Kit de freinage</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#lubrifiants" aria-expanded="false">
+                            <i class="fas fa-oil-can me-2"></i> Lubrifiants
+                        </button>
+                    </h2>
+                    <div id="lubrifiants" class="accordion-collapse collapse" data-bs-parent="#mobileMenuAccordion">
+                        <div class="accordion-body p-0">
+                            <ul class="mobile-submenu">
+                                <li><a href="#">Huile moteur</a></li>
+                                <li><a href="#">Huile transmission</a></li>
+                                <li><a href="#">Liquide de refroidissement</a></li>
+                                <li><a href="#">Graisse</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#batteries" aria-expanded="false">
+                            <i class="fas fa-car-battery me-2"></i> Batteries
+                        </button>
+                    </h2>
+                    <div id="batteries" class="accordion-collapse collapse" data-bs-parent="#mobileMenuAccordion">
+                        <div class="accordion-body p-0">
+                            <ul class="mobile-submenu">
+                                <li><a href="#">Batteries auto</a></li>
+                                <li><a href="#">Batteries moto</a></li>
+                                <li><a href="#">Chargeurs</a></li>
+                                <li><a href="#">Accessoires</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#entretien" aria-expanded="false">
+                            <i class="fas fa-wrench me-2"></i> Entretien
+                        </button>
+                    </h2>
+                    <div id="entretien" class="accordion-collapse collapse" data-bs-parent="#mobileMenuAccordion">
+                        <div class="accordion-body p-0">
+                            <ul class="mobile-submenu">
+                                <li><a href="#">Bougies</a></li>
+                                <li><a href="#">Courroies</a></li>
+                                <li><a href="#">Balais d'essuie-glace</a></li>
+                                <li><a href="#">Ampoules</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#" class="mobile-promo-link">
+                <i class="fas fa-percent"></i> PROMOTIONS
+            </a>
+
+            <div class="mobile-quick-links">
+                <a href="#"><i class="fas fa-heart"></i> Mes Favoris</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i> Nos Magasins</a>
+                <a href="#"><i class="fas fa-truck"></i> Suivi Commande</a>
+                <a href="#"><i class="fas fa-headset"></i> Contact</a>
+            </div>
+
+            <div class="mobile-contact-info">
+                <p class="mb-2"><i class="fas fa-phone"></i> +212 5XX-XXXXXX</p>
+                <p class="mb-0"><i class="fas fa-envelope"></i> contact@piassat.ma</p>
+            </div>
+
+            <div class="mobile-social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
     </div>

@@ -10,9 +10,9 @@ class HomeController extends Controller
     {
         return view('front.layout');
     }
+    
     public function home()
     {
         return view('front.home');
     }
-
 }

@@ -53,39 +53,29 @@
     </section>
 
         <!-- Brands -->
-    <section class="brands" id="brands">
-        <div class="container">
-            <h2>TROUVER LA PIÈCE PAR CONSTRUCTEUR</h2>
-            <div class="brand-logos">
-                <div class="owl-carousel">
+<section class="brands" id="brands">
+    <div class="container">
+        <h2>TROUVER LA PIÈCE PAR CONSTRUCTEUR</h2>
+        <div class="brand-logos">
+            <div class="owl-carousel">
+                @php
+                    $frontendconstructeurs = \App\Models\Constructeur::where('is_active', true)->orderBy('label')->get();
+                @endphp
+                @foreach($frontendconstructeurs as $constructeur)
                     <div class="item">
-                        <div class="brand-logo" onclick="filterByBrand('chery')">Chery</div>
+                        <div class="constructeur-logo" >
+                            @if($constructeur->image)
+                                <img src="{{ asset('storage/'.$constructeur->image) }}" alt="{{ $constructeur->label }}">
+                            @else
+                                {{ $constructeur->label }}
+                            @endif
+                        </div>
                     </div>
-                    <div class="item">
-                        <div class="brand-logo" onclick="filterByBrand('hyundai')"><img src="{{ asset('assets/site/image/hyundai.png')}}" alt=""></div>
-
-                    </div>
-                    <div class="item">
-                        <div class="brand-logo" onclick="filterByBrand('renault')">Renault</div>
-                    </div>
-                    <div class="item">
-                        <div class="brand-logo" onclick="filterByBrand('kia')"><img src="{{ asset('assets/site/image/kia.svg')}}" alt=""></div>
-                    </div>
-                    <div class="item">
-                        <div class="brand-logo" onclick="filterByBrand('peugeot')"><img src="{{ asset('assets/site/image/peugeot.png')}}" alt=""></div>
-                    </div>
-                    <div class="item">
-                        <div class="brand-logo" onclick="filterByBrand('suzuki')">Suzuki</div>
-                    </div>
-                    <div class="item">
-                        <div class="brand-logo" onclick="filterByBrand('volkswagen')">VW</div>
-                    </div>
-
-                </div>
-                
+                @endforeach
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 
 
@@ -153,35 +143,35 @@
             </div>
 
             <div class="category-grid">
-                <div class="category-item" onclick="filterCategory('batterie')">
+                <div class="category-item" >
                     <div class="category-icon"><img src="{{ asset('assets/site/image/batterie.png')}}" alt=""></div>
                     <h3>BATTERIE</h3>
                 </div>
-                <div class="category-item" onclick="filterCategory('filtre')">
+                <div class="category-item" >
                     <div class="category-icon"><img src="{{ asset('assets/site/image/filteraair.jpg')}}" alt=""></div>
                     <h3>FILTRE À AIR</h3>
                 </div>
-                <div class="category-item" onclick="filterCategory('frein')">
+                <div class="category-item" >
                     <div class="category-icon"><img src="{{ asset('assets/site/image/plaquettesfreins.png')}}" alt=""></div>
                     <h3>PLAQUETTES DE FREIN</h3>
                 </div>
-                <div class="category-item" onclick="filterCategory('carburant')">
+                <div class="category-item" >
                     <div class="category-icon"><img src="{{ asset('assets/site/image/filtercarburant.png')}}" alt=""></div>
                     <h3>FILTRE À CARBURANT</h3>
                 </div>
-                <div class="category-item" onclick="filterCategory('parebrise')">
+                <div class="category-item" >
                     <div class="category-icon"><img src="{{ asset('assets/site/image/parbrise.jpg')}}" alt=""></div>
                     <h3>PARE-BRISE</h3>
                 </div>
-                <div class="category-item" onclick="filterCategory('liquide')">
+                <div class="category-item" >
                     <div class="category-icon"><img src="{{ asset('assets/site/image/nettoyage-lavage.png')}}" alt=""></div>
                     <h3>NETTOYAGE / LIQUIDE</h3>
                 </div>
-                <div class="category-item" onclick="filterCategory('huile')">
+                <div class="category-item" >
                     <div class="category-icon"><img src="{{ asset('assets/site/image/huile.jpg')}}" alt=""></div>
                     <h3>HUILE / VIDANGE</h3>
                 </div>
-                <div class="category-item" onclick="filterCategory('Kit de distribution')">
+                <div class="category-item" >
                     <div class="category-icon"><img src="{{ asset('assets/site/image/kit-distribution.jpg')}}" alt=""></div>
                     <h3>KIT DE DISTRIBUTION</h3>
                 </div>
@@ -196,41 +186,20 @@
             <h2>NOS MARQUES PARTENAIRES</h2>
             <div class="brand-logos">
                 <div class="owl-carousel2 owl-carousel">
-                    <div class="item">
-                        <div class="brand-logo" onclick="filterByBrand('bosch')">
-                        <img src="{{ asset('assets/site/image/bosch.png') }}" alt="Bosch">
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="brand-logo" onclick="filterByBrand('valeo')">
-                        <img src="{{ asset('assets/site/image/valeo.png') }}" alt="Valeo">
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="brand-logo" onclick="filterByBrand('brembo')">
-                        <img src="{{ asset('assets/site/image/brembo.png') }}" alt="Brembo">
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="brand-logo" onclick="filterByBrand('ngk')">
-                        <img src="{{ asset('assets/site/image/ngk.png') }}" alt="NGK">
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="brand-logo" onclick="filterByBrand('michelin')">
-                        <img src="{{ asset('assets/site/image/michelin.png') }}" alt="Michelin">
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="brand-logo" onclick="filterByBrand('total')">
-                        <img src="{{ asset('assets/site/image/total.png') }}" alt="Total">
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="brand-logo" onclick="filterByBrand('castrol')">
-                        <img src="{{ asset('assets/site/image/castrol.png') }}" alt="Castrol">
-                        </div>
-                    </div>
+                        @php
+                            $frontendBrands = \App\Models\Brand::where('is_active', true)->orderBy('label')->get();
+                        @endphp
+                        @foreach($frontendBrands as $brand)
+                            <div class="item">
+                                <div class="brand-logo" >
+                                    @if($brand->image)
+                                        <img src="{{ asset('storage/'.$brand->image) }}" alt="{{ $brand->label }}">
+                                    @else
+                                        {{ $brand->label }}
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
                 </div>
             </div>
         </div>

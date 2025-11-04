@@ -247,7 +247,7 @@
                     <img class="product-image" src="{{ asset('assets/site/image/totalquartz.png') }}" alt="Huile Moteur">
                     <h3>Huile moteur Total Quartz Ineo MC3 5W30 5l</h3>
                     <p class="price">499.00 MAD</p>
-                    <button class="add-to-cart" onclick="addToCart('Huile Moteur', 499)">
+                    <button class="add-to-cart" onclick="addToCart('Huile Moteur', '{{ asset('assets/site/image/totalquartz.png') }}', 499)">
                         <i class="fas fa-cart-plus"></i> Ajouter
                     </button>
                 </div>
@@ -256,7 +256,7 @@
                     <img class="product-image" src="{{ asset('assets/site/image/batterie-varta.jpg') }}" alt="Batterie Varta">
                     <h3>Batterie Varta E13 - L3 - 70Ah</h3>
                     <p class="price">1799.00 MAD</p>
-                    <button class="add-to-cart" onclick="addToCart('Batterie Varta E13 - L3 - 70Ah', 1799)">
+                    <button class="add-to-cart" onclick="addToCart('Batterie Varta E13 - L3 - 70Ah', '{{ asset('assets/site/image/batterie-varta.jpg') }}', 1799)">
                         <i class="fas fa-cart-plus"></i> Ajouter
                     </button>
                 </div>
@@ -265,7 +265,7 @@
                     <img class="product-image" src="{{ asset('assets/site/image/filtrair2.png') }}" alt="Filtre à huile">
                     <h3>Filtre à huile COF100122S</h3>
                     <p class="price">179.00 MAD</p>
-                    <button class="add-to-cart" onclick="addToCart('Filtre à huile COF100122S', 179)">
+                    <button class="add-to-cart" onclick="addToCart('Filtre à huile COF100122S', '{{ asset('assets/site/image/filtrair2.png') }}', 179)">
                         <i class="fas fa-cart-plus"></i> Ajouter
                     </button>
                 </div>

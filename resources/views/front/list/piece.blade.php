@@ -63,7 +63,7 @@
                     </div>
                     <div class="footer-card">
                         <div class="price">200 DH</div>
-                        <button onclick="addToCart('Huile Moteur', 179)" class="add-to-list-cart"><i class="fas fa-shopping-cart me-1"></i> add to card</button>
+                        <button onclick="addToCart('Huile Moteur','{{asset('assets/site/image/huile.jpg')}}', 179)" class="add-to-list-cart"><i class="fas fa-shopping-cart me-1"></i> add to card</button>
                     </div>
 
                 </div>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="footer-card">
                         <div class="price">200 DH</div>
-                        <button onclick="addToCart('Huile Moteur', 179)" class="add-to-list-cart"><i class="fas fa-shopping-cart me-1"></i> add to card</button>
+                        <button onclick="addToCart('Huile Moteur','{{asset('assets/site/image/huile.jpg')}}', 179)" class="add-to-list-cart"><i class="fas fa-shopping-cart me-1"></i> add to card</button>
                     </div>
 
                 </div>
@@ -97,7 +97,7 @@
                     </div>
                     <div class="footer-card">
                         <div class="price">200 DH</div>
-                        <button onclick="addToCart('Huile Moteur', 179)" class="add-to-list-cart"><i class="fas fa-shopping-cart me-1"></i> add to card</button>
+                        <button onclick="addToCart('Huile Moteur','{{asset('assets/site/image/huile.jpg')}}', 179)" class="add-to-list-cart"><i class="fas fa-shopping-cart me-1"></i> add to card</button>
                     </div>
 
                 </div>
@@ -114,7 +114,7 @@
                     </div>
                     <div class="footer-card">
                         <div class="price">200 DH</div>
-                        <button onclick="addToCart('Huile Moteur', 179)" class="add-to-list-cart"><i class="fas fa-shopping-cart me-1"></i> add to card</button>
+                        <button onclick="addToCart('Huile Moteur','{{asset('assets/site/image/huile.jpg')}}', 179)" class="add-to-list-cart"><i class="fas fa-shopping-cart me-1"></i> add to card</button>
                     </div>
 
                 </div>
@@ -131,7 +131,7 @@
                     </div>
                     <div class="footer-card">
                         <div class="price">200 DH</div>
-                        <button onclick="addToCart('Huile Moteur', 179)" class="add-to-list-cart"><i class="fas fa-shopping-cart me-1"></i> add to card</button>
+                        <button onclick="addToCart('Huile Moteur','{{asset('assets/site/image/huile.jpg')}}', 179)" class="add-to-list-cart"><i class="fas fa-shopping-cart me-1"></i> add to card</button>
                     </div>
 
                 </div>

@@ -1,0 +1,13 @@
+[data-kt-app-layout=dark-sidebar] .app-sidebar {
+    background-color: #22219b;
+    border-right: 0; 
+}
+[data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link.active {
+    background-color: #ffcc66;
+}
+[data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link.active .menu-icon, [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link.active .menu-icon .svg-icon, [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link.active .menu-icon i, [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link.active .menu-title {
+    color: #22219b;
+}
+table.dataTable>thead .dt-ordering-asc:after, table.dataTable>thead .dt-ordering-desc:after{
+    display: none !important;
+}

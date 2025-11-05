@@ -47,14 +47,7 @@
             </div>
             <!--end:Menu item-->
             <!--begin:Menu item-->
-            <div class="menu-item menu-accordion ">
-                <!--begin:Menu link-->
-                <a class="menu-link {{ request()->routeIs('apps.gallerie.*') ? 'active' : '' }}"  href="{{ route('apps.gallerie.index') }}">
-                    <span class="menu-icon">{!! getIcon('picture', 'fs-2') !!}</span>
-                    <span class="menu-title">Gestion de gallerie</span>
-                </a>
-                <!--end:Menu link-->
-            </div>
+
             <!--end:Menu item-->
             <!--begin:Menu item-->
             <div class="menu-item menu-accordion ">

@@ -431,3 +431,41 @@ if (!function_exists('getIcon')) {
         return theme()->getIcon($name, $class, $type, $tag);
     }
 }
+
+
+if (!function_exists('resolveMenuUrl')) {
+    /**
+     * Resolve menu URL to actual route or URL
+     * 
+     * @param string|null $url
+     * @return string
+     */
+    function resolveMenuUrl($url)
+    {
+        if (empty($url) || $url === '#') {
+            return '#';
+        }
+
+        // If it's already a full URL
+        if (filter_var($url, FILTER_VALIDATE_URL)) {
+            return $url;
+        }
+
+        // If it starts with /, treat as path
+        if (str_starts_with($url, '/')) {
+            return url($url);
+        }
+
+        // Try to resolve as named route
+        try {
+            if (Route::has($url)) {
+                return route($url);
+            }
+        } catch (\Exception $e) {
+            // Route doesn't exist, treat as path
+        }
+
+        // Default: prepend with /
+        return url('/' . ltrim($url, '/'));
+    }
+}

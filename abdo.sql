@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 24 avr. 2025 à 20:25
+-- Généré le : mer. 05 nov. 2025 à 17:04
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `pperfull`
+-- Base de données : `abdo`
 --
 
 -- --------------------------------------------------------
@@ -67,7 +67,7 @@ INSERT INTO `blog_posts` (`id`, `title`, `alias`, `excerpt`, `content`, `tags`, 
 (34, 'sssssssssssssssssssssssssssss', 'sssssssssssssssssssssssssssss', 'ssssssssssssssssssssssssssssss', '<p>ssssssssssssssssssssssssssssssssssssssssssssssss</p>', NULL, 'assets/images/blog-image/1745397981_modern-waste-recycling-processin.jpg', NULL, 0, 1, 1, '2025-04-23 07:46:21', 24, 'sssssss', 'sssssssssssssssss', 'ssssssssssssssss,,,ssssssssssssssssss,,', '2025-04-23 07:46:21', '2025-04-24 07:54:49', NULL),
 (35, 'ffffffffffffff', 'ffffffffffffff', 'nnnnnnnnnnnnnnn', '<p>nnnnnnnnnnnnnnnnnnnnnnnnn</p>', NULL, 'assets/images/blog-image/1745402729_modern-waste-recycling-processin.jpg', NULL, 0, 1, 2, '2025-04-23 09:05:29', 24, 'ggggggggggggggggggggggggggg', 'ggggggggggg', 'bbb,,', '2025-04-23 09:05:29', '2025-04-24 16:09:31', NULL),
 (36, 'bbbbbbbbbbbbbbbbbbb', 'bbbbbbbbbbbbbbbbbbb', 'bbbbbbbbbbbbbbbbbbbbbbbbbbb', '<p>bbbbbbbbbbbbbbbbbbbbbbb</p>', NULL, 'assets/images/blog-image/1745402807_modern-waste-recycling-processin.jpg', NULL, 0, 0, 1, '2025-04-23 09:06:47', 24, 'nnnnnnnn', 'nnnnnnnnnnnn', 'nnn,,', '2025-04-23 09:06:47', '2025-04-23 12:39:37', NULL),
-(37, 'woooooooooo5', 'aliasblog', 'Des solutions techniques et esthétiques pour valoriser durablement votre patrimoine Chez PPER – Pro Peinture et Ravalement, nous mettons à votre service notre expertise et notre exigence de qualité pour répondre à vos besoins en rénovation, isolation, protection et embellissement de l’habitat.', '<p>&lt;div class=\"post-footer page-margin-top\"&gt; &lt;ul class=\"taxonomies\"&gt; &lt;li&gt;&lt;a href=\"https://dev.pper.fr/blog/search?q=facade\" title=\"facade\"&gt;FACADE&lt;/a&gt;&lt;/li&gt; &lt;li&gt;&lt;a href=\"https://dev.pper.fr/blog/search?q=ravalement\" title=\"ravalement\"&gt;RAVALEMENT&lt;/a&gt;&lt;/li&gt; &lt;/ul&gt; &lt;ul class=\"social-icons\"&gt; &lt;li class=\"label\"&gt;Partager:&lt;/li&gt; &lt;li&gt; &lt;a target=\"_blank\" href=\"https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdev.pper.fr%2Fblog%2Fles-meilleures-techniques-de-ravalement-de-facade\" class=\"social-facebook\" title=\"facebook\"&gt;&lt;/a&gt; &lt;/li&gt; &lt;li&gt; &lt;a target=\"_blank\" href=\"https://twitter.com/intent/tweet?url=https%3A%2F%2Fdev.pper.fr%2Fblog%2Fles-meilleures-techniques-de-ravalement-de-facade&amp;amp;text=Les+meilleures+techniques+de+ravalement+de+fa%C3%A7ade\" class=\"social-twitter\" title=\"twitter\"&gt;&lt;/a&gt; &lt;/li&gt; &lt;/ul&gt; &lt;/div&gt;</p>', NULL, 'assets/images/blog-image/1745423825_grou-rouge.png', NULL, 0, 0, 45, '2025-04-23 14:57:05', 24, 'ooowoooooooooooooooowoo', 'ooowoooooooooooooooowoo', NULL, '2025-04-23 14:57:05', '2025-04-24 16:57:35', NULL);
+(37, 'woooooooooo5', 'aliasblog', 'Des solutions techniques et esthétiques pour valoriser durablement votre patrimoine Chez PPER – Pro Peinture et Ravalement, nous mettons à votre service notre expertise et notre exigence de qualité pour répondre à vos besoins en rénovation, isolation, protection et embellissement de l’habitat.', '<p>&lt;div class=\"post-footer page-margin-top\"&gt; &lt;ul class=\"taxonomies\"&gt; &lt;li&gt;&lt;a href=\"https://dev.pper.fr/blog/search?q=facade\" title=\"facade\"&gt;FACADE&lt;/a&gt;&lt;/li&gt; &lt;li&gt;&lt;a href=\"https://dev.pper.fr/blog/search?q=ravalement\" title=\"ravalement\"&gt;RAVALEMENT&lt;/a&gt;&lt;/li&gt; &lt;/ul&gt; &lt;ul class=\"social-icons\"&gt; &lt;li class=\"label\"&gt;Partager:&lt;/li&gt; &lt;li&gt; &lt;a target=\"_blank\" href=\"https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdev.pper.fr%2Fblog%2Fles-meilleures-techniques-de-ravalement-de-facade\" class=\"social-facebook\" title=\"facebook\"&gt;&lt;/a&gt; &lt;/li&gt; &lt;li&gt; &lt;a target=\"_blank\" href=\"https://twitter.com/intent/tweet?url=https%3A%2F%2Fdev.pper.fr%2Fblog%2Fles-meilleures-techniques-de-ravalement-de-facade&amp;amp;text=Les+meilleures+techniques+de+ravalement+de+fa%C3%A7ade\" class=\"social-twitter\" title=\"twitter\"&gt;&lt;/a&gt; &lt;/li&gt; &lt;/ul&gt; &lt;/div&gt;</p>', NULL, 'assets/images/blog-image/1745423825_grou-rouge.png', NULL, 0, 1, 45, '2025-04-23 14:57:05', 24, 'ooowoooooooooooooooowoo', 'ooowoooooooooooooooowoo', NULL, '2025-04-23 14:57:05', '2025-04-29 09:09:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -79,6 +79,31 @@ CREATE TABLE `blog_post_tag` (
   `blog_post_id` bigint(20) UNSIGNED NOT NULL,
   `tag_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `brands`
+--
+
+CREATE TABLE `brands` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `label` varchar(191) NOT NULL,
+  `image` varchar(191) NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `brands`
+--
+
+INSERT INTO `brands` (`id`, `label`, `image`, `is_active`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'brembo', 'brands/YpszX65s49yEmTg07z9ts4SH3waK61oRWy8H3AFH.png', 1, '2025-11-04 10:30:46', '2025-11-04 14:07:39', NULL),
+(2, 'boch', 'brands/lr8ah4qmQOQYFTO1gwkQbjLCjZfbtZ3ryaE5V9nu.png', 1, '2025-11-04 14:05:42', '2025-11-04 14:05:42', NULL),
+(3, 'sssssss', 'brands/V1NqCGexBZqeL4AbFE5DTPEn3zQ4pR1Xsfv8Uqpl.png', 1, '2025-11-04 14:43:10', '2025-11-04 14:43:14', '2025-11-04 14:43:14');
 
 -- --------------------------------------------------------
 
@@ -109,7 +134,7 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `label`, `alias`, `image`, `banner`, `intro`, `metatitle`, `metadescription`, `keywords`, `color`, `is_active`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(7, 'ISOLATION', 'isolation', 'assets/images/categories/1744996048_screencapture-127-0-0-1-8000-admin-devis-1-2025-04-18-14_26_44.png', NULL, 'zzzzzzzzzzzzzzzz', 'aaaaaaaaa', 'aaaaaaaae', NULL, '#3e97ff', 1, 24, '2025-04-18 16:07:28', '2025-04-24 09:54:40', NULL),
+(7, 'ISOLATION', 'isolation', 'assets/images/categories/1746527283_enduit2.jpeg', NULL, 'zzzzzzzzzzzzzzzz', 'aaaaaaaaa', 'aaaaaaaae', NULL, '#3e97ff', 1, 24, '2025-04-18 16:07:28', '2025-05-06 09:28:03', NULL),
 (8, 'ravalment', 'ravalment', 'assets/images/categories/1745227258_demoussage_toiture.png', NULL, 'sssssssssssssss', 'qfzqfzq', 'fqfqz', 'ffss', '#3e97ff', 1, 24, '2025-04-21 08:20:58', '2025-04-24 09:54:16', NULL),
 (9, 'Isolation par l’extérieur', 'isolation-par-lextrieur', 'assets/images/categories/1745234227_facade.jpeg', NULL, 'Isolation par l’extérieur', 'Isolation par l’extérieur', 'Isolation par l’extérieur', 'Isolation par l’extérieur', '#3e97ff', 1, 24, '2025-04-21 10:17:07', '2025-04-24 09:51:10', NULL),
 (10, 'Peinture', 'peinture', NULL, NULL, 'Peinture', 'Peinture', 'Peinture', 'Peinture', '#3e97ff', 1, 24, '2025-04-21 10:17:34', '2025-04-21 10:17:34', NULL),
@@ -119,22 +144,60 @@ INSERT INTO `categories` (`id`, `label`, `alias`, `image`, `banner`, `intro`, `m
 -- --------------------------------------------------------
 
 --
--- Structure de la table `devis`
+-- Structure de la table `constructeurs`
 --
 
-CREATE TABLE `devis` (
+CREATE TABLE `constructeurs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `label` varchar(191) NOT NULL,
+  `image` varchar(191) NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `constructeurs`
+--
+
+INSERT INTO `constructeurs` (`id`, `label`, `image`, `is_active`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'hyunday', 'constructeurs/b4pMZ9k03L97oChkrulKweh3c4IEzIUjn9VGQ9z6.png', 1, '2025-11-04 14:22:19', '2025-11-04 14:22:19', NULL),
+(2, 'pg', 'constructeurs/hEWD2sQirjVWdN1hwGXiKAHUOMpEZOt8mtugr7Ub.png', 1, '2025-11-04 14:22:41', '2025-11-04 14:22:41', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `contact`
+--
+
+CREATE TABLE `contact` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `first_name` varchar(191) NOT NULL,
   `last_name` varchar(191) NOT NULL,
   `email` varchar(191) NOT NULL,
   `phone` varchar(191) NOT NULL,
-  `adresse` varchar(191) NOT NULL,
-  `code_postal` varchar(191) NOT NULL,
-  `city` varchar(191) NOT NULL,
-  `travaux` varchar(191) NOT NULL,
-  `description` text NOT NULL,
-  `referral` varchar(191) NOT NULL,
-  `confirmation` tinyint(1) NOT NULL DEFAULT 0,
+  `message` text NOT NULL,
+  `is_read` tinyint(1) NOT NULL DEFAULT 0,
+  `read_by_user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `read_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `contacts`
+--
+
+CREATE TABLE `contacts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `first_name` varchar(191) NOT NULL,
+  `last_name` varchar(191) NOT NULL,
+  `email` varchar(191) NOT NULL,
+  `phone` varchar(191) NOT NULL,
+  `message` text NOT NULL,
   `is_read` tinyint(1) NOT NULL DEFAULT 0,
   `read_by_user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `read_at` timestamp NULL DEFAULT NULL,
@@ -143,12 +206,31 @@ CREATE TABLE `devis` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `devis`
+-- Déchargement des données de la table `contacts`
 --
 
-INSERT INTO `devis` (`id`, `first_name`, `last_name`, `email`, `phone`, `adresse`, `code_postal`, `city`, `travaux`, `description`, `referral`, `confirmation`, `is_read`, `read_by_user_id`, `read_at`, `created_at`, `updated_at`) VALUES
-(17, 'saaadd', 'saaad', 'saaa@saaa.d', '0587413698', '', '83167', 'saades', 'Démoussage et entretien de toiture', 'saaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaa', 'Bouche à oreille', 1, 1, 24, '2025-04-23 12:34:47', '2025-04-23 12:31:49', '2025-04-23 12:34:47'),
-(18, 'popp', 'po', 'po@op.li', '0123654789', '', '52367', 'paris', 'Ravalement', 'popopopopoooooooo', 'Magazine', 1, 1, 24, '2025-04-23 12:37:10', '2025-04-23 12:33:54', '2025-04-23 12:37:10');
+INSERT INTO `contacts` (`id`, `first_name`, `last_name`, `email`, `phone`, `message`, `is_read`, `read_by_user_id`, `read_at`, `created_at`, `updated_at`) VALUES
+(17, 'saaadd', 'saaad', 'saaa@saaa.d', '0587413698', 'saaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaasaaa', 1, 53, '2025-09-16 08:08:31', '2025-04-23 12:31:49', '2025-09-16 08:08:31'),
+(18, 'popp', 'po', 'po@op.li', '0123654789', 'popopopopoooooooo', 1, 24, '2025-04-23 12:37:10', '2025-04-23 12:33:54', '2025-04-30 09:18:27'),
+(19, 'mohsin', 'zineb', 'mohsin@zineb.ma', '0258741369', 'aaaaaaaaaaaaaaaaaaaa', 1, 24, '2025-04-29 13:06:07', '2025-04-29 12:53:34', '2025-04-30 09:21:53'),
+(21, 'adam', 'ziyad', 'zyad@adam.ma', '0258733145', 'aaaaaaaddddddddddddddd', 1, 24, '2025-04-29 12:56:19', '2025-04-29 12:56:01', '2025-04-29 13:49:46'),
+(22, 'zzzzzzzzzzzzz', 'zzzzzzzzz', 'zzzzzzzzzzzzzzz@m.2', '0124575324', 'zzzzz', 1, 24, '2025-04-29 13:07:37', '2025-04-29 13:05:17', '2025-04-29 13:08:54'),
+(23, 'aaaaaa', 'aaaaaa', 'aaaaaa@w.aaaaaa', '0658452145', 'Vg92ME893uNF', 1, 24, '2025-05-02 11:05:23', '2025-04-30 14:20:22', '2025-05-02 11:07:04'),
+(24, 'aaaaaa', 'aaaaaa', 'aaaaaa@aaaaaa.aaaaaa', '0258963147', 'aaaaaa', 1, 24, '2025-05-02 11:15:29', '2025-04-30 14:21:28', '2025-05-02 11:20:41'),
+(25, 'aaaaaa', 'aaaaaa', 'aaaaaa@aaaaaa.aaaaaa', '0698745631', 'aaaaaa', 1, NULL, '2025-05-02 14:23:29', '2025-04-30 14:21:56', '2025-05-02 14:25:10'),
+(26, 'aaaaaa', 'aaaaaa', 'aaaaaa@w.aaaaaa', '0557478596', 'aaaaaa', 1, 24, '2025-05-02 15:50:22', '2025-04-30 14:22:38', '2025-05-02 15:50:22'),
+(27, 'aaaaaa', 'aaaaaa', 'aaaaaa@aaaaaa.aaaaaa', '0321456987', 'aaaaaa', 1, 24, '2025-09-15 14:33:42', '2025-04-30 14:23:34', '2025-09-15 14:33:42'),
+(28, 'ssssssss', 'sssssssss', 'ss@s.ms', '0654123654', 'sssssssss', 1, 24, '2025-09-15 14:51:14', '2025-05-02 09:11:55', '2025-09-15 14:51:14'),
+(29, 'zzzzzzzzzzzzzzzzz', 'zzzzzzzzzz', 'zzzzzzzzzzzzzz@kk.l', '0324568486', 'zzzzzz', 1, 24, '2025-05-02 11:05:10', '2025-05-02 09:13:50', '2025-05-02 11:05:10'),
+(30, 'nouveau', 'nouveau', 'nouveau@s.l', '0654123658', 'nouveau', 1, 24, '2025-09-15 15:45:31', '2025-05-02 11:10:54', '2025-09-15 15:45:31'),
+(31, 'nouveauz', 'nouveauz', 'nouveau@d.ma', '0321459745', 'nouveau', 0, NULL, NULL, '2025-05-02 11:12:09', '2025-05-02 11:12:09'),
+(32, 'ssssssssssss', 'ssssss', 'ssss@ss.s', '0315254888', 'sssss', 0, NULL, NULL, '2025-05-02 11:13:49', '2025-05-02 11:13:49'),
+(33, 'rrrrrrrr', 'rrrrrrrrr', 'rrrrrrrrrrr@f.E', '0132548746', 'zzzzzzzz', 0, NULL, NULL, '2025-05-02 11:14:52', '2025-05-02 11:14:52'),
+(34, 'llllllllllll', 'lllllllllllllll', 'rf@d.da', '0235894898', 'zzzzzz', 0, NULL, NULL, '2025-05-02 11:15:20', '2025-05-02 11:15:20'),
+(35, 'aaaaaaaaaaaa', 'aaaaaaaaaaaa', 'saad@d.mddm', '0654235678', 'rrrrrrrrrrrr', 0, NULL, NULL, '2025-05-05 12:59:32', '2025-05-05 12:59:32'),
+(36, 'ggggggggg', 'gggggggg', 'gggggggg@oo.kl', '0632145698', 'hhhhhhhhhhhhhh', 0, NULL, NULL, '2025-05-05 13:02:09', '2025-05-05 13:02:09'),
+(37, 'rrrrrrrr', 'aaaaaaaaaaaa', 'ddddd@o.m', '0664581235', 'ddddddddd', 0, NULL, NULL, '2025-05-05 13:04:30', '2025-05-05 13:04:30'),
+(38, 'mnaybez', 'saad', 'saad@mnaybez.m', '0698438171', 'sssssssssssssss', 1, 24, '2025-05-05 14:36:30', '2025-05-05 14:35:59', '2025-05-05 14:38:17');
 
 -- --------------------------------------------------------
 
@@ -165,6 +247,65 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `galleries`
+--
+
+CREATE TABLE `galleries` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(191) NOT NULL,
+  `description` text DEFAULT NULL,
+  `sort_order` int(11) NOT NULL DEFAULT 0,
+  `is_featured` tinyint(1) NOT NULL DEFAULT 0,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `galleries`
+--
+
+INSERT INTO `galleries` (`id`, `title`, `description`, `sort_order`, `is_featured`, `is_active`, `created_at`, `updated_at`) VALUES
+(7, 'rz', 'tfs', 2, 1, 1, '2025-09-16 10:04:37', '2025-09-16 10:07:54');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `gallery_media`
+--
+
+CREATE TABLE `gallery_media` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `gallery_id` bigint(20) UNSIGNED NOT NULL,
+  `file_path` varchar(191) NOT NULL,
+  `file_name` varchar(191) NOT NULL,
+  `original_name` varchar(191) NOT NULL,
+  `file_type` varchar(191) NOT NULL,
+  `mime_type` varchar(191) NOT NULL,
+  `file_size` int(11) DEFAULT NULL,
+  `original_size` int(11) DEFAULT NULL,
+  `sort_order` int(11) NOT NULL DEFAULT 0,
+  `is_compressed` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `gallery_media`
+--
+
+INSERT INTO `gallery_media` (`id`, `gallery_id`, `file_path`, `file_name`, `original_name`, `file_type`, `mime_type`, `file_size`, `original_size`, `sort_order`, `is_compressed`, `created_at`, `updated_at`) VALUES
+(18, 7, 'galleries/1758020677_0_logo.jpg', '1758020677_0_logo.jpg', 'logo.jpg', 'image', 'image/jpeg', 24145, 24145, 0, 0, '2025-09-16 10:04:37', '2025-09-16 10:04:37'),
+(19, 7, 'galleries/1758020677_1_2-1.png', '1758020677_1_2-1.png', '2 (1).png', 'image', 'image/png', 427916, 427916, 1, 0, '2025-09-16 10:04:37', '2025-09-16 10:04:37'),
+(20, 7, 'galleries/1758020677_2_2.png', '1758020677_2_2.png', '2.png', 'image', 'image/png', 843458, 1245400, 2, 1, '2025-09-16 10:04:38', '2025-09-16 10:04:38'),
+(21, 7, 'galleries/1758020678_3_effect.jpg', '1758020678_3_effect.jpg', 'effect.jpg', 'image', 'image/jpeg', 89772, 89772, 3, 0, '2025-09-16 10:04:38', '2025-09-16 10:04:38'),
+(22, 7, 'galleries/1758020678_4_whatsapp-image-2025-09-12-at-153125-1.jpeg', '1758020678_4_whatsapp-image-2025-09-12-at-153125-1.jpeg', 'WhatsApp Image 2025-09-12 at 15.31.25 (1).jpeg', 'image', 'image/jpeg', 156158, 156158, 4, 0, '2025-09-16 10:04:38', '2025-09-16 10:04:38'),
+(23, 7, 'galleries/1758020678_5_whatsapp-image-2025-09-12-at-153125.jpeg', '1758020678_5_whatsapp-image-2025-09-12-at-153125.jpeg', 'WhatsApp Image 2025-09-12 at 15.31.25.jpeg', 'image', 'image/jpeg', 145977, 145977, 5, 0, '2025-09-16 10:04:38', '2025-09-16 10:04:38'),
+(24, 7, 'galleries/1758020678_6_whatsapp-image-2025-09-12-at-134533.jpeg', '1758020678_6_whatsapp-image-2025-09-12-at-134533.jpeg', 'WhatsApp Image 2025-09-12 at 13.45.33.jpeg', 'image', 'image/jpeg', 84391, 84391, 6, 0, '2025-09-16 10:04:38', '2025-09-16 10:04:38');
 
 -- --------------------------------------------------------
 
@@ -205,7 +346,18 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (26, '2025_04_18_114610_create_devis_tables', 9),
 (27, '2025_04_18_131349_add_read_status_to_devis_table', 10),
 (28, '2025_04_21_085750_create_tags_table', 11),
-(29, '2025_04_21_094406_add_keywords_column_to_blog_posts_table', 11);
+(29, '2025_04_21_094406_add_keywords_column_to_blog_posts_table', 11),
+(30, '2025_04_29_090813_add_new_column_to_devis_table', 12),
+(31, '2025_04_29_131941_create_devislogs_table', 13),
+(32, '2025_09_16_093138_create_galleries_table', 14),
+(33, '2025_09_16_101930_remove_thumbnail_path_from_galleries_table', 15),
+(34, '2025_09_16_103117_create_gallery_media_table', 16),
+(35, '2025_09_16_103944_remove_old_file_columns_from_galleries_table', 17),
+(36, '2025_09_16_103948_remove_old_file_columns_from_galleries_table', 17),
+(37, '2025_04_18_114610_create_contact_tables', 18),
+(38, '2025_11_04_090527_create_navigation_menus_table', 18),
+(39, '2025_11_04_111020_create_brands_table', 19),
+(40, '2025_11_04_144704_create_contsucteur_table', 20);
 
 -- --------------------------------------------------------
 
@@ -252,6 +404,46 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (2, 'App\\Models\\User', 2),
 (2, 'App\\Models\\User', 24),
 (2, 'App\\Models\\User', 46);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `navigation_menus`
+--
+
+CREATE TABLE `navigation_menus` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(191) NOT NULL,
+  `url` varchar(191) DEFAULT NULL,
+  `icon` varchar(191) DEFAULT NULL,
+  `parent_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `order` int(11) NOT NULL DEFAULT 0,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `is_dropdown` tinyint(1) NOT NULL DEFAULT 0,
+  `target` varchar(191) NOT NULL DEFAULT '_self',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `navigation_menus`
+--
+
+INSERT INTO `navigation_menus` (`id`, `title`, `url`, `icon`, `parent_id`, `order`, `is_active`, `is_dropdown`, `target`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Mécanique', 'pieces', 'wrench', NULL, 1, 1, 1, '_self', '2025-11-04 08:10:45', '2025-11-05 08:44:09', NULL),
+(2, 'Réparation Moteur', '/mecanique/reparation-moteur', 'gear', 1, 1, 1, 0, '_self', '2025-11-04 08:10:45', '2025-11-04 08:10:45', NULL),
+(3, 'Entretien Véhicule', '/mecanique/entretien', 'setting', 1, 2, 1, 0, '_self', '2025-11-04 08:10:45', '2025-11-04 08:10:45', NULL),
+(4, 'Diagnostic', '/mecanique/diagnostic', 'search-list', 1, 3, 1, 0, '_self', '2025-11-04 08:10:45', '2025-11-04 08:10:45', NULL),
+(5, 'Services', 'pieces', 'briefcase', NULL, 2, 1, 1, '_self', '2025-11-04 08:10:45', '2025-11-05 09:10:36', NULL),
+(6, 'Devis Gratuit', '/services/devis', 'document', 5, 1, 1, 0, '_self', '2025-11-04 08:10:45', '2025-11-04 08:10:45', NULL),
+(7, 'Prise de Rendez-vous', '/services/rendez-vous', 'calendar', 5, 2, 1, 0, '_self', '2025-11-04 08:10:45', '2025-11-04 08:10:45', NULL),
+(8, 'À Propos', '/about', 'information', NULL, 3, 0, 0, '_self', '2025-11-04 08:10:45', '2025-11-04 14:46:40', NULL),
+(9, 'Contact', '/contact', 'phone', NULL, 4, 0, 0, '_self', '2025-11-04 08:10:45', '2025-11-04 14:46:40', NULL),
+(10, 'test', NULL, NULL, NULL, 2, 1, 1, '_self', '2025-11-04 08:32:32', '2025-11-04 08:32:32', NULL),
+(11, 'zzzzz', NULL, NULL, 10, 0, 1, 0, '_self', '2025-11-04 08:33:08', '2025-11-04 08:33:08', NULL),
+(12, 'aaaaaaaaaa', NULL, 'aaaaaaaaa', 1, 0, 1, 0, '_self', '2025-11-05 08:52:05', '2025-11-05 08:52:36', '2025-11-05 08:52:36'),
+(13, 'BATTERIE', '/pieces/batterie', NULL, NULL, 0, 1, 0, '_self', '2025-11-05 09:13:18', '2025-11-05 09:13:18', NULL);
 
 -- --------------------------------------------------------
 
@@ -426,27 +618,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `first_name`, `last_name`, `email`, `phone`, `is_active`, `profile_photo_path`, `email_verified_at`, `password`, `avatar`, `remember_token`, `created_at`, `updated_at`, `last_login_at`, `last_login_ip`, `deleted_at`) VALUES
-(24, 1, 'lm', 'Preciousp', 'saad@blinkagency.ma', '+15417162752', 1, 'assets/images/avatars/1744972845_image_12.jpg', NULL, '$2y$10$fp.p7kzHxgkeNrTPrkoORe.ZGOUVqrrynps4FFty5sfjm60NBAe..', NULL, NULL, '2025-04-11 16:05:22', '2025-04-24 14:04:33', '2025-04-24 15:04:33', '127.0.0.1', NULL),
-(25, 1, 'to ', 'delete', 'delete@user.ma', '+15417162752', 1, NULL, NULL, '$2y$10$WimFBy5xfHhYxQiQqeDH6.HS6ZQlPdbQIgtoqk0PBPy.N3yccaRQS', NULL, NULL, '2025-04-11 16:14:40', '2025-04-11 16:18:36', NULL, NULL, '2025-04-11 16:18:36'),
-(28, 2, 'saad', 'Pree', 'saadqq@blinkagency.ma', '0666220022', 1, NULL, NULL, '$2y$10$p3n.uOm/Y9Zj/qEB6B8ReOP1N9YjIS1wy66wmmz.hFEs0dx1PPN4G', NULL, NULL, '2025-04-17 09:48:41', '2025-04-21 10:29:06', NULL, NULL, NULL),
-(29, 1, 'devaaaaaa', 'devteeeeeeeeeeee^l', 'dev@gmail.comyu', '0666220022', 1, 'assets/images/avatars/1744897048_image_01.jpg', NULL, '$2y$10$LSO2W23RtLB0VSNRBhnn8OQA6q3EcrrgDuvNhvD7OOqB8KSkSm9gW', NULL, NULL, '2025-04-17 11:07:48', '2025-04-21 10:24:15', NULL, NULL, NULL),
-(30, 1, 'l3arbi', 'zawli', 'l3arbizawli@gff.com', '0321456877', 1, 'assets/images/avatars/1744894428_Peinture-home.png', NULL, '$2y$10$vHv/PkwC3EEdIF3jHul8deeXGmKfK/F1BL2AbqSbwJsG8Tuh5r33W', NULL, NULL, '2025-04-17 11:53:48', '2025-04-17 11:55:30', NULL, NULL, '2025-04-17 11:55:30'),
-(31, 1, 'sss', 'ssssssssssssss', 'ssssssssssssss@admin.sa', 'ssssssssssssss', 1, 'assets/images/avatars/1744894556_image_05.jpg', NULL, '$2y$10$JGnEneWSove8PYijgj1z3ObpfqNGZKL9MLcwHt5TuW8uWfuvrpt9e', NULL, NULL, '2025-04-17 11:55:56', '2025-04-17 11:56:03', NULL, NULL, '2025-04-17 11:56:03'),
-(35, 2, 'edit', 'test', 'dev@dev.com', '0666220022', 1, 'assets/images/avatars/1744898999_image_10.jpg', NULL, '$2y$10$LwXbW.L3JDfeIuT3glJD1OmrOoxXAOJ0mxrgohpSMDd5GR5F4f2fS', NULL, NULL, '2025-04-17 12:06:23', '2025-04-18 09:55:40', NULL, NULL, NULL),
-(36, 1, 'sss', 'devt', 'admi5n@gmail.cozm', '+15417162752', 1, 'avatars/1744896110_image_05.jpg', NULL, '$2y$10$bn139D.YJrGg3GSLh/Zf..MM9TIE4vNmB2edKmda66N5mTKpDRJ3q', NULL, NULL, '2025-04-17 12:21:50', '2025-04-17 12:41:17', NULL, NULL, '2025-04-17 12:41:17'),
-(37, 1, 'rrrr', 'ffff', 'dssssss@fl.com', 'sssss', 1, 'avatars/1744896158_image_11.jpg', NULL, '$2y$10$AOXjXOyCSNc/4etKlYAQ0eS6llBv02MXldkkS97L6Ya/F4lioRQ22', NULL, NULL, '2025-04-17 12:22:38', '2025-04-17 12:41:11', NULL, NULL, '2025-04-17 12:41:11'),
-(38, 1, 'saad', 'Precious ', 'admin@gmail.com', '0698438171', 1, 'avatars/1744896293_image_05.jpg', NULL, '$2y$10$wFmppzXAXB/vPO5Jr7RyS.MpavqqPwy6xk2ksLs8RYGUO7TsalyGG', NULL, NULL, '2025-04-17 12:24:53', '2025-04-17 12:41:05', NULL, NULL, '2025-04-17 12:41:05'),
-(39, 1, 'sss', 'Precious Gislasone', 'imane@blinkagency.ma', '06666552365', 1, 'user-photos/BEW2gcMHkp26AncoIWl61ovoQSTRf0A0po0wniTs.png', NULL, '$2y$10$7LKu295lqkbyvgkg6e6wEe27AsCSfQRlRrBVea4SswAaf9GW1w1We', NULL, NULL, '2025-04-17 12:28:54', '2025-04-17 12:41:00', NULL, NULL, '2025-04-17 12:41:00'),
-(40, 1, 'Aurelia', 'noadmin', 'saad@blinkagency.mas', '06666552365', 1, 'public/assets/images/avatars1744897076_image_12.jpg', NULL, '$2y$10$Zl36PIMOn91cdrSycGD5F.vQqveCAJUKS.sP5d.jLLn12vVirktV2', NULL, NULL, '2025-04-17 12:37:56', '2025-04-17 12:40:54', NULL, NULL, '2025-04-17 12:40:54'),
-(41, 1, 'saad', 'saad', 'saad@blinkagency.mass', '0666220022', 1, 'storage/images/avatars/1744897370_A9pewnp1Dz.jpg', NULL, '$2y$10$vO4dMSOedNG2rRFYmsHWnumUbx9pKLp3ZntDi0/VRVzW3pfFa98HG', NULL, NULL, '2025-04-17 12:42:50', '2025-04-17 12:48:52', NULL, NULL, '2025-04-17 12:48:52'),
-(42, 1, 'saad', 'Precious ', 'saad@blinkagency.massdd', '0666220022', 1, NULL, NULL, '$2y$10$4oV9nv3I4bIprTcOF73bfenKKiuTgmjKMC/CMye6F8NTXlzAdykhu', NULL, NULL, '2025-04-17 12:44:59', '2025-04-17 12:46:51', NULL, NULL, '2025-04-17 12:46:51'),
-(43, 1, 'ssssssss', 'ssssssssssss', 'ssssssssssssssssssssssssssss@s.ma', '0666220022', 1, 'assets/images/avatars/1744897628_image_11.jpg', NULL, '$2y$10$3lEZNGzQHm7vIBsbbaapfeBjdbTq/j9F5iTHd/15FsXvvFSktog82', NULL, NULL, '2025-04-17 12:47:08', '2025-04-17 12:48:47', NULL, NULL, '2025-04-17 12:48:47'),
-(44, 1, 'saad', 'Precious Gislasone', 'saad@blinkagency.masssss', '06666552365', 1, 'assets/images/avatars/1744899911_image_06.jpg', NULL, '$2y$10$tZpP18cd1aAtg0rgJrSkG.TAq4G3yjh.lKm2.7K4KD1s0oUwJibee', NULL, NULL, '2025-04-17 12:51:15', '2025-04-17 13:25:11', NULL, NULL, NULL),
-(45, 1, 'sssssssssssss', 'ssssssssssssssss', 'ssssssssssssss@admin.sass', '0666220022', 1, 'assets/images/avatars/1744897963_image_09.jpg', NULL, '$2y$10$VPPFxhTYUt7PAd8wJVbITutZrhCGlE8HtHMJgrI40g4hytbAakkJy', NULL, NULL, '2025-04-17 12:52:43', '2025-04-17 13:25:00', NULL, NULL, '2025-04-17 13:25:00'),
-(46, 1, 'Imane', 'boute', 'b..imane@blinkagency.ma', '0612345600', 1, 'assets/images/avatars/1745249366_isolationextr.jpeg', NULL, '$2y$10$SIUDtozKPZSBpmtTX6vYlu8rG3GHjzIGTnFntsL7iu4wJHKY9.RF2', NULL, NULL, '2025-04-17 16:16:22', '2025-04-21 14:29:26', NULL, NULL, NULL),
-(50, 2, 'test', 'saad', 'saadmnhssssssm@gmail.com', '0666666600', 1, NULL, NULL, '$2y$10$SrVYBUVefCyqVVKVTxKsYuOVJ9vzzFyFCpA4ItwXR2FPkeJajzL/S', NULL, NULL, '2025-04-17 16:50:22', '2025-04-18 09:44:54', NULL, NULL, '2025-04-18 09:44:54'),
-(51, 2, 'test', 'Precious ', 'saadaaaaamnhm@gmail.com', '0666220022', 0, NULL, NULL, '$2y$10$fXA2wIFnZR3fRRoRaMVlg.ohEk6C/xknJoleHzR6mz27NUdpx0N22', NULL, NULL, '2025-04-17 16:51:26', '2025-04-18 09:53:39', NULL, NULL, NULL),
-(52, 1, 'mohamed', 'saad', 'mohamed@saad.ma', '06666552365', 0, 'assets/images/avatars/1744973859_Enduit_pro.png', NULL, '$2y$10$g75YKhhjGHDkmVtmw3UaM.VqY4Exnoe76nbAmvo1q7ebKJ7t4epWi', NULL, NULL, '2025-04-18 09:57:39', '2025-04-21 14:30:56', NULL, NULL, '2025-04-21 14:30:56');
+(24, 1, 'lm', 'Preciousp', 'saad@blinkagency.ma', '+15417162752', 1, 'assets/images/avatars/1744972845_image_12.jpg', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, '2025-04-11 16:05:22', '2025-09-16 14:55:53', '2025-09-16 15:55:53', '127.0.0.1', NULL),
+(53, 1, 'second', 'saad', 'test@example.com', '0666666600', 1, 'assets/images/avatars/1757949898_image.jpg', NULL, '$2y$10$CCqFm8IK5lQorSdvqJdaqe/aX1/ky1dLkLt8C91vydkxh4TNNblLS', NULL, NULL, '2025-09-15 14:24:58', '2025-11-05 08:37:32', '2025-11-05 09:37:32', '127.0.0.1', NULL);
 
 --
 -- Index pour les tables déchargées
@@ -468,6 +641,12 @@ ALTER TABLE `blog_post_tag`
   ADD KEY `blog_post_tag_tag_id_foreign` (`tag_id`);
 
 --
+-- Index pour la table `brands`
+--
+ALTER TABLE `brands`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `categories`
 --
 ALTER TABLE `categories`
@@ -476,9 +655,22 @@ ALTER TABLE `categories`
   ADD KEY `categories_user_id_foreign` (`user_id`);
 
 --
--- Index pour la table `devis`
+-- Index pour la table `constructeurs`
 --
-ALTER TABLE `devis`
+ALTER TABLE `constructeurs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `contact`
+--
+ALTER TABLE `contact`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `contact_read_by_user_id_foreign` (`read_by_user_id`);
+
+--
+-- Index pour la table `contacts`
+--
+ALTER TABLE `contacts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `devis_read_by_user_id_foreign` (`read_by_user_id`);
 
@@ -488,6 +680,19 @@ ALTER TABLE `devis`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Index pour la table `galleries`
+--
+ALTER TABLE `galleries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `gallery_media`
+--
+ALTER TABLE `gallery_media`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `gallery_media_gallery_id_foreign` (`gallery_id`);
 
 --
 -- Index pour la table `migrations`
@@ -508,6 +713,13 @@ ALTER TABLE `model_has_permissions`
 ALTER TABLE `model_has_roles`
   ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
   ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Index pour la table `navigation_menus`
+--
+ALTER TABLE `navigation_menus`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `navigation_menus_parent_id_foreign` (`parent_id`);
 
 --
 -- Index pour la table `password_resets`
@@ -569,16 +781,34 @@ ALTER TABLE `blog_posts`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
+-- AUTO_INCREMENT pour la table `brands`
+--
+ALTER TABLE `brands`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT pour la table `devis`
+-- AUTO_INCREMENT pour la table `constructeurs`
 --
-ALTER TABLE `devis`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+ALTER TABLE `constructeurs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `contact`
+--
+ALTER TABLE `contact`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `contacts`
+--
+ALTER TABLE `contacts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT pour la table `failed_jobs`
@@ -587,10 +817,28 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT pour la table `galleries`
+--
+ALTER TABLE `galleries`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT pour la table `gallery_media`
+--
+ALTER TABLE `gallery_media`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
 -- AUTO_INCREMENT pour la table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
+-- AUTO_INCREMENT pour la table `navigation_menus`
+--
+ALTER TABLE `navigation_menus`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `permissions`
@@ -620,7 +868,7 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- Contraintes pour les tables déchargées
@@ -646,10 +894,22 @@ ALTER TABLE `categories`
   ADD CONSTRAINT `categories_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `devis`
+-- Contraintes pour la table `contact`
 --
-ALTER TABLE `devis`
+ALTER TABLE `contact`
+  ADD CONSTRAINT `contact_read_by_user_id_foreign` FOREIGN KEY (`read_by_user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Contraintes pour la table `contacts`
+--
+ALTER TABLE `contacts`
   ADD CONSTRAINT `devis_read_by_user_id_foreign` FOREIGN KEY (`read_by_user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Contraintes pour la table `gallery_media`
+--
+ALTER TABLE `gallery_media`
+  ADD CONSTRAINT `gallery_media_gallery_id_foreign` FOREIGN KEY (`gallery_id`) REFERENCES `galleries` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `model_has_permissions`
@@ -662,6 +922,12 @@ ALTER TABLE `model_has_permissions`
 --
 ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `navigation_menus`
+--
+ALTER TABLE `navigation_menus`
+  ADD CONSTRAINT `navigation_menus_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `navigation_menus` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `post_category`

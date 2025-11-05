@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piassat - Pièces Auto en Ligne au Maroc</title>
+    <title>@yield('title', 'pyassat - Pièces Auto')</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -127,11 +127,12 @@
                     <div class="wrapper mb-0 mt-0">
                         <ul class="nav-links">
                             @foreach($navigationMenus as $menu)
-                                @if($menu->is_dropdown && $menu->children->count() > 0)
+                                @if($menu->is_dropdown && $menu->activeChildren->count() > 0)
 
                                 <li>
                                     <a
-                                    href="{{ route('front.list') }}"
+                                    href="{{ resolveMenuUrl($menu->url) }}"
+                                    id="navbarDropdown{{ $menu->id }}" 
                                     class="desktop-item"
                                     >{{ $menu->title }}</a
                                     >
@@ -141,12 +142,24 @@
                                         <div class="row">
                                             <ul class="mega-links">
                                                 @foreach($menu->children as $child)
-                                                    <li><a href="{{ $child->url }}">{{ $child->title }}</a></li>
+                                                    <li><a href="{{ resolveMenuUrl($child->url) }}">{{ $child->title }}</a></li>
                                                 @endforeach
                                             </ul>
                                         </div>
                                     </div>
                                     </div>
+                                </li>
+                                @else
+                                {{-- Simple Menu Item --}}
+                                <li class="nav-item">
+                                    <a class="nav-link" 
+                                    href="{{ resolveMenuUrl($menu->url) }}" 
+                                    target="{{ $menu->target }}">
+                                        @if($menu->icon)
+                                            {!! getIcon($menu->icon, 'fs-5 me-1') !!}
+                                        @endif
+                                        {{ $menu->title }}
+                                    </a>
                                 </li>
 
                                 @endif

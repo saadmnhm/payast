@@ -2,7 +2,6 @@
 
 @section('title', 'Modifier le Menu')
 
-@section('content')
     <div class="card">
         <!--begin::Card header-->
         <div class="card-header">
@@ -17,6 +16,30 @@
                 @csrf
                 @method('PUT')
                 
+
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-3 col-form-label fw-semibold fs-6">Menu Parent</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-9">
+                        <select name="parent_id" id="parent_id" class="form-select form-select-solid @error('parent_id') is-invalid @enderror">
+                            <option value="">-- Menu Principal --</option>
+                            @foreach($parentMenus as $parent)
+                                <option value="{{ $parent->id }}" data-url="{{ $parent->url ?? '' }}"
+                                    {{ old('parent_id', $navigationMenu->parent_id) == $parent->id ? 'selected' : '' }}>
+                                    {{ $parent->title }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('parent_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class="form-text">Sélectionnez un parent pour créer un sous-menu</div>
+                    </div>
+                    <!--end::Col-->
+                </div>
+
                 <div class="row mb-6">
                     <!--begin::Label-->
                     <label class="col-lg-3 col-form-label required fw-semibold fs-6">Titre</label>
@@ -48,44 +71,6 @@
                     <!--end::Col-->
                 </div>
 
-                <div class="row mb-6">
-                    <!--begin::Label-->
-                    <label class="col-lg-3 col-form-label fw-semibold fs-6">Icône</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-9">
-                        <input type="text" name="icon" class="form-control form-control-solid @error('icon') is-invalid @enderror" 
-                               placeholder="Ex: wrench, gear, home" value="{{ old('icon', $navigationMenu->icon) }}" />
-                        @error('icon')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                        <div class="form-text">Nom de l'icône Metronic (optionnel)</div>
-                    </div>
-                    <!--end::Col-->
-                </div>
-
-                <div class="row mb-6">
-                    <!--begin::Label-->
-                    <label class="col-lg-3 col-form-label fw-semibold fs-6">Menu Parent</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-9">
-                        <select name="parent_id" class="form-select form-select-solid @error('parent_id') is-invalid @enderror">
-                            <option value="">-- Menu Principal --</option>
-                            @foreach($parentMenus as $parent)
-                                <option value="{{ $parent->id }}" 
-                                    {{ old('parent_id', $navigationMenu->parent_id) == $parent->id ? 'selected' : '' }}>
-                                    {{ $parent->title }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('parent_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                        <div class="form-text">Sélectionnez un parent pour créer un sous-menu</div>
-                    </div>
-                    <!--end::Col-->
-                </div>
 
                 <div class="row mb-6">
                     <!--begin::Label-->
@@ -169,4 +154,54 @@
         </div>
         <!--end::Card body-->
     </div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const parentSelect = document.getElementById('parent_id');
+    const urlInput = document.querySelector('input[name="url"]');
+    const titleInput = document.querySelector('input[name="title"]');
+
+    function slugify(text) {
+        return text.toString().toLowerCase()
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9\- ]/g, '')
+            .trim().replace(/\s+/g, '-')
+            .replace(/\-+/g, '-');
+    }
+
+    function buildUrl() {
+        const parentUrl = parentSelect.selectedOptions[0]?.dataset?.url || '';
+        const titleSlug = titleInput.value ? slugify(titleInput.value) : '';
+        if (!titleSlug) return;
+
+        const piecesPrefix = '/pieces';
+        let prefix;
+
+        if (!parentUrl || parentUrl === '#') {
+            prefix = piecesPrefix;
+        } else {
+            let p = parentUrl.startsWith('/') ? parentUrl : '/' + parentUrl;
+            if (p.startsWith(piecesPrefix)) {
+                prefix = p;
+            } else {
+                prefix = piecesPrefix + p;
+            }
+        }
+
+        prefix = prefix.replace(/\/+$/, '');
+        urlInput.value = prefix + '/' + titleSlug;
+    }
+
+    let manualChanged = false;
+    urlInput.addEventListener('input', () => manualChanged = true);
+    titleInput.addEventListener('input', () => { if (!manualChanged) buildUrl(); });
+    parentSelect.addEventListener('change', () => { if (!manualChanged) buildUrl(); });
+
+    if (!manualChanged && titleInput.value && (!urlInput.value || urlInput.value === '/'+slugify(titleInput.value))) {
+        buildUrl();
+    }
+});
+</script>
+@endpush
 </x-default-layout>

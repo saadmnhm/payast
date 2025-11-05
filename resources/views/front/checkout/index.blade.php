@@ -131,7 +131,7 @@
                     <a href="{{ route('front.list') }}" class="btn btn-light">
                         <i class="fas fa-arrow-left"></i> Continuer mes achats
                     </a>
-                    <button type="button" class="btn btn-primary" onclick="nextStep()">
+                    <button type="button" class="btn btn-danger" onclick="nextStep()">
                         Suivant <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>

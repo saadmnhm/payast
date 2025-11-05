@@ -56,17 +56,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-        // Gallery routes
-        Route::prefix('gallerie')->name('apps.gallerie.')->controller(GallerieController::class)->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::get('/create', 'create')->name('create');
-            Route::post('/', 'store')->name('store');
-            Route::get('/{gallerie}', 'show')->name('show');
-            Route::get('/{gallerie}/edit', 'edit')->name('edit');
-            Route::put('/{gallerie}', 'update')->name('update');
-            Route::delete('/{gallerie}', 'destroy')->name('destroy');
-            Route::post('/update-order', 'updateOrder')->name('update-order');
-        });
+        
 
         // Navigation Menu routes
         Route::prefix('navigation-menu')->name('apps.navigation-menu.')->controller(NavigationMenuController::class)->group(function () {

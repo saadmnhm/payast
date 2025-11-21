@@ -146,3 +146,109 @@ Les catégories peuvent être liées au menu de navigation existant pour créer 
 ## Support
 
 Pour toute question ou problème, veuillez créer un ticket sur le dépôt GitHub.
+
+## Architecture du Système
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     SYSTÈME DE GESTION                       │
+│                    DES PIÈCES ET CATÉGORIES                 │
+└─────────────────────────────────────────────────────────────┘
+
+┌──────────────────────┐         ┌──────────────────────┐
+│  CATÉGORIES          │         │  PIÈCES              │
+│  (Hiérarchiques)     │◄────────┤  (Produits)          │
+│                      │  1:N    │                      │
+│  • Mécanique         │         │  • Nom               │
+│    ├─ Freinage       │         │  • Référence         │
+│    │  ├─ Disque      │         │  • Description       │
+│    │  └─ Plaquettes  │         │  • Prix              │
+│    └─ Batterie       │         │  • Stock             │
+│  • Électrique        │         │  • Image             │
+│  • Carrosserie       │         │  • Marque            │
+└──────────────────────┘         └──────────────────────┘
+         │                                │
+         │                                │
+         └────────────────┬───────────────┘
+                          │
+                          ▼
+               ┌──────────────────────┐
+               │   MENU NAVIGATION    │
+               │   (Frontend)         │
+               │                      │
+               │  /pieces/mecanique   │
+               │  /pieces/freinage    │
+               │  /pieces/disque      │
+               └──────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│                    FLUX DE TRAVAIL                           │
+└─────────────────────────────────────────────────────────────┘
+
+1. Créer les catégories principales
+   Admin → Référentiel → Catégories de Pièces → Ajouter
+
+2. Créer les sous-catégories
+   Sélectionner une catégorie parente lors de la création
+
+3. Ajouter des pièces
+   Admin → Référentiel → Pièces → Ajouter
+   Sélectionner la catégorie et la marque
+
+4. Les pièces apparaissent automatiquement sur le frontend
+   URL: /pieces/{category-slug}
+
+┌─────────────────────────────────────────────────────────────┐
+│                 INTERFACES ADMIN                             │
+└─────────────────────────────────────────────────────────────┘
+
+Catégories de Pièces:
+├── Liste (index)        → Vue d'ensemble avec hiérarchie
+├── Créer (create)       → Formulaire de création
+├── Modifier (edit)      → Formulaire de modification
+├── Voir (show)          → Détails + sous-catégories + pièces
+└── Supprimer (destroy)  → Suppression (avec confirmation)
+
+Pièces:
+├── Liste (index)        → Tableau avec filtres
+├── Créer (create)       → Formulaire complet
+├── Modifier (edit)      → Formulaire de modification
+├── Voir (show)          → Fiche produit complète
+└── Supprimer (destroy)  → Suppression (avec confirmation)
+```
+
+## Exemples d'Utilisation
+
+### Créer une hiérarchie de catégories
+
+1. **Créer "Mécanique" (parent)**
+   - Nom: Mécanique
+   - Slug: mecanique
+   - Parent: (aucun)
+
+2. **Créer "Freinage" sous "Mécanique"**
+   - Nom: Freinage
+   - Slug: freinage
+   - Parent: Mécanique
+
+3. **Créer "Disque" sous "Freinage"**
+   - Nom: Disque
+   - Slug: disque
+   - Parent: Freinage
+
+### Ajouter une pièce
+
+1. Aller dans "Pièces" → "Ajouter une pièce"
+2. Remplir:
+   - Nom: Disque de frein avant
+   - Référence: DF-001
+   - Catégorie: Disque (sous Freinage)
+   - Marque: Bosch (par exemple)
+   - Prix: 89.99
+   - Stock: 15
+3. Télécharger une image
+4. Enregistrer
+
+La pièce sera accessible à:
+- Admin: `/pieces` (liste)
+- Frontend: `/pieces/disque` (filtrée par catégorie)

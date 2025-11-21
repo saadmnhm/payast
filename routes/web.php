@@ -8,6 +8,8 @@ use App\Http\Controllers\Apps\ContactController;
 use App\Http\Controllers\Apps\BrandController;
 use App\Http\Controllers\Apps\ConstructeurController;
 use App\Http\Controllers\Apps\NavigationMenuController;
+use App\Http\Controllers\Apps\PieceCategoryController;
+use App\Http\Controllers\Apps\PieceManagementController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PeiceController;
@@ -97,6 +99,34 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/{constructeur}', 'update')->name('update');
             Route::delete('/{constructeur}', 'destroy')->name('destroy');
         });
+
+        // Piece Category routes
+        Route::prefix('piece-categories')->name('apps.piece-categories.')->controller(PieceCategoryController::class)->group(function () {
+            Route::post('/{pieceCategory}/toggle-status', 'toggleStatus')->name('toggle-status');
+            
+            // Resource routes
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{pieceCategory}', 'show')->name('show');
+            Route::get('/{pieceCategory}/edit', 'edit')->name('edit');
+            Route::put('/{pieceCategory}', 'update')->name('update');
+            Route::delete('/{pieceCategory}', 'destroy')->name('destroy');
+        });
+
+        // Piece Management routes
+        Route::prefix('pieces')->name('apps.pieces.')->controller(PieceManagementController::class)->group(function () {
+            Route::post('/{piece}/toggle-status', 'toggleStatus')->name('toggle-status');
+            
+            // Resource routes
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{piece}', 'show')->name('show');
+            Route::get('/{piece}/edit', 'edit')->name('edit');
+            Route::put('/{piece}', 'update')->name('update');
+            Route::delete('/{piece}', 'destroy')->name('destroy');
+        });
     
     });
 });
@@ -105,9 +135,11 @@ Route::middleware(['auth'])->group(function () {
 Route::name('front.')->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('home');
     Route::get('/pieces', [PeiceController::class, 'index'])->name('list');
+    Route::get('/pieces/{categorySlug}', [PeiceController::class, 'index'])->name('list.category');
     Route::get('/checkout/cart', [CheckoutController::class, 'index'])->name('cart');
     Route::post('/checkout/process', [CheckoutController::class, 'processOrder'])->name('checkout.process');
 });
+
 
 
 

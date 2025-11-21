@@ -114,6 +114,32 @@
                         <!--end:Menu link-->
                     </div>
                 </div>
+
+                <div class="menu-sub menu-sub-accordion">
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{ request()->routeIs('apps.piece-categories.*') ? 'active' : '' }}" href="{{ route('apps.piece-categories.index') }}">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Catégories de Pièces</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                </div>
+
+                <div class="menu-sub menu-sub-accordion">
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{ request()->routeIs('apps.pieces.*') ? 'active' : '' }}" href="{{ route('apps.pieces.index') }}">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Pièces</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                </div>
             </div>
             <!--end:Menu item-->
         </div>

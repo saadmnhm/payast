@@ -89,9 +89,15 @@
                             <div class="col-md-12">
                                 <div class="mb-10">
                                     <label class="form-label">Marque</label>
-                                    <input type="text" name="brand" class="form-control @error('brand') is-invalid @enderror" 
-                                        value="{{ old('brand') }}" placeholder="Ex: Bosch">
-                                    @error('brand')
+                                    <select name="brand_id" class="form-select @error('brand_id') is-invalid @enderror">
+                                        <option value="">-- Sélectionner une marque --</option>
+                                        @foreach($brands as $brand)
+                                            <option value="{{ $brand->id }}" {{ old('brand_id') == $brand->id ? 'selected' : '' }}>
+                                                {{ $brand->label }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand_id')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -139,35 +145,6 @@
                         </div>
 
                         <div class="mb-10">
-                            <label class="form-label">Logo de la marque</label>
-                            <div class="image-input image-input-outline" data-kt-image-input="true" 
-                                style="background-image: url('{{ asset('assets/media/svg/files/blank-image.svg') }}')">
-                                <div class="image-input-wrapper w-125px h-125px" id="brand-image-preview" 
-                                    style="background-image: url('{{ asset('assets/media/svg/files/blank-image.svg') }}')"></div>
-                                
-                                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" 
-                                    data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Changer le logo">
-                                    {!! getIcon('pencil', 'fs-7') !!}
-                                    <input type="file" name="brand_image" accept=".png, .jpg, .jpeg" id="brand-image-input" />
-                                </label>
-
-                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" 
-                                    data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Annuler">
-                                    {!! getIcon('cross', 'fs-2') !!}
-                                </span>
-
-                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" 
-                                    data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Supprimer">
-                                    {!! getIcon('cross', 'fs-2') !!}
-                                </span>
-                            </div>
-                            <div class="form-text">Formats acceptés: png, jpg, jpeg. Max 1MB</div>
-                            @error('brand_image')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-10">
                             <label class="form-label">Statut</label>
                             <div class="form-check form-switch form-check-custom form-check-solid">
                                 <input class="form-check-input" type="checkbox" name="is_active" value="1" 
@@ -200,17 +177,6 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById('piece-image-preview').style.backgroundImage = 'url(' + e.target.result + ')';
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('brand-image-input').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('brand-image-preview').style.backgroundImage = 'url(' + e.target.result + ')';
                 }
                 reader.readAsDataURL(file);
             }

@@ -133,6 +133,10 @@ Route::middleware(['auth'])->group(function () {
 Route::name('front.')->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('home');
     Route::get('/pieces', [PeiceController::class, 'index'])->name('list');
+    // category / subcategory route, optional subcategory
+    Route::get('/pieces/{category}/{subcategory?}', [PeiceController::class, 'index'])
+        ->where('subcategory', '.*')
+        ->name('list.category');
     Route::get('/checkout/cart', [CheckoutController::class, 'index'])->name('cart');
     Route::post('/checkout/process', [CheckoutController::class, 'processOrder'])->name('checkout.process');
 });

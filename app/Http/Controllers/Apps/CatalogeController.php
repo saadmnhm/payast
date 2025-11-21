@@ -156,7 +156,8 @@ class CatalogeController extends Controller
     public function createPiece()
     {
         $categories = CatalogCategory::orderBy('title')->get();
-        return view('admin.apps.cataloge.pieces.create', compact('categories'));
+        $brands = \App\Models\Brand::where('is_active', true)->orderBy('label')->get();
+        return view('admin.apps.cataloge.pieces.create', compact('categories', 'brands'));
     }
 
     public function storePiece(Request $request)
@@ -166,8 +167,7 @@ class CatalogeController extends Controller
             'reference' => 'required|string|max:255|unique:pieces,reference',
             'price' => 'required|numeric|min:0',
             'category_id' => 'nullable|exists:catalog_categories,id',
-            'brand' => 'nullable|string|max:255',
-            'brand_image' => 'nullable|image|max:1024',
+            'brand_id' => 'nullable|exists:brands,id',
             'image' => 'nullable|image|max:2048',
             'description' => 'nullable|string',
             'stock' => 'nullable|integer|min:0',
@@ -180,13 +180,9 @@ class CatalogeController extends Controller
             $data['image'] = $request->file('image')->store('catalog/pieces', 'public');
         }
 
-        if ($request->hasFile('brand_image')) {
-            $data['brand_image'] = $request->file('brand_image')->store('catalog/brands', 'public');
-        }
-
         Piece::create($data);
 
-        return redirect()->route('apps.cataloge.index')->with('success', 'Pièce créée avec succès');
+        return redirect()->route('apps.cataloge.pieces.index')->with('success', 'Pièce créée avec succès');
     }
 
     public function showPiece(Piece $piece)
@@ -198,7 +194,8 @@ class CatalogeController extends Controller
     public function editPiece(Piece $piece)
     {
         $categories = CatalogCategory::orderBy('title')->get();
-        return view('admin.apps.cataloge.pieces.edit', compact('piece', 'categories'));
+        $brands = \App\Models\Brand::where('is_active', true)->orderBy('label')->get();
+        return view('admin.apps.cataloge.pieces.edit', compact('piece', 'categories', 'brands'));
     }
 
     public function updatePiece(Request $request, Piece $piece)
@@ -208,8 +205,7 @@ class CatalogeController extends Controller
             'reference' => 'required|string|max:255|unique:pieces,reference,' . $piece->id,
             'price' => 'required|numeric|min:0',
             'category_id' => 'nullable|exists:catalog_categories,id',
-            'brand' => 'nullable|string|max:255',
-            'brand_image' => 'nullable|image|max:1024',
+            'brand_id' => 'nullable|exists:brands,id',
             'image' => 'nullable|image|max:2048',
             'description' => 'nullable|string',
             'stock' => 'nullable|integer|min:0',
@@ -223,13 +219,6 @@ class CatalogeController extends Controller
                 Storage::disk('public')->delete($piece->image);
             }
             $data['image'] = $request->file('image')->store('catalog/pieces', 'public');
-        }
-
-        if ($request->hasFile('brand_image')) {
-            if ($piece->brand_image) {
-                Storage::disk('public')->delete($piece->brand_image);
-            }
-            $data['brand_image'] = $request->file('brand_image')->store('catalog/brands', 'public');
         }
 
         $piece->update($data);

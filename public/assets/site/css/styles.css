@@ -1577,7 +1577,7 @@ nav .wrapper {
     .cards-list{
         border: 1px solid #D9DEEA;
         .brands{
-            margin: 0px 0 35px 0;
+            margin: 13px 0 25px 0;
             img{
                 width: 150px;
             }
@@ -1586,6 +1586,8 @@ nav .wrapper {
             text-align: center;
             img{
                 width: 190px;
+                height: 190px;
+                object-fit: contain;
             }
         }
         .product-name{

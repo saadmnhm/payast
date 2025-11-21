@@ -189,9 +189,9 @@
                                                         <a href="{{ route('apps.cataloge.pieces.show', $piece) }}" class="text-dark fw-bold text-hover-primary fs-6">
                                                             {{ $piece->name }}
                                                         </a>
-                                                        @if($piece->brand)
+                                                        @if($piece->brand_id && $piece->brand)
                                                             <span class="text-muted fw-semibold d-block fs-7">
-                                                                {{ $piece->brand }}
+                                                                {{ $piece->brand->label }}
                                                             </span>
                                                         @endif
                                                     </div>

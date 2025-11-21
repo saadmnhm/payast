@@ -4,10 +4,15 @@
 
 <div class="container-fluid list-page">
     <div class="breadcrumbs">
-        <a href="#">Home</a> 
-        <a href="#">Category</a> 
-        <span>Subcategory</span>
+        <a href="{{ route('front.home') }}">Home</a>
+        @if(!empty($category))
+            <a href="{{ route('front.list.category', ['category' => $category]) }}">{{ ucfirst($category) }}</a>
+        @endif
+        @if(!empty($subcategory))
+            <span>{{ ucfirst($subcategory) }}</span>
+        @endif
     </div>
+
     <div class="row">
         <div class="col-md-3">
             <div class="filter-par">
@@ -50,91 +55,38 @@
         </div>
         <div class="col mb-4">
             <div class="row">
-                <div class="cards-list p-3 col-md-4">
-                    <div class="card-details">
-                        <div class="brands"><img src="{{asset('assets/site/image/total.png')}}" alt=""></div>
+                @forelse($pieces ?? [] as $piece)
+                    <div class="cards-list p-3 col-md-4">
+                        <div class="card-details">
+                            <div class="brands">
+                                @if($piece->brand_id && $piece->brand && $piece->brand->image)
+                                    <img src="{{ asset('storage/'.$piece->brand->image) }}" alt="{{ $piece->brand->label }}">
+                                @endif
+                            </div>
+                        </div>
+                        <div class="article-image">
+                            @if($piece->image)
+                                <img src="{{ asset('storage/'.$piece->image) }}" alt="{{ $piece->name }}">
+                            @else
+                                <img src="{{ asset('assets/site/image/placeholder.png') }}" alt="{{ $piece->name }}">
+                            @endif
+                        </div>
+                        <div class="product-name">
+                            <h4>{{ $piece->name }}</h4>
+                            <p>Reference: <span>{{ $piece->reference }}</span></p>
+                        </div>
+                        <div class="footer-card">
+                            <div class="price">{{ number_format($piece->price, 2) }} DH</div>
+                            <button onclick="addToCart('{{ $piece->name }}','{{ $piece->image ? asset('storage/'.$piece->image) : asset('assets/site/image/placeholder.png') }}', {{ $piece->price }})" class="add-to-list-cart">
+                                <i class="fas fa-shopping-cart me-1"></i> ajouter au panier
+                            </button>
+                        </div>
                     </div>
-                    <div class="article-image">
-                        <img src="{{asset('assets/site/image/huile.jpg')}}" alt="">
+                @empty
+                    <div class="col-12">
+                        <div class="alert alert-info">Aucun article trouvé pour cette catégorie.</div>
                     </div>
-                    <div class="product-name">
-                        <h4>Huile Moteur</h4>
-                        <p>Reference: <span>1115-8</span></p>
-                    </div>
-                    <div class="footer-card">
-                        <div class="price">200 DH</div>
-                        <button onclick="addToCart('Huile Moteur','{{asset('assets/site/image/huile.jpg')}}', 179)" class="add-to-list-cart"><i class="fas fa-shopping-cart me-1"></i> add to card</button>
-                    </div>
-
-                </div>
-                <div class="cards-list p-3 col-md-4">
-                    <div class="card-details">
-                        <div class="brands"><img src="{{asset('assets/site/image/total.png')}}" alt=""></div>
-                    </div>
-                    <div class="article-image">
-                        <img src="{{asset('assets/site/image/huile.jpg')}}" alt="">
-                    </div>
-                    <div class="product-name">
-                        <h4>Huile Moteur</h4>
-                        <p>Reference: <span>1115-8</span></p>
-                    </div>
-                    <div class="footer-card">
-                        <div class="price">200 DH</div>
-                        <button onclick="addToCart('Huile Moteur','{{asset('assets/site/image/huile.jpg')}}', 179)" class="add-to-list-cart"><i class="fas fa-shopping-cart me-1"></i> add to card</button>
-                    </div>
-
-                </div>
-                <div class="cards-list p-3 col-md-4">
-                    <div class="card-details">
-                        <div class="brands"><img src="{{asset('assets/site/image/total.png')}}" alt=""></div>
-                    </div>
-                    <div class="article-image">
-                        <img src="{{asset('assets/site/image/huile.jpg')}}" alt="">
-                    </div>
-                    <div class="product-name">
-                        <h4>Huile Moteur</h4>
-                        <p>Reference: <span>1115-8</span></p>
-                    </div>
-                    <div class="footer-card">
-                        <div class="price">200 DH</div>
-                        <button onclick="addToCart('Huile Moteur','{{asset('assets/site/image/huile.jpg')}}', 179)" class="add-to-list-cart"><i class="fas fa-shopping-cart me-1"></i> add to card</button>
-                    </div>
-
-                </div>
-                <div class="cards-list p-3 col-md-4">
-                    <div class="card-details">
-                        <div class="brands"><img src="{{asset('assets/site/image/total.png')}}" alt=""></div>
-                    </div>
-                    <div class="article-image">
-                        <img src="{{asset('assets/site/image/huile.jpg')}}" alt="">
-                    </div>
-                    <div class="product-name">
-                        <h4>Huile Moteur</h4>
-                        <p>Reference: <span>1115-8</span></p>
-                    </div>
-                    <div class="footer-card">
-                        <div class="price">200 DH</div>
-                        <button onclick="addToCart('Huile Moteur','{{asset('assets/site/image/huile.jpg')}}', 179)" class="add-to-list-cart"><i class="fas fa-shopping-cart me-1"></i> add to card</button>
-                    </div>
-
-                </div>
-                <div class="cards-list p-3 col-md-4">
-                    <div class="card-details">
-                        <div class="brands"><img src="{{asset('assets/site/image/total.png')}}" alt=""></div>
-                    </div>
-                    <div class="article-image">
-                        <img src="{{asset('assets/site/image/huile.jpg')}}" alt="">
-                    </div>
-                    <div class="product-name">
-                        <h4>Huile Moteur</h4>
-                        <p>Reference: <span>1115-8</span></p>
-                    </div>
-                    <div class="footer-card">
-                        <div class="price">200 DH</div>
-                        <button onclick="addToCart('Huile Moteur','{{asset('assets/site/image/huile.jpg')}}', 179)" class="add-to-list-cart"><i class="fas fa-shopping-cart me-1"></i> add to card</button>
-                    </div>
-
-                </div>
+                @endforelse
             </div>
         </div>
     </div>

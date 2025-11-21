@@ -27,9 +27,9 @@
                         @if($piece->brand)
                             <div class="mb-6">
                                 @if($piece->brand_image_url)
-                                    <img src="{{ $piece->brand_image_url }}" alt="{{ $piece->brand }}" style="max-height: 50px;" />
+                                    <img src="{{ $piece->brand_image_url }}" alt="{{ $piece->brand_name }}" style="max-height: 50px;" />
                                 @else
-                                    <span class="text-gray-600">{{ $piece->brand }}</span>
+                                    <span class="text-gray-600">{{ $piece->brand_name }}</span>
                                 @endif
                             </div>
                         @endif
@@ -134,7 +134,7 @@
                         <div class="row mb-7">
                             <label class="col-lg-4 fw-semibold text-muted">Marque</label>
                             <div class="col-lg-8">
-                                <span class="fw-bold fs-6 text-gray-800">{{ $piece->brand }}</span>
+                                <span class="fw-bold fs-6 text-gray-800">{{ $piece->brand_name }}</span>
                             </div>
                         </div>
                     @endif

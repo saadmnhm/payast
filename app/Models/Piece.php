@@ -15,8 +15,7 @@ class Piece extends Model
         'reference',
         'price',
         'category_id',
-        'brand',
-        'brand_image',
+        'brand_id',
         'image',
         'description',
         'stock',
@@ -33,14 +32,30 @@ class Piece extends Model
         return $this->belongsTo(CatalogCategory::class, 'category_id');
     }
 
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
+    }
+
     public function getImageUrlAttribute(): string
     {
         return $this->image ? asset('storage/' . $this->image) : asset('assets/media/svg/files/blank-image.svg');
     }
 
+    public function getBrandNameAttribute(): ?string
+    {
+        if ($this->brand_id && $this->relationLoaded('brand')) {
+            return $this->brand?->label;
+        }
+        return null;
+    }
+
     public function getBrandImageUrlAttribute(): ?string
     {
-        return $this->brand_image ? asset('storage/' . $this->brand_image) : null;
+        if ($this->brand_id && $this->relationLoaded('brand') && $this->brand && $this->brand->image) {
+            return asset('storage/' . $this->brand->image);
+        }
+        return null;
     }
 
     public function getFormattedPriceAttribute(): string

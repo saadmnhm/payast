@@ -91,11 +91,11 @@
                                 <select name="category_id" class="form-select @error('category_id') is-invalid @enderror">
                                     <option value="">-- Sélectionner une catégorie --</option>
                                     @foreach($categories as $category)
-                                        <option value="{{ $category->id }}" {{ old('category_id', request('category_id')) == $category->id ? 'selected' : '' }}>
+                                        <option value="{{ $category->id }}" {{ old('category_id', $piece->category_id) == $category->id ? 'selected' : '' }}>
                                             {{ $category->name }}
                                         </option>
                                         @foreach($category->children as $child)
-                                            <option value="{{ $child->id }}" {{ old('category_id', request('category_id')) == $child->id ? 'selected' : '' }}>
+                                            <option value="{{ $child->id }}" {{ old('category_id', $piece->category_id) == $child->id ? 'selected' : '' }}>
                                                 &nbsp;&nbsp;↳ {{ $child->name }}
                                             </option>
                                         @endforeach

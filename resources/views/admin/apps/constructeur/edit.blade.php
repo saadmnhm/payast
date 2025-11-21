@@ -86,13 +86,7 @@
 
                 <div class="d-flex justify-content-end">
                     <a href="{{ route('apps.constructeur.index') }}" class="btn btn-light me-3">Annuler</a>
-                    <form action="{{ route('apps.constructeur.destroy', $constructeur) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce constructeur ?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger me-2" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce constructeur ?');">
-                            Supprimer le constructeur
-                        </button>
-                    </form>
+
                     <button type="submit" class="btn btn-primary">
                         <span class="indicator-label">Enregistrer les modifications</span>
                     </button>
@@ -100,4 +94,13 @@
             </div>
         </div>
     </form>
+
+    <form action="{{ route('apps.constructeur.destroy', $constructeur) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce constructeur ?');">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger me-2" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce constructeur ?');">
+            Supprimer le constructeur
+    </button>
+    </form>
+
 </x-default-layout>

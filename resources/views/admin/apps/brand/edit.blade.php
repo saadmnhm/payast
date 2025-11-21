@@ -5,6 +5,7 @@
         {{ Breadcrumbs::render('apps.brand.edit', $brand) }}
     @endsection
 
+    {{-- Update form wraps all editable inputs --}}
     <form action="{{ route('apps.brand.update', $brand) }}" method="POST" enctype="multipart/form-data" id="kt_brand_form">
         @csrf
         @method('PUT')
@@ -77,13 +78,6 @@
 
                 <div class="d-flex justify-content-end">
                     <a href="{{ route('apps.brand.index') }}" class="btn btn-light me-3">Annuler</a>
-                    <form action="{{ route('apps.brand.destroy', $brand) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette marque ?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger me-2" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette marque ?');">
-                            Supprimer la marque
-                        </button>
-                    </form>
                     <button type="submit" class="btn btn-primary">
                         <span class="indicator-label">Enregistrer les modifications</span>
                     </button>
@@ -92,6 +86,12 @@
         </div>
     </form>
 
-    {{-- Separate delete form --}}
+    <form action="{{ route('apps.brand.destroy', $brand) }}" method="POST" >
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette marque ?')">
+            Supprimer la marque
+        </button>
+    </form>
 
 </x-default-layout>

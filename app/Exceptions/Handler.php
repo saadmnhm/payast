@@ -46,14 +46,7 @@ class Handler extends ExceptionHandler
     {
         $this->renderable(function (NotFoundHttpException $e, $request) {
             // Check if the request is for a frontend route (front)
-            if ($request->segment(1) === 'home' || 
-                $request->segment(1) === 'about' || 
-                $request->segment(1) === 'services' || 
-                $request->segment(1) === 'blog' || 
-                $request->segment(1) === 'contact' || 
-                $request->segment(1) === 'devis') {
-                return response()->view('front.404', [], 404);
-            }
+      
         });
     }
 }

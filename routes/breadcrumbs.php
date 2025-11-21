@@ -179,3 +179,52 @@ Breadcrumbs::for('apps.constructeur.edit', function (BreadcrumbTrail $trail, $co
     $trail->parent('apps.constructeur.index');
     $trail->push('Modifier ' . $constructeur->label, route('apps.constructeur.edit', $constructeur));
 });
+
+// Catalogue Breadcrumbs
+Breadcrumbs::for('apps.cataloge.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Catalogue', route('apps.cataloge.index'));
+});
+
+// Categories Breadcrumbs
+Breadcrumbs::for('apps.cataloge.categories.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('apps.cataloge.index');
+    $trail->push('Catégories', route('apps.cataloge.categories.index'));
+});
+
+Breadcrumbs::for('apps.cataloge.categories.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('apps.cataloge.categories.index');
+    $trail->push('Créer une catégorie', route('apps.cataloge.categories.create'));
+});
+
+Breadcrumbs::for('apps.cataloge.categories.show', function (BreadcrumbTrail $trail, $category) {
+    $trail->parent('apps.cataloge.categories.index');
+    $trail->push($category->title, route('apps.cataloge.categories.show', $category));
+});
+
+Breadcrumbs::for('apps.cataloge.categories.edit', function (BreadcrumbTrail $trail, $category) {
+    $trail->parent('apps.cataloge.categories.index');
+    $trail->push('Modifier ' . $category->title, route('apps.cataloge.categories.edit', $category));
+});
+
+// Pieces Breadcrumbs
+Breadcrumbs::for('apps.cataloge.pieces.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('apps.cataloge.index');
+    $trail->push('Pièces', route('apps.cataloge.pieces.index'));
+});
+
+Breadcrumbs::for('apps.cataloge.pieces.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('apps.cataloge.pieces.index');
+    $trail->push('Créer une pièce', route('apps.cataloge.pieces.create'));
+});
+
+Breadcrumbs::for('apps.cataloge.pieces.show', function (BreadcrumbTrail $trail, $piece) {
+    $trail->parent('apps.cataloge.pieces.index');
+    $trail->push($piece->name, route('apps.cataloge.pieces.show', $piece));
+});
+
+Breadcrumbs::for('apps.cataloge.pieces.edit', function (BreadcrumbTrail $trail, $piece) {
+    $trail->parent('apps.cataloge.pieces.index');
+    $trail->push('Modifier ' . $piece->name, route('apps.cataloge.pieces.edit', $piece));
+});
+

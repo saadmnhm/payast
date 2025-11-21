@@ -59,7 +59,15 @@
                 <!--end:Menu link-->
             </div>
             <!--end:Menu item-->
-
+            <!--begin:Menu item-->
+            <div class="menu-item menu-accordion ">
+                <!--begin:Menu link-->
+                <a class="menu-link {{ request()->routeIs('apps.cataloge.*') ? 'active' : '' }}"  href="{{ route('apps.cataloge.index') }}">
+                    <span class="menu-icon">{!! getIcon('menu', 'fs-2') !!}</span>
+                    <span class="menu-title">cataloge de piece</span>
+                </a>
+                <!--end:Menu link-->
+            </div>
             <!--end:Menu item-->
              <!--begin:Menu item-->
              <div data-kt-menu-trigger="click" class="menu-item menu-accordion ">

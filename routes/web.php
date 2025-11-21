@@ -7,6 +7,7 @@ use App\Http\Controllers\Apps\GallerieController;
 use App\Http\Controllers\Apps\ContactController;
 use App\Http\Controllers\Apps\BrandController;
 use App\Http\Controllers\Apps\ConstructeurController;
+use App\Http\Controllers\Apps\CatalogeController;
 use App\Http\Controllers\Apps\NavigationMenuController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\HomeController;
@@ -96,6 +97,33 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{constructeur}/edit', 'edit')->name('edit');
             Route::put('/{constructeur}', 'update')->name('update');
             Route::delete('/{constructeur}', 'destroy')->name('destroy');
+        });
+
+
+        Route::prefix('cataloge')->name('apps.cataloge.')->controller(CatalogeController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            
+            // Categories
+            Route::prefix('categories')->name('categories.')->group(function () {
+                Route::get('/', 'categoriesIndex')->name('index');
+                Route::get('/create', 'createCategory')->name('create');
+                Route::post('/', 'storeCategory')->name('store');
+                Route::get('/{category}', 'showCategory')->name('show');
+                Route::get('/{category}/edit', 'editCategory')->name('edit');
+                Route::put('/{category}', 'updateCategory')->name('update');
+                Route::delete('/{category}', 'destroyCategory')->name('destroy');
+            });
+            
+            // Pieces
+            Route::prefix('pieces')->name('pieces.')->group(function () {
+                Route::get('/', 'piecesIndex')->name('index');
+                Route::get('/create', 'createPiece')->name('create');
+                Route::post('/', 'storePiece')->name('store');
+                Route::get('/{piece}', 'showPiece')->name('show');
+                Route::get('/{piece}/edit', 'editPiece')->name('edit');
+                Route::put('/{piece}', 'updatePiece')->name('update');
+                Route::delete('/{piece}', 'destroyPiece')->name('destroy');
+            });
         });
     
     });

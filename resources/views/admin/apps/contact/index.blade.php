@@ -15,7 +15,7 @@
                         <span class="path1"></span>
                         <span class="path2"></span>
                     </i>
-                    <input type="text" id="kt_table_devis_search" class="form-control form-control-solid w-250px ps-13" placeholder="Rechercher un devis">
+                    <input type="text" id="kt_table_devis_search" class="form-control form-control-solid w-250px ps-13" placeholder="Rechercher un contact">
                 </div>
             </div>
             <div class="card-toolbar">

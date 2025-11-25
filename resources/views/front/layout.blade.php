@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'pyassat - Pièces Auto')</title>
+    <title>@yield('title_front', 'pyassat - Pièces Auto')</title>
+    <meta name="description" content="@yield('description_front', 'pyassat - Pièces Auto')">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,8 +55,8 @@
                     <a href="" class="header-icon">
                         <i class="fas fa-heart"></i> Favoris
                     </a>
-                    <a href="#" class="header-icon">
-                        <i class="fas fa-user"></i> Compte
+                    <a href="{{ route('front.contact.index') }}" class="header-icon">
+                        <i class="fas fa-user"></i> Contact
                     </a>
                     <a href="#" class="header-icon cart-trigger" onclick="toggleCart(event)">
                         <i class="fas fa-shopping-cart"></i>
@@ -100,26 +101,28 @@
                 <div class="col-md-3  h-100 d-flex align-items-center justify-content-center">
                     <div class="nav-links dropdown drop-categories">
                         <ul class="nav-links ps-0">
-                                
                             <li><a class=" dropdown-toggle" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-bars"></i>
-                                    Catégories
-                                </a>
+                                <i class="fas fa-bars"></i>
+                                Catégories
+                            </a>
                             
-                                <ul class="drop-menu">
-                                    <li><a href="#">Drop menu 1</a></li>
-                                    <li><a href="#">Drop menu 2</a></li>
-                                    <li><a href="#">Drop menu 3</a></li>
-                                    <li><a href="#">Drop menu 4</a></li>
-                                </ul>
-                            </li>
+                            <ul class="drop-menu">
+                                        @foreach($navigationMenus as $menu)
+                                            @if($menu->activeChildren)
+                                        <li><a href="{{ resolveMenuUrl($menu->url) }}">{{ $menu->title }}</a></li>
+                                        
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </li>
+                                
                         </ul>
 
                             
                         
                     </div>
                     <div class="promo-link">
-                        <a href="" >% PROMOTIONS</a>
+                        <a href="{{ route('front.promotion.promo') }}" >% PROMOTIONS</a>
                     </div>
                                         
                 </div>
@@ -203,17 +206,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body p-0">
-            <div class="mobile-account-section">
-                <a href="#" class="mobile-account-link">
-                    <i class="fas fa-user-circle"></i>
-                    <div>
-                        <strong>Mon Compte</strong>
-                        <small class="d-block text-muted">Connectez-vous</small>
-                    </div>
-                </a>
-            </div>
-
             <div class="accordion accordion-flush" id="mobileMenuAccordion">
+                <!-- Categories -->
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesCollapse" aria-expanded="false">
@@ -223,125 +217,43 @@
                     <div id="categoriesCollapse" class="accordion-collapse collapse" data-bs-parent="#mobileMenuAccordion">
                         <div class="accordion-body p-0">
                             <ul class="mobile-submenu">
-                                <li><a href="#">Catégorie 1</a></li>
-                                <li><a href="#">Catégorie 2</a></li>
-                                <li><a href="#">Catégorie 3</a></li>
-                                <li><a href="#">Catégorie 4</a></li>
+                                @foreach($catalogCategories as $category)
+                                    <li><a href="{{ route('front.list', ['category' => $category->slug]) }}">{{ $category->title }}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mecaniqueCollapse" aria-expanded="false">
-                            <i class="fas fa-tools me-2"></i> Mécanique
-                        </button>
-                    </h2>
-                    <div id="mecaniqueCollapse" class="accordion-collapse collapse" data-bs-parent="#mobileMenuAccordion">
-                        <div class="accordion-body p-0">
-                            <ul class="mobile-submenu">
-                                <li><a href="{{ route('front.list') }}">Personal Email</a></li>
-                                <li><a href="#">Business Email</a></li>
-                                <li><a href="#">Mobile Email</a></li>
-                                <li><a href="#">Web Marketing</a></li>
-                            </ul>
+                <!-- Dynamic Navigation Menus -->
+                @foreach($navigationMenus as $menu)
+                    @if($menu->is_dropdown && $menu->activeChildren->count() > 0)
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menu{{ $menu->id }}Collapse" aria-expanded="false">
+                                    @if($menu->icon)
+                                        {!! getIcon($menu->icon, 'me-2') !!}
+                                    @else
+                                        <i class="fas fa-cog me-2"></i>
+                                    @endif
+                                    {{ $menu->title }}
+                                </button>
+                            </h2>
+                            <div id="menu{{ $menu->id }}Collapse" class="accordion-collapse collapse" data-bs-parent="#mobileMenuAccordion">
+                                <div class="accordion-body p-0">
+                                    <ul class="mobile-submenu">
+                                        @foreach($menu->children as $child)
+                                            <li><a href="{{ resolveMenuUrl($child->url) }}">{{ $child->title }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filtrationCollapse" aria-expanded="false">
-                            <i class="fas fa-filter me-2"></i> Filtration
-                        </button>
-                    </h2>
-                    <div id="filtrationCollapse" class="accordion-collapse collapse" data-bs-parent="#mobileMenuAccordion">
-                        <div class="accordion-body p-0">
-                            <ul class="mobile-submenu">
-                                <li><a href="#">Filtre à air</a></li>
-                                <li><a href="#">Filtre à huile</a></li>
-                                <li><a href="#">Filtre à carburant</a></li>
-                                <li><a href="#">Filtre d'habitacle</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#freinageCollapse" aria-expanded="false">
-                            <i class="fas fa-brake-warning me-2"></i> Freinage
-                        </button>
-                    </h2>
-                    <div id="freinageCollapse" class="accordion-collapse collapse" data-bs-parent="#mobileMenuAccordion">
-                        <div class="accordion-body p-0">
-                            <ul class="mobile-submenu">
-                                <li><a href="#">Plaquettes de frein</a></li>
-                                <li><a href="#">Disques de frein</a></li>
-                                <li><a href="#">Liquide de frein</a></li>
-                                <li><a href="#">Kit de freinage</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#lubrifiants" aria-expanded="false">
-                            <i class="fas fa-oil-can me-2"></i> Lubrifiants
-                        </button>
-                    </h2>
-                    <div id="lubrifiants" class="accordion-collapse collapse" data-bs-parent="#mobileMenuAccordion">
-                        <div class="accordion-body p-0">
-                            <ul class="mobile-submenu">
-                                <li><a href="#">Huile moteur</a></li>
-                                <li><a href="#">Huile transmission</a></li>
-                                <li><a href="#">Liquide de refroidissement</a></li>
-                                <li><a href="#">Graisse</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#batteries" aria-expanded="false">
-                            <i class="fas fa-car-battery me-2"></i> Batteries
-                        </button>
-                    </h2>
-                    <div id="batteries" class="accordion-collapse collapse" data-bs-parent="#mobileMenuAccordion">
-                        <div class="accordion-body p-0">
-                            <ul class="mobile-submenu">
-                                <li><a href="#">Batteries auto</a></li>
-                                <li><a href="#">Batteries moto</a></li>
-                                <li><a href="#">Chargeurs</a></li>
-                                <li><a href="#">Accessoires</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#entretien" aria-expanded="false">
-                            <i class="fas fa-wrench me-2"></i> Entretien
-                        </button>
-                    </h2>
-                    <div id="entretien" class="accordion-collapse collapse" data-bs-parent="#mobileMenuAccordion">
-                        <div class="accordion-body p-0">
-                            <ul class="mobile-submenu">
-                                <li><a href="#">Bougies</a></li>
-                                <li><a href="#">Courroies</a></li>
-                                <li><a href="#">Balais d'essuie-glace</a></li>
-                                <li><a href="#">Ampoules</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                    @endif
+                @endforeach
             </div>
 
-            <a href="#" class="mobile-promo-link">
+            <a href="{{ route('front.promotion.promo') }}" class="mobile-promo-link">
                 <i class="fas fa-percent"></i> PROMOTIONS
             </a>
 
@@ -515,6 +427,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/plugins/ModifiersPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
     <script src="{{ asset('assets/site/js/script.js')}}"></script>
     <script src="{{ asset('assets/site/js/addtocart.js')}}"></script>
     @yield('scripts')

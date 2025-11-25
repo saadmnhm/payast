@@ -47,7 +47,12 @@
             </div>
             <!--end:Menu item-->
             <!--begin:Menu item-->
-
+            <div class="menu-item menu-accordion">
+                <a class="menu-link {{ request()->routeIs('apps.orders.*') ? 'active' : '' }}" href="{{ route('apps.orders.index') }}">
+                    <span class="menu-icon">{!! getIcon('shop', 'fs-2') !!}</span>
+                    <span class="menu-title">Commandes</span>
+                </a>
+            </div>
             <!--end:Menu item-->
             <!--begin:Menu item-->
             <div class="menu-item menu-accordion ">
@@ -65,6 +70,16 @@
                 <a class="menu-link {{ request()->routeIs('apps.cataloge.*') ? 'active' : '' }}"  href="{{ route('apps.cataloge.index') }}">
                     <span class="menu-icon">{!! getIcon('menu', 'fs-2') !!}</span>
                     <span class="menu-title">cataloge de piece</span>
+                </a>
+                <!--end:Menu link-->
+            </div>
+            <!--end:Menu item-->
+            <!--begin:Menu item-->
+            <div class="menu-item menu-accordion ">
+                <!--begin:Menu link-->
+                <a class="menu-link {{ request()->routeIs('apps.promotions.*') ? 'active' : '' }}"  href="{{ route('apps.promotions.index') }}">
+                    <span class="menu-icon">{!! getIcon('discount', 'fs-2') !!}</span>
+                    <span class="menu-title">Promotions</span>
                 </a>
                 <!--end:Menu link-->
             </div>

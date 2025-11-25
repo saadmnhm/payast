@@ -42,7 +42,17 @@ class CatalogCategory extends Model
 
     public function getImageUrlAttribute(): string
     {
-        return $this->image ? asset('storage/' . $this->image) : asset('assets/media/svg/files/blank-image.svg');
+        if ($this->image) {
+            if (filter_var($this->image, FILTER_VALIDATE_URL)) {
+                return $this->image;
+            }
+            
+            if (file_exists(public_path('uploads/' . $this->image))) {
+                return asset('uploads/' . $this->image);
+            }
+        }
+
+        return asset('assets/media/svg/files/blank-image.svg');
     }
 
     public function getFullPathAttribute(): string

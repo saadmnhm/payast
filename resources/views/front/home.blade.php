@@ -9,21 +9,19 @@
     <section class="hero" id="home">
         <div class="container">
             
-            <p>RECHERCHEZ PAR MODÈLE DE VÉHICULE</p>
-            <form class="search-form" onsubmit="searchVehicle(event)">
-                <select id="brand" onchange="loadModels()">
-                    <option value="">CONSTRUCTEUR</option>
-                    <option value="renault">Renault</option>
-                    <option value="peugeot">Peugeot</option>
-                    <option value="volkswagen">Volkswagen</option>
-                    <option value="hyundai">Hyundai</option>
-                    <option value="kia">Kia</option>
-                </select>
-                <select id="model" onchange="loadVersions()">
-                    <option value="">MODÈLE</option>
-                </select>
-                <select id="version">
-                    <option value="">VERSION</option>
+            <p>RECHERCHEZ PAR MARQUE</p>
+            <form class="search-form" action="{{ route('front.list') }}" method="GET">
+                <select name="brand[]" id="brandSelect" class="form-select-modern">
+                    <option value="">SÉLECTIONNER UNE MARQUE</option>
+                    @php
+                        $searchBrands = \App\Models\Brand::where('is_active', true)
+                            ->whereHas('pieces')
+                            ->orderBy('label')
+                            ->get();
+                    @endphp
+                    @foreach($searchBrands as $brand)
+                        <option value="{{ $brand->id }}">{{ $brand->label }}</option>
+                    @endforeach
                 </select>
                 <button type="submit">
                     <i class="fas fa-search"></i> RECHERCHER
@@ -65,7 +63,7 @@
                     <div class="item">
                         <div class="constructeur-logo" >
                             @if($constructeur->image)
-                                <img src="{{ asset('storage/'.$constructeur->image) }}" alt="{{ $constructeur->label }}">
+                                <img src="{{ asset('uploads/'.$constructeur->image) }}" alt="{{ $constructeur->label }}">
                             @else
                                 {{ $constructeur->label }}
                             @endif
@@ -193,7 +191,7 @@
                             <div class="item">
                                 <div class="brand-logo" >
                                     @if($brand->image)
-                                        <img src="{{ asset('storage/'.$brand->image) }}" alt="{{ $brand->label }}">
+                                        <img src="{{ asset('uploads/'.$brand->image) }}" alt="{{ $brand->label }}">
                                     @else
                                         {{ $brand->label }}
                                     @endif

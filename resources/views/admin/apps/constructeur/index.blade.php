@@ -20,7 +20,7 @@
                 <div class="col-md-3">
                     <div class="card h-100 pt-4 align-items-center">
                         @if($constructeur->image)
-                            <img src="{{ asset('storage/'.$constructeur->image) }}" class="card-img-top" alt="{{ $constructeur->label}}" style="height:160px;width: 200px;object-fit:contain;">
+                            <img src="{{ asset('uploads/'.$constructeur->image) }}" class="card-img-top" alt="{{ $constructeur->label}}" style="height:160px;width: 200px;object-fit:contain;">
                         @endif
                         <div class="card-body text-center">
                             <h5 class="card-title">{{ $constructeur->label }}</h5>

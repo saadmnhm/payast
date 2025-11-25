@@ -19,7 +19,7 @@
                     </div>
                     <div class="card-body text-center pt-0">
                         <div class="image-input image-input-outline mb-3" data-kt-image-input="true">
-                            <div class="image-input-wrapper w-150px h-150px" style="background-image: url('{{ $constructeur->image ? asset('storage/'.$constructeur->image) : image('logos/default.png') }}')"></div>
+                            <div class="image-input-wrapper w-150px h-150px" style="background-image: url('{{ $constructeur->image ? asset('uploads/'.$constructeur->image) : image('logos/default.png') }}')"></div>
 
                             <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Changer le logo">
                                 <i class="ki-duotone ki-pencil fs-7">
@@ -95,7 +95,7 @@
         </div>
     </form>
 
-    <form action="{{ route('apps.constructeur.destroy', $constructeur) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce constructeur ?');">
+    <form action="{{ route('apps.constructeur.destroy', $constructeur) }}" method="POST" >
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-danger me-2" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce constructeur ?');">

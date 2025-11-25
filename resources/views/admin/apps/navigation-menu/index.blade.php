@@ -27,14 +27,14 @@
             </div>
             <!--end::Card title-->
             <!--begin::Card toolbar-->
-            <div class="card-toolbar">
+            <!-- <div class="card-toolbar">
                 <div class="d-flex justify-content-end" data-kt-menu-table-toolbar="base">
                     <a href="{{ route('apps.navigation-menu.create') }}" class="btn btn-primary">
                         {!! getIcon('plus', 'fs-2', '', 'i') !!}
                         Ajouter un Menu
                     </a>
                 </div>
-            </div>
+            </div> -->
             <!--end::Card toolbar-->
         </div>
         <!--end::Card header-->

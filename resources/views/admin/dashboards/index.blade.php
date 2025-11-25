@@ -46,10 +46,10 @@
                     <!--begin::Title-->
                     <div class="card-title d-flex flex-column">
                         <!--begin::Amount-->
-                        <span class="fs-2hx fw-bold text-gray-900 me-2 lh-1 ls-n2">{{ $totalArticles }}</span>
+                        <span class="fs-2hx fw-bold text-gray-900 me-2 lh-1 ls-n2">{{ $totalpieces }}</span>
                         <!--end::Amount-->
                         <!--begin::Subtitle-->
-                        <span class="text-gray-500 pt-1 fw-semibold fs-6">Total articles</span>
+                        <span class="text-gray-500 pt-1 fw-semibold fs-6">Total Pieces</span>
                         <!--end::Subtitle-->
                     </div>
                     <!--end::Title-->

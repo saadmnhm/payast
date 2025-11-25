@@ -193,6 +193,93 @@
         </form>
     </div>
 
+    <!-- Add to Promotion Card -->
+    @if($piece->promotions->where('is_active', true)->isEmpty())
+    <div class="card mt-6">
+        <div class="card-header">
+            <h3 class="card-title">Ajouter aux Promotions</h3>
+        </div>
+        <form action="{{ route('apps.promotions.add-piece', $piece) }}" method="POST">
+            @csrf
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <div class="d-flex align-items-center">
+                        {!! getIcon('information-5', 'fs-2x text-info me-4') !!}
+                        <div class="d-flex flex-column">
+                            <h5 class="mb-1">Créer une promotion pour cette pièce</h5>
+                            <span>Définissez un prix promotionnel pour mettre en avant cette pièce.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="form-label required">Prix Promotionnel (DH)</label>
+                    <div class="input-group">
+                        <input type="number" step="0.01" name="price_promo" 
+                               class="form-control @error('price_promo') is-invalid @enderror" 
+                               placeholder="Prix réduit" required>
+                        <span class="input-group-text">MAD</span>
+                    </div>
+                    <div class="form-text">Prix actuel: <strong>{{ number_format($piece->price, 2) }} MAD</strong></div>
+                    @error('price_promo')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-end">
+                <button type="submit" class="btn btn-success">
+                    {!! getIcon('discount', 'fs-2') !!}
+                    Ajouter aux Promotions
+                </button>
+            </div>
+        </form>
+    </div>
+    @else
+    <div class="card mt-6">
+        <div class="card-header bg-light-success">
+            <h3 class="card-title text-success">
+                {!! getIcon('check-circle', 'fs-2 text-success me-2') !!}
+                Cette pièce est déjà en promotion
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-row-bordered">
+                    <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Prix Promo</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($piece->promotions->where('is_active', true) as $promotion)
+                        <tr>
+                            <td>{{ $promotion->title }}</td>
+                            <td><span class="badge badge-light-success">{{ $promotion->formatted_price }}</span></td>
+                            <td>
+                                @if($promotion->is_active)
+                                    <span class="badge badge-success">Actif</span>
+                                @else
+                                    <span class="badge badge-secondary">Inactif</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('apps.promotions.edit', $promotion) }}" class="btn btn-sm btn-light-primary">
+                                    {!! getIcon('pencil', 'fs-5') !!}
+                                    Modifier
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <!-- Delete Modal -->
     <div class="modal fade" id="delete_modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

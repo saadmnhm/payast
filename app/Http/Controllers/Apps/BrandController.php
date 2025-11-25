@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
 {
@@ -30,8 +29,10 @@ class BrandController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('brands', 'public');
-            $data['image'] = $path;
+            $image = $request->file('image');
+            $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/brands'), $filename);
+            $data['image'] = 'brands/' . $filename;
         }
 
         Brand::create($data);
@@ -57,10 +58,14 @@ class BrandController extends Controller
 
         if ($request->hasFile('image')) {
             // Delete old image
-            if ($brand->image) {
-                Storage::disk('public')->delete($brand->image);
+            if ($brand->image && file_exists(public_path('uploads/' . $brand->image))) {
+                unlink(public_path('uploads/' . $brand->image));
             }
-            $data['image'] = $request->file('image')->store('brands', 'public');
+            
+            $image = $request->file('image');
+            $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/brands'), $filename);
+            $data['image'] = 'brands/' . $filename;
         }
 
         $brand->update($data);
@@ -70,8 +75,8 @@ class BrandController extends Controller
 
     public function destroy(Brand $brand)
     {
-        if ($brand->image) {
-            Storage::disk('public')->delete($brand->image);
+        if ($brand->image && file_exists(public_path('uploads/' . $brand->image))) {
+            unlink(public_path('uploads/' . $brand->image));
         }
         
         $brand->delete();

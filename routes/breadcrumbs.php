@@ -228,3 +228,33 @@ Breadcrumbs::for('apps.cataloge.pieces.edit', function (BreadcrumbTrail $trail, 
     $trail->push('Modifier ' . $piece->name, route('apps.cataloge.pieces.edit', $piece));
 });
 
+// Promotions Breadcrumbs
+Breadcrumbs::for('apps.promotions.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Promotions', route('apps.promotions.index'));
+});
+
+Breadcrumbs::for('apps.promotions.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('apps.promotions.index');
+    $trail->push('Créer une promotion', route('apps.promotions.create'));
+});
+
+Breadcrumbs::for('apps.promotions.show', function (BreadcrumbTrail $trail, $promotion) {
+    $trail->parent('apps.promotions.index');
+    $trail->push($promotion->title, route('apps.promotions.show', $promotion));
+});
+
+Breadcrumbs::for('apps.promotions.edit', function (BreadcrumbTrail $trail, $promotion) {
+    $trail->parent('apps.promotions.index');
+    $trail->push('Modifier ' . $promotion->title, route('apps.promotions.edit', $promotion));
+});
+
+Breadcrumbs::for('apps.orders.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Commandes', route('apps.orders.index'));
+});
+
+Breadcrumbs::for('apps.orders.show', function (BreadcrumbTrail $trail, $order) {
+    $trail->parent('apps.orders.index');
+    $trail->push('Commande #' . $order->order_number, route('apps.orders.show', $order));
+});

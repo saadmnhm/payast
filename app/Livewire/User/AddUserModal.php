@@ -108,30 +108,18 @@ class AddUserModal extends Component
             $data['name'] = $this->first_name . ' ' . $this->last_name;
             if ($this->avatar) {
                 try {
-                    $originalName = $this->avatar->getClientOriginalName();
-                    \Log::info("Uploading file: {$originalName}");
+                    $filename = time() . '_' . uniqid() . '.' . $this->avatar->getClientOriginalExtension();
                     
-                    $filename = time() . '_' . $originalName;
+                    \Log::info("Uploading avatar: {$filename}");
                     
-                    $targetDirectory = public_path('assets/images/avatars');
-                    if (!file_exists($targetDirectory)) {
-                        \Log::info("Creating directory: {$targetDirectory}");
-                        mkdir($targetDirectory, 0777, true);
-                        chmod($targetDirectory, 0777); // Ensure permissions are set
-                    }
+                    $this->avatar->move(public_path('uploads/profile-photos'), $filename);
                     
-                    \Log::info("Attempting to move file to: {$targetDirectory}/{$filename}");
+                    \Log::info("Avatar uploaded successfully");
                     
-                    $this->avatar->storeAs('/', $filename, ['disk' => 'public_uploads']);
-                    
-                    
-                    \Log::info("File moved successfully");
-                    
-                    $data['profile_photo_path'] = 'assets/images/avatars/' . $filename;
+                    $data['profile_photo_path'] = 'profile-photos/' . $filename;
                 } catch (\Exception $e) {
-                    \Log::error('Failed to upload image: ' . $e->getMessage());
-                    \Log::error($e->getTraceAsString());
-                    session()->flash('error', 'Failed to upload image: ' . $e->getMessage());
+                    \Log::error('Failed to upload avatar: ' . $e->getMessage());
+                    session()->flash('error', 'Échec du téléchargement de l\'avatar: ' . $e->getMessage());
                     $data['profile_photo_path'] = null;
                 }
             } else {

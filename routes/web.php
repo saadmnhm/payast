@@ -3,17 +3,20 @@
 use App\Http\Controllers\Apps\PermissionManagementController;
 use App\Http\Controllers\Apps\RoleManagementController;
 use App\Http\Controllers\Apps\UserManagementController;
-use App\Http\Controllers\Apps\GallerieController;
 use App\Http\Controllers\Apps\ContactController;
 use App\Http\Controllers\Apps\BrandController;
 use App\Http\Controllers\Apps\ConstructeurController;
 use App\Http\Controllers\Apps\CatalogeController;
 use App\Http\Controllers\Apps\NavigationMenuController;
+use App\Http\Controllers\Apps\PromotionController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\PeiceController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
+
+
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->get('/', function () {
@@ -49,13 +52,19 @@ Route::middleware(['auth'])->group(function () {
 
 
         // Contact routes
-        Route::prefix('contact')->name('apps.contact.')->controller(ContactController::class)->group(function () {
+        Route::prefix('apps/contacts')->name('apps.contact.')->controller(ContactController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/{contact}', 'show')->name('show');
             Route::patch('/{id}/update-status', 'updateStatus')->name('update-status');
         });
 
-
+        Route::prefix('orders')->name('apps.orders.')->controller(\App\Http\Controllers\Apps\OrderController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/{order}', 'show')->name('show');
+            Route::patch('/{order}/status', 'updateStatus')->name('update-status');
+            Route::patch('/{order}/payment-status', 'updatePaymentStatus')->name('update-payment-status');
+            Route::delete('/{order}', 'destroy')->name('destroy');
+        });
 
         
 
@@ -125,6 +134,18 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete('/{piece}', 'destroyPiece')->name('destroy');
             });
         });
+
+        // Promotions
+        Route::prefix('promotions')->name('apps.promotions.')->controller(PromotionController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::post('/piece/{piece}', 'addPieceToPromotion')->name('add-piece');
+            Route::get('/{promotion}', 'show')->name('show');
+            Route::get('/{promotion}/edit', 'edit')->name('edit');
+            Route::put('/{promotion}', 'update')->name('update');
+            Route::delete('/{promotion}', 'destroy')->name('destroy');
+        });
     
     });
 });
@@ -132,13 +153,25 @@ Route::middleware(['auth'])->group(function () {
 
 Route::name('front.')->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('home');
+    
+    // Search
+    Route::get('/search/suggestions', [PeiceController::class, 'searchSuggestions'])->name('search.suggestions');
+    
     Route::get('/pieces', [PeiceController::class, 'index'])->name('list');
-    // category / subcategory route, optional subcategory
     Route::get('/pieces/{category}/{subcategory?}', [PeiceController::class, 'index'])
         ->where('subcategory', '.*')
         ->name('list.category');
+    Route::get('/piece/{id}', [PeiceController::class, 'show'])->name('piece.show');
+
+    Route::prefix('contact')->name('contact.')->group(function () {
+        Route::get('/', [ContactFormController::class, 'index'])->name('index');
+        Route::post('/', [ContactFormController::class, 'store'])->name('store');
+    });  
+
+    Route::get('/promo', [HomeController::class, 'promo'])->name('promotion.promo');
     Route::get('/checkout/cart', [CheckoutController::class, 'index'])->name('cart');
     Route::post('/checkout/process', [CheckoutController::class, 'processOrder'])->name('checkout.process');
+    Route::get('/order/success/{order}', [CheckoutController::class, 'success'])->name('order.success');
 });
 
 

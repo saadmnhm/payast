@@ -62,24 +62,34 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
     public function getProfilePhotoUrlAttribute()
-{
-    if ($this->profile_photo_path) {
-        // Check if the path already has http:// or https://
-        if (strpos($this->profile_photo_path, 'http://') === 0 || strpos($this->profile_photo_path, 'https://') === 0) {
-            return $this->profile_photo_path;
+    {
+        if ($this->profile_photo_path) {
+            // Check if it's already a full URL
+            if (filter_var($this->profile_photo_path, FILTER_VALIDATE_URL)) {
+                return $this->profile_photo_path;
+            }
+
+            // Check for uploads path (new system)
+            if (file_exists(public_path('uploads/' . $this->profile_photo_path))) {
+                return asset('uploads/' . $this->profile_photo_path);
+            }
+
+            // Check if it uses the asset path format (legacy)
+            if (strpos($this->profile_photo_path, 'assets/') === 0) {
+                return asset($this->profile_photo_path);
+            }
+
+            // Fallback to storage path (old system)
+            if (file_exists(public_path('storage/' . $this->profile_photo_path))) {
+                return asset('storage/' . $this->profile_photo_path);
+            }
         }
 
-        // Check if it uses the asset path format
-        if (strpos($this->profile_photo_path, 'assets/') === 0) {
-            return asset($this->profile_photo_path);
-        }
-
-        // Default to storage path
-        return asset('storage/' . $this->profile_photo_path);
+        // Default avatar with initials
+        $name = trim($this->first_name . ' ' . $this->last_name);
+        return 'https://ui-avatars.com/api/?name=' . urlencode($name) 
+            . '&color=7F9CF5&background=EBF4FF&font-size=0.4';
     }
-
-    return null;
-}
 
     public function addresses()
     {

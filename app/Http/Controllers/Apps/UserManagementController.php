@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserManagementController extends Controller
 {
@@ -15,8 +16,12 @@ class UserManagementController extends Controller
      */
     public function index()
     {
-    $users = User::with('roles')->get();
-    return view('admin.apps.users.list', compact('users'));
+        $users = User::with('roles')
+            ->where('id', '!=', Auth::id())  
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('admin.apps.users.list', compact('users'));
     }
     public function trashed()
     {

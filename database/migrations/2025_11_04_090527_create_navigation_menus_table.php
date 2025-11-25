@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->boolean('is_dropdown')->default(false);
-            $table->string('target')->default('_self'); // _self, _blank
+            $table->string('target')->default('_self'); 
             $table->timestamps();
             $table->softDeletes();
 

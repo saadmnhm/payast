@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Apps;
 use App\Http\Controllers\Controller;
 use App\Models\Constructeur;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ConstructeurController extends Controller
 {
@@ -29,8 +28,10 @@ class ConstructeurController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('constructeurs', 'public');
-            $data['image'] = $path;
+            $image = $request->file('image');
+            $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/constructeurs'), $filename);
+            $data['image'] = 'constructeurs/' . $filename;
         }
 
         Constructeur::create($data);
@@ -54,10 +55,14 @@ class ConstructeurController extends Controller
 
         if ($request->hasFile('image')) {
             // Delete old image
-            if ($constructeur->image) {
-                Storage::disk('public')->delete($constructeur->image);
+            if ($constructeur->image && file_exists(public_path('uploads/' . $constructeur->image))) {
+                unlink(public_path('uploads/' . $constructeur->image));
             }
-            $data['image'] = $request->file('image')->store('constructeurs', 'public');
+            
+            $image = $request->file('image');
+            $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/constructeurs'), $filename);
+            $data['image'] = 'constructeurs/' . $filename;
         }
 
         $constructeur->update($data);
@@ -67,8 +72,8 @@ class ConstructeurController extends Controller
 
     public function destroy(Constructeur $constructeur)
     {
-        if ($constructeur->image) {
-            Storage::disk('public')->delete($constructeur->image);
+        if ($constructeur->image && file_exists(public_path('uploads/' . $constructeur->image))) {
+            unlink(public_path('uploads/' . $constructeur->image));
         }
         
         $constructeur->delete();

@@ -20,7 +20,7 @@
                     </div>
                     <div class="card-body text-center pt-0">
                         <div class="image-input image-input-outline mb-3" data-kt-image-input="true">
-                            <div class="image-input-wrapper w-150px h-150px" style="background-image: url('{{ $brand->image ? asset('storage/'.$brand->image) : image('logos/default.png') }}')"></div>
+                            <div class="image-input-wrapper w-150px h-150px" style="background-image: url('{{ $brand->image ? asset('uploads/'.$brand->image) : image('logos/default.png') }}')"></div>
 
                             <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Changer le logo">
                                 {!! getIcon('pencil', 'fs-7') !!}

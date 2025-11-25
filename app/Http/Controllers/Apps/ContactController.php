@@ -16,17 +16,14 @@ class ContactController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Contact::query();
+        $query = Contact::orderby('created_at');
 
-        // Apply filters if they exist
         if ($request->has('filters')) {
             $filters = $request->input('filters');
 
-            // Filter by read status
             if (isset($filters['read_status'])) {
                 $readStatuses = $filters['read_status'];
 
-                // If we have both read and unread selected, don't apply any filter
                 if (!(in_array('read', $readStatuses) && in_array('unread', $readStatuses))) {
                     if (in_array('read', $readStatuses)) {
                         $query->where('is_read', true);

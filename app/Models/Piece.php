@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Piece extends Model
 {
@@ -37,9 +38,29 @@ class Piece extends Model
         return $this->belongsTo(Brand::class, 'brand_id');
     }
 
+    public function promotions(): HasMany
+    {
+        return $this->hasMany(Promotion::class, 'piece_id');
+    }
+
+    public function activePromotion()
+    {
+        return $this->hasOne(Promotion::class, 'piece_id')->where('is_active', true);
+    }
+
     public function getImageUrlAttribute(): string
     {
-        return $this->image ? asset('storage/' . $this->image) : asset('assets/media/svg/files/blank-image.svg');
+        if ($this->image) {
+            if (filter_var($this->image, FILTER_VALIDATE_URL)) {
+                return $this->image;
+            }
+            
+            if (file_exists(public_path('uploads/' . $this->image))) {
+                return asset('uploads/' . $this->image);
+            }
+        }
+
+        return asset('assets/media/svg/files/blank-image.svg');
     }
 
     public function getBrandNameAttribute(): ?string
@@ -53,7 +74,9 @@ class Piece extends Model
     public function getBrandImageUrlAttribute(): ?string
     {
         if ($this->brand_id && $this->relationLoaded('brand') && $this->brand && $this->brand->image) {
-            return asset('storage/' . $this->brand->image);
+            if (file_exists(public_path('uploads/' . $this->brand->image))) {
+                return asset('uploads/' . $this->brand->image);
+            }
         }
         return null;
     }

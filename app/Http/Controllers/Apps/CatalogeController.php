@@ -62,7 +62,10 @@ class CatalogeController extends Controller
         $data['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('catalog/categories', 'public');
+            $image = $request->file('image');
+            $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/categories'), $filename);
+            $data['image'] = 'categories/' . $filename;
         }
 
         $category = CatalogCategory::create($data);
@@ -118,10 +121,14 @@ class CatalogeController extends Controller
         $data['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('image')) {
-            if ($category->image) {
-                Storage::disk('public')->delete($category->image);
+            if ($category->image && file_exists(public_path('uploads/' . $category->image))) {
+                unlink(public_path('uploads/' . $category->image));
             }
-            $data['image'] = $request->file('image')->store('catalog/categories', 'public');
+            
+            $image = $request->file('image');
+            $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/categories'), $filename);
+            $data['image'] = 'categories/' . $filename;
         }
 
         $category->update($data);
@@ -135,11 +142,10 @@ class CatalogeController extends Controller
             return back()->with('error', 'Impossible de supprimer une catégorie contenant des pièces');
         }
 
-        // Move children to parent or null
         $category->children()->update(['parent_id' => $category->parent_id]);
         
-        if ($category->image) {
-            Storage::disk('public')->delete($category->image);
+        if ($category->image && file_exists(public_path('uploads/' . $category->image))) {
+            unlink(public_path('uploads/' . $category->image));
         }
 
         $category->delete();
@@ -177,7 +183,10 @@ class CatalogeController extends Controller
         $data['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('catalog/pieces', 'public');
+            $image = $request->file('image');
+            $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/pieces'), $filename);
+            $data['image'] = 'pieces/' . $filename;
         }
 
         Piece::create($data);
@@ -193,6 +202,7 @@ class CatalogeController extends Controller
 
     public function editPiece(Piece $piece)
     {
+        $piece->load('promotions');
         $categories = CatalogCategory::orderBy('title')->get();
         $brands = \App\Models\Brand::where('is_active', true)->orderBy('label')->get();
         return view('admin.apps.cataloge.pieces.edit', compact('piece', 'categories', 'brands'));
@@ -215,10 +225,14 @@ class CatalogeController extends Controller
         $data['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('image')) {
-            if ($piece->image) {
-                Storage::disk('public')->delete($piece->image);
+            if ($piece->image && file_exists(public_path('uploads/' . $piece->image))) {
+                unlink(public_path('uploads/' . $piece->image));
             }
-            $data['image'] = $request->file('image')->store('catalog/pieces', 'public');
+            
+            $image = $request->file('image');
+            $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/pieces'), $filename);
+            $data['image'] = 'pieces/' . $filename;
         }
 
         $piece->update($data);
@@ -228,11 +242,11 @@ class CatalogeController extends Controller
 
     public function destroyPiece(Piece $piece)
     {
-        if ($piece->image) {
-            Storage::disk('public')->delete($piece->image);
+        if ($piece->image && file_exists(public_path('uploads/' . $piece->image))) {
+            unlink(public_path('uploads/' . $piece->image));
         }
-        if ($piece->brand_image) {
-            Storage::disk('public')->delete($piece->brand_image);
+        if ($piece->brand_image && file_exists(public_path('uploads/' . $piece->brand_image))) {
+            unlink(public_path('uploads/' . $piece->brand_image));
         }
 
         $piece->delete();

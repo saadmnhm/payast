@@ -1,5 +1,9 @@
 @extends('front.layout')
 
+@section('title_front', 'Passe la commande')
+
+
+
 @section('content')
 
 <div class="container my-5">
@@ -80,19 +84,6 @@
                             </div>
                         </div>
 
-                        <!-- Coupon Section -->
-                        <div class="card mt-4">
-                            <div class="card-body">
-                                <h5 class="mb-3">Code promo</h5>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="coupon_code" placeholder="Entrez votre code promo">
-                                    <button class="btn btn-outline-primary" type="button" onclick="applyCoupon()">
-                                        <i class="fas fa-check"></i> Appliquer
-                                    </button>
-                                </div>
-                                <div id="coupon-message" class="mt-2"></div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="col-lg-4">
@@ -161,19 +152,19 @@
                                         </label>
                                     </div>
                                     
-                                    <div class="form-check shipping-option-card">
-                                        <input class="form-check-input" type="radio" name="shipping_method" id="delivery" value="delivery">
-                                        <label class="form-check-label w-100" for="delivery">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <i class="fas fa-truck text-primary me-2"></i>
-                                                    <strong>Livraison express</strong>
-                                                    <span class="d-block text-muted small">Livraison sous 24-48h</span>
-                                                </div>
-                                                <span id="delivery-price" class="text-muted">À calculer</span>
+                                <div class="form-check shipping-option-card">
+                                    <input class="form-check-input" type="radio" name="shipping_method" id="delivery" value="delivery">
+                                    <label class="form-check-label w-100" for="delivery">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <i class="fas fa-truck text-primary me-2"></i>
+                                                <strong>Livraison express</strong>
+                                                <span class="d-block text-muted small">Livraison sous 24-48h</span>
                                             </div>
-                                        </label>
-                                    </div>
+                                            <span id="delivery-price" class="text-primary fw-bold">30.00 DH</span>
+                                        </div>
+                                    </label>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -266,7 +257,7 @@
                     <button type="button" class="btn btn-light" onclick="prevStep()">
                         <i class="fas fa-arrow-left"></i> Retour
                     </button>
-                    <button type="button" class="btn btn-primary" onclick="nextStep()">
+                    <button type="button" class="btn btn-danger" onclick="nextStep()">
                         Suivant <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
@@ -295,7 +286,7 @@
                                         </label>
                                     </div>
 
-                                    <div class="form-check payment-option-card mb-3">
+                                    <!-- <div class="form-check payment-option-card mb-3">
                                         <input class="form-check-input" type="radio" name="payment_method" id="card" value="card">
                                         <label class="form-check-label w-100" for="card">
                                             <div class="d-flex align-items-center">
@@ -319,7 +310,7 @@
                                                 </div>
                                             </div>
                                         </label>
-                                    </div>
+                                    </div> -->
                                 </div>
 
                                 <!-- Terms and Conditions -->
@@ -370,8 +361,7 @@
                     <button type="button" class="btn btn-light" onclick="prevStep()">
                         <i class="fas fa-arrow-left"></i> Retour
                     </button>
-                    <button type="submit" class="btn btn-success btn-lg">
-                        <i class="fas fa-lock"></i> Confirmer la commande
+                    <button type="submit" class="btn btn-success btn-lg"> Confirmer la commande
                     </button>
                 </div>
             </div>

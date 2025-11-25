@@ -238,13 +238,26 @@ function initCheckoutStepper() {
     shippingRadios.forEach(radio => {
         radio.addEventListener('change', function() {
             const deliveryCard = document.getElementById('delivery-address-card');
+            const deliveryPrice = document.getElementById('delivery-price');
+            
             if (this.value === 'delivery') {
                 deliveryCard.style.display = 'block';
-                calculateShippingCost();
+                if (deliveryPrice) {
+                    deliveryPrice.textContent = '30.00 DH';
+                }
+                updateShippingCost(30);
             } else {
                 deliveryCard.style.display = 'none';
+                if (deliveryPrice) {
+                    deliveryPrice.textContent = 'Gratuit';
+                }
                 updateShippingCost(0);
             }
+            
+            // Recalculate summary
+            const subtotalEl = document.getElementById('subtotal');
+            const subtotal = subtotalEl ? parseFloat(subtotalEl.textContent) || 0 : 0;
+            updateCheckoutSummary(subtotal);
             updateFinalSummary();
         });
     });
@@ -459,13 +472,21 @@ function updateShippingCost(cost) {
     if (shippingCostEl) {
         shippingCostEl.textContent = cost.toFixed(2) + ' DH';
     }
+    
+    // Update shipping cost for all steps
+    ['', '-step2', '-step3'].forEach(suffix => {
+        const el = document.getElementById(`shipping-cost${suffix}`);
+        if (el) {
+            el.textContent = cost.toFixed(2) + ' DH';
+        }
+    });
 }
 
 function calculateShippingCost() {
-    // Simulate shipping cost calculation
-    const cityInput = document.getElementById('city');
-    const city = cityInput ? cityInput.value : '';
-    const cost = city ? 50 : 0; // 50 DH for delivery
+    // Check if delivery is selected
+    const deliveryRadio = document.getElementById('delivery');
+    const cost = (deliveryRadio && deliveryRadio.checked) ? 30 : 0;
+    
     updateShippingCost(cost);
     
     const subtotalEl = document.getElementById('subtotal');
@@ -496,7 +517,6 @@ function applyCoupon() {
         return;
     }
     
-    // Simulate coupon validation
     if (code.toUpperCase() === 'PROMO10') {
         messageEl.innerHTML = '<small class="text-success"><i class="fas fa-check-circle"></i> Code appliqué avec succès</small>';
         const discountRow = document.getElementById('discount-row');
@@ -520,7 +540,7 @@ function processOrder() {
     formData.append('cart_items', JSON.stringify(cart));
     
     // Show loading
-    const submitBtn = document.querySelector('button[type="submit"]');
+    const submitBtn = checkoutForm.querySelector('button[type="submit"]');
     if (!submitBtn) return;
     
     const originalText = submitBtn.innerHTML;
@@ -530,14 +550,15 @@ function processOrder() {
     // Get CSRF token from meta tag
     const csrfToken = document.querySelector('meta[name="csrf-token"]');
     const headers = {
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
     };
     
     if (csrfToken) {
         headers['X-CSRF-TOKEN'] = csrfToken.content;
     }
     
-    fetch(window.location.pathname, {
+    fetch('/checkout/process', {
         method: 'POST',
         body: formData,
         headers: headers
@@ -548,22 +569,20 @@ function processOrder() {
             // Clear cart
             localStorage.removeItem(CART_KEY);
             
-            // Show success message
-            showNotification(`Commande confirmée ! Numéro de commande: ${data.order_id}`);
-            
-            // Redirect to home after 2 seconds
-            setTimeout(() => {
+            // Redirect to success page
+            if (data.redirect) {
+                window.location.href = data.redirect;
+            } else {
+                showNotification('Commande confirmée !', 'success');
                 window.location.href = '/';
-            }, 2000);
+            }
         } else {
-            showNotification(data.message || 'Une erreur est survenue');
+            throw new Error(data.message || 'Erreur lors du traitement de la commande');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        showNotification('Une erreur est survenue lors du traitement de votre commande');
-    })
-    .finally(() => {
+        showNotification(error.message || 'Une erreur est survenue', 'error');
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalText;
     });

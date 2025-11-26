@@ -38,10 +38,11 @@ function updateCartCount() {
     const count = cart.length;
     const total = cart.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
     
-    const countEl = document.getElementById('cartCount');
-    const headerTotalEl = document.getElementById('cartTotalHeader');
+    document.querySelectorAll('#cartCount').forEach(countEl => {
+        if (countEl) countEl.textContent = count;
+    });
     
-    if (countEl) countEl.textContent = count;
+    const headerTotalEl = document.getElementById('cartTotalHeader');
     if (headerTotalEl) headerTotalEl.textContent = total.toFixed(2) + 'DH';
     
     updateCartTotal();
@@ -113,7 +114,9 @@ function checkout() {
         return;
     }
     
-    window.location.href = '/checkout/cart';
+    // Use Laravel route from window.routes or fallback
+    const checkoutUrl = window.routes?.checkout || window.routes?.cart || '/checkout/cart';
+    window.location.href = checkoutUrl;
 }
 
 function showNotification(message) {
@@ -178,6 +181,12 @@ function toggleCart(e) {
     e.preventDefault();
     e.stopPropagation();
     const dropdown = document.getElementById('cartDropdown');
+    
+    if (!dropdown) {
+        console.warn('Cart dropdown not found');
+        return;
+    }
+    
     dropdown.classList.toggle('active');
     updateCartDropdown();
 }
@@ -558,7 +567,7 @@ function processOrder() {
         headers['X-CSRF-TOKEN'] = csrfToken.content;
     }
     
-    fetch('/checkout/process', {
+    fetch(window.routes?.checkoutProcess || '/checkout/process', {
         method: 'POST',
         body: formData,
         headers: headers
@@ -566,10 +575,8 @@ function processOrder() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Clear cart
             localStorage.removeItem(CART_KEY);
             
-            // Redirect to success page
             if (data.redirect) {
                 window.location.href = data.redirect;
             } else {
@@ -589,7 +596,179 @@ function processOrder() {
 }
 
 function continueShopping() {
-    window.location.href = '/';
+    const piecesUrl = window.routes?.pieces || '/pieces';
+    window.location.href = piecesUrl;
+}
+
+// ============================================
+// CHECKOUT PAGE FUNCTIONS
+// ============================================
+
+function loadCheckoutCartItems() {
+    const cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+    const cartItemsBody = document.getElementById('cart-items-body');
+    const cartItemsMobile = document.getElementById('cart-items-mobile');
+    const emptyCartMessage = document.getElementById('empty-cart-message');
+    
+    console.log('Loading cart items:', cart);
+    
+    if (cart.length === 0) {
+        if (emptyCartMessage) emptyCartMessage.style.display = 'block';
+        if (cartItemsBody) cartItemsBody.innerHTML = '';
+        if (cartItemsMobile) cartItemsMobile.innerHTML = '';
+        updateCheckoutSummary(0);
+        return;
+    }
+    
+    if (emptyCartMessage) emptyCartMessage.style.display = 'none';
+    
+    let subtotal = 0;
+    let desktopHTML = '';
+    let mobileHTML = '';
+    
+    cart.forEach((item, index) => {
+        const itemPrice = parseFloat(item.price) || 0;
+        const itemQuantity = parseInt(item.quantity) || 1;
+        const itemSubtotal = itemPrice * itemQuantity;
+        subtotal += itemSubtotal;
+        
+        // Desktop row
+        desktopHTML += `
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img src="${item.image || '/assets/site/image/placeholder.png'}" 
+                             alt="${item.product}" 
+                             class="me-3" 
+                             style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;">
+                        <div>
+                            <div class="fw-bold">${item.product}</div>
+                            ${item.reference ? `<small class="text-muted">Réf: ${item.reference}</small>` : ''}
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">${itemPrice.toFixed(2)} DH</td>
+                <td class="align-middle">
+                    <div class="input-group input-group-sm" style="width: 120px;">
+                        <button class="btn btn-outline-secondary" type="button" onclick="updateCheckoutQuantity(${index}, -1)" ${itemQuantity <= 1 ? 'disabled' : ''}>
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <input type="text" class="form-control text-center" value="${itemQuantity}" readonly>
+                        <button class="btn btn-outline-secondary" type="button" onclick="updateCheckoutQuantity(${index}, 1)">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </td>
+                <td class="align-middle fw-bold">${itemSubtotal.toFixed(2)} DH</td>
+                <td class="align-middle">
+                    <button type="button" class="btn btn-sm btn-light-danger" onclick="removeCheckoutItem(${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+        
+        // Mobile card
+        mobileHTML += `
+            <div class="mobile-cart-item">
+                <div class="d-flex gap-3">
+                    <img src="${item.image || '/assets/site/image/placeholder.png'}" 
+                         alt="${item.product}" 
+                         class="mobile-cart-item-image">
+                    <div class="mobile-cart-item-info">
+                        <div class="mobile-cart-item-title">${item.product}</div>
+                        ${item.reference ? `<small class="text-muted d-block mb-2">Réf: ${item.reference}</small>` : ''}
+                        <div class="mobile-cart-item-price">${itemPrice.toFixed(2)} DH</div>
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                            <div class="mobile-cart-item-quantity">
+                                <button type="button" onclick="updateCheckoutQuantity(${index}, -1)" ${itemQuantity <= 1 ? 'disabled' : ''}>
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span>${itemQuantity}</span>
+                                <button type="button" onclick="updateCheckoutQuantity(${index}, 1)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <button type="button" class="mobile-cart-item-remove" onclick="removeCheckoutItem(${index})">
+                                <i class="fas fa-trash me-1"></i> Supprimer
+                            </button>
+                        </div>
+                        <div class="mobile-cart-item-subtotal">
+                            Sous-total: <strong>${itemSubtotal.toFixed(2)} DH</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    if (cartItemsBody) cartItemsBody.innerHTML = desktopHTML;
+    if (cartItemsMobile) cartItemsMobile.innerHTML = mobileHTML;
+    
+    updateCheckoutSummary(subtotal);
+}
+
+function updateCheckoutQuantity(index, change) {
+    const cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+    
+    if (cart[index]) {
+        const newQuantity = (cart[index].quantity || 1) + change;
+        
+        if (newQuantity <= 0) {
+            removeCheckoutItem(index);
+            return;
+        }
+        
+        cart[index].quantity = newQuantity;
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+        loadCheckoutCartItems();
+        updateCartCount();
+    }
+}
+
+function removeCheckoutItem(index) {
+    const cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+    cart.splice(index, 1);
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    loadCheckoutCartItems();
+    updateCartCount();
+}
+
+function updateCheckoutSummary(subtotal) {
+    const shippingCost = calculateShippingCost();
+    const tax = subtotal * 0.20;
+    const total = subtotal + shippingCost + tax;
+    
+    // Update all summary elements across steps
+    ['', '-step2', '-step3'].forEach(suffix => {
+        const subtotalEl = document.getElementById(`subtotal${suffix}`);
+        const shippingEl = document.getElementById(`shipping-cost${suffix}`);
+        const taxEl = document.getElementById(`tax${suffix}`);
+        const totalEl = document.getElementById(`total${suffix}`);
+        
+        if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2) + ' DH';
+        if (shippingEl) shippingEl.textContent = shippingCost.toFixed(2) + ' DH';
+        if (taxEl) taxEl.textContent = tax.toFixed(2) + ' DH';
+        if (totalEl) totalEl.textContent = total.toFixed(2) + ' DH';
+    });
+}
+
+function calculateShippingCost() {
+    const deliveryRadio = document.getElementById('delivery');
+    return (deliveryRadio && deliveryRadio.checked) ? 30 : 0;
+}
+
+function updateShippingCost(cost) {
+    const cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+    let subtotal = 0;
+    
+    cart.forEach(item => {
+        const itemPrice = parseFloat(item.price) || 0;
+        const itemQuantity = parseInt(item.quantity) || 1;
+        subtotal += itemPrice * itemQuantity;
+    });
+    
+    updateCheckoutSummary(subtotal);
 }
 
 // ============================================
@@ -611,6 +790,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkoutForm = document.getElementById('checkout-form');
     if (checkoutForm) {
         initCheckoutStepper();
+        loadCheckoutCartItems();
+        
+        // Listen for shipping method changes
+        const deliveryRadio = document.getElementById('delivery');
+        const pickupRadio = document.getElementById('pickup');
+        const deliveryAddressCard = document.getElementById('delivery-address-card');
+        
+        if (deliveryRadio && pickupRadio) {
+            deliveryRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    if (deliveryAddressCard) deliveryAddressCard.style.display = 'block';
+                    updateShippingCost(30);
+                }
+            });
+            
+            pickupRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    if (deliveryAddressCard) deliveryAddressCard.style.display = 'none';
+                    updateShippingCost(0);
+                }
+            });
+        }
     }
     
     // Animate elements

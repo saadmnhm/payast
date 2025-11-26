@@ -44,15 +44,15 @@
         <!-- Product Info -->
         <div class="col-md-6">
             <div class="product-info">
-                <h1 class="product-title">{{ $piece->name }}</h1>
+                <h1 class="product-title mt-3">{{ $piece->name }}</h1>
                 
                 <div class="product-meta mb-3">
-                    <span class="badge bg-secondary">Réf: {{ $piece->reference }}</span>
+                    <span class="badge mt-2 bg-secondary">Réf: {{ $piece->reference }}</span>
                     @if($piece->brand)
-                        <span class="badge bg-dark">{{ $piece->brand->label }}</span>
+                        <span class="badge mt-2 bg-dark">{{ $piece->brand->label }}</span>
                     @endif
                     @if($piece->category)
-                        <span class="badge bg-info">{{ $piece->category->title }}</span>
+                        <span class="badge mt-2 bg-info">{{ $piece->category->title }}</span>
                     @endif
                 </div>
 
@@ -201,7 +201,7 @@
                                             $relatedCartPrice = $related->activePromotion ? $related->activePromotion->price_promo : $related->price;
                                         @endphp
                                         <button onclick="addToCart('{{ $related->name }}','{{ $related->image ? asset('uploads/'.$related->image) : asset('assets/site/image/placeholder.png') }}', {{ $relatedCartPrice }})" 
-                                                class="btn btn-sm btn-outline-primary">
+                                                class="btn btn-sm btn-outline-primary btn_red">
                                             <i class="fas fa-cart-plus"></i>
                                         </button>
                                     @endif
@@ -216,9 +216,7 @@
 </div>
 
 <style>
-.product-detail-page {
-    padding: 20px 0;
-}
+
 
 .product-image-container {
     position: relative;
@@ -259,7 +257,7 @@
     padding: 15px;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid #f8f9fa;
 }
 
 .brand-logo-detail img {

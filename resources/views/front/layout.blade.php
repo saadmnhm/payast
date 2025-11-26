@@ -20,8 +20,8 @@
 </head>
 <body>
     <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="container desktop-menu">
+    <div class="top-bar desktop-menu">
+        <div class="container ">
             <div class="top-bar-content">
                 <div>
                     <i class="fas fa-phone"></i> +212 5XX-XXXXXX
@@ -33,13 +33,6 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid mobile-menu">
-            <div class="top-bar-content">
-                <a href="">Contact</a>
-                <a href="" class="border-topbar">Piassaty Service</a>
-                <a href="">Compte Pro</a>
-            </div>
-        </div>
     </div>
 
     <!-- Header -->
@@ -48,7 +41,7 @@
             <div class="header-content">
                 <a href="{{ route('front.home') }}" class="logo">logo mohamad</a>
                 <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Rechercher des pièces auto...">
+                    <input type="text" id="searchInput" placeholder="Rechercher par nom, référence, marque..." autocomplete="off">
                     <button onclick="performSearch()"><i class="fas fa-search"></i></button>
                 </div>
                 <div class="header-icons">
@@ -181,16 +174,17 @@
                     <a class="canvas-btn-mobile " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                         <i class="fa fa-bars"></i>
                     </a>
-                        <a href="#" class="logo">PIASSAT</a>
+                        <a href="{{ route('front.home') }}" class="logo">PIASSAT</a>
                     <div class="header-icons">
-                        <a href="#" class="header-icon">
-                            <i class="fas fa-user"></i> 
-                        </a>
+                      <a href="{{ route('front.cart') }}" class="header-icon cart-trigger" >
+                          <i class="fas fa-shopping-cart"></i>
+                          <span class="cart-badge" id="cartCount">0</span>
+                      </a>
                 </div>
             </div>
             <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Rechercher des pièces auto...">
-                    <button onclick="performSearch()"><i class="fas fa-search"></i></button>
+                    <input type="text" id="searchInputMobile" placeholder="Rechercher..." autocomplete="off">
+                    <button onclick="performSearchMobile()"><i class="fas fa-search"></i></button>
                 </div>
         </div>
     </header>
@@ -231,11 +225,6 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menu{{ $menu->id }}Collapse" aria-expanded="false">
-                                    @if($menu->icon)
-                                        {!! getIcon($menu->icon, 'me-2') !!}
-                                    @else
-                                        <i class="fas fa-cog me-2"></i>
-                                    @endif
                                     {{ $menu->title }}
                                 </button>
                             </h2>
@@ -261,7 +250,7 @@
                 <a href="#"><i class="fas fa-heart"></i> Mes Favoris</a>
                 <a href="#"><i class="fas fa-map-marker-alt"></i> Nos Magasins</a>
                 <a href="#"><i class="fas fa-truck"></i> Suivi Commande</a>
-                <a href="#"><i class="fas fa-headset"></i> Contact</a>
+                <a href="{{ route('front.contact.index') }}"><i class="fas fa-headset"></i> Contact</a>
             </div>
 
             <div class="mobile-contact-info">
@@ -396,7 +385,7 @@
                 <div class="footer-section col-md-3">
                     <h3>AIDE CLIENT</h3>
                     <ul>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Contact</a></li>
+                        <li><a href="{{ route('front.contact.index') }}"><i class="fas fa-angle-right"></i> Contact</a></li>
                         <li><a href="#"><i class="fas fa-angle-right"></i> Livraison</a></li>
                         <li><a href="#"><i class="fas fa-angle-right"></i> Retours & Remboursements</a></li>
                         <li><a href="#"><i class="fas fa-angle-right"></i> FAQ</a></li>
@@ -422,6 +411,15 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script>
+        window.routes = {
+            cart: "{{ route('front.cart') }}",
+            checkout: "{{ route('front.cart') }}",
+            checkoutProcess: "{{ route('front.checkout.process') }}",
+            home: "{{ route('front.home') }}",
+            pieces: "{{ route('front.list') }}",
+        };
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>

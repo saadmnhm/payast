@@ -92,11 +92,9 @@ class HomeController extends Controller
         $catalogs = \App\Models\CatalogCategory::where('is_active', true)
             ->whereNull('parent_id')
             ->where(function($query) {
-                // Include categories that have pieces with promotions directly
                 $query->whereHas('pieces.promotions', function($q) {
                     $q->where('is_active', true);
                 })
-                // OR categories that have children with pieces with promotions
                 ->orWhereHas('children', function($q) {
                     $q->where('is_active', true)
                         ->whereHas('pieces.promotions', function($promo) {

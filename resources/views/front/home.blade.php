@@ -209,38 +209,39 @@
             <h2>LES MEILLEURES VENTES</h2>
             <p style="text-align: center; margin-bottom: 40px; color: #666;">Découvrez nos produits les plus populaires</p>
             <div class="product-grid" id="productGrid">
-                <div class="product-card">
-                    <span class="product-badge">EN PROMOTION</span>
-                    <img class="product-image" src="{{ asset('assets/site/image/totalquartz.png') }}" alt="Huile Moteur">
-                    <h3>Huile moteur Total Quartz Ineo MC3 5W30 5l</h3>
-                    <p class="price">499.00 MAD</p>
-                    <button class="add-to-cart" onclick="addToCart('Huile Moteur', '{{ asset('assets/site/image/totalquartz.png') }}', 499)">
-                        <i class="fas fa-cart-plus"></i> Ajouter
-                    </button>
-                </div>
-                <div class="product-card">
-                    <span class="product-badge">EN PROMOTION</span>
-                    <img class="product-image" src="{{ asset('assets/site/image/batterie-varta.jpg') }}" alt="Batterie Varta">
-                    <h3>Batterie Varta E13 - L3 - 70Ah</h3>
-                    <p class="price">1799.00 MAD</p>
-                    <button class="add-to-cart" onclick="addToCart('Batterie Varta E13 - L3 - 70Ah', '{{ asset('assets/site/image/batterie-varta.jpg') }}', 1799)">
-                        <i class="fas fa-cart-plus"></i> Ajouter
-                    </button>
-                </div>
-                <div class="product-card">
-                    <span class="product-badge">EN PROMOTION</span>
-                    <img class="product-image" src="{{ asset('assets/site/image/filtrair2.png') }}" alt="Filtre à huile">
-                    <h3>Filtre à huile COF100122S</h3>
-                    <p class="price">179.00 MAD</p>
-                    <button class="add-to-cart" onclick="addToCart('Filtre à huile COF100122S', '{{ asset('assets/site/image/filtrair2.png') }}', 179)">
-                        <i class="fas fa-cart-plus"></i> Ajouter
-                    </button>
-                </div>
+                @php
+                    $promotionPieces = \App\Models\Piece::where('is_active', true)
+                        ->whereHas('activePromotion')
+                        ->with(['brand', 'activePromotion'])
+                        ->inRandomOrder()
+                        ->limit(3)
+                        ->get();
+                @endphp
+                
+                @foreach($promotionPieces as $piece)
+                    <div class="product-card">
+                        <span class="product-badge">EN PROMOTION</span>
+                        <img class="product-image" src="uploads/{{ $piece->image }}" alt="{{ $piece->name }}">
+                        <h3>{{ $piece->name }}</h3>
+                        @if($piece->activePromotion)
+                            <p class="price">
+                                <span style="text-decoration: line-through; color: #999; font-size: 14px;">{{ number_format($piece->price, 2) }} DH</span>
+                                <span style="color: #e31e24; font-weight: bold;">{{ number_format($piece->activePromotion->price_promo, 2) }} DH</span>
+                            </p>
+                        @else
+                            <p class="price">{{ number_format($piece->price, 2) }} DH</p>
+                        @endif
+                        <button class="add-to-cart" onclick="addToCart('{{ addslashes($piece->name) }}', '{{ $piece->image_url }}', {{ $piece->activePromotion ? $piece->activePromotion->price_promo : $piece->price }}, '{{ $piece->reference }}')">
+                            <i class="fas fa-cart-plus"></i> Ajouter
+                        </button>
+                    </div>
+                @endforeach
+                
                 <div class="product-card promo-card">
                     <h3>CONSULTEZ NOS PRODUITS EN PROMOTION</h3>
                     <div class="promo-discount">-60%</div>
                     <p>Sur une sélection de produits</p>
-                    <button class="promo-btn" onclick="showPromo()">VOIR LES PROMOS</button>
+                    <a href="{{ route('front.promotion.promo') }}" class="promo-btn">VOIR LES PROMOS</a>
                 </div>
             </div>
         </div>

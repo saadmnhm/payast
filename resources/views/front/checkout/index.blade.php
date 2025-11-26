@@ -65,7 +65,8 @@
                                 <h3 class="card-title">Articles dans votre panier</h3>
                             </div>
                             <div class="card-body p-0">
-                                <div class="table-responsive">
+                                <!-- Desktop Table View -->
+                                <div class="table-responsive d-none d-md-block">
                                     <table class="table cart-table mb-0">
                                         <thead>
                                             <tr>
@@ -80,6 +81,20 @@
                                             <!-- Cart items loaded by JavaScript -->
                                         </tbody>
                                     </table>
+                                </div>
+
+                                <!-- Mobile Card View -->
+                                <div class="d-md-none" id="cart-items-mobile">
+                                    <!-- Mobile cart items loaded by JavaScript -->
+                                </div>
+
+                                <!-- Empty Cart Message -->
+                                <div id="empty-cart-message" class="text-center py-5" style="display: none;">
+                                    <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                                    <p class="text-muted">Votre panier est vide</p>
+                                    <a href="{{ route('front.list') }}" class="btn btn-primary">
+                                        <i class="fas fa-arrow-left"></i> Continuer mes achats
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -143,7 +158,7 @@
                                         <label class="form-check-label w-100" for="pickup">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div>
-                                                    <i class="fas fa-store text-primary me-2"></i>
+                                                    <i class="fas fa-store  color_e31e24 me-2"></i>
                                                     <strong>Retrait en point de vente</strong>
                                                     <span class="d-block text-muted small">Disponible sous 2h</span>
                                                 </div>
@@ -157,11 +172,11 @@
                                     <label class="form-check-label w-100" for="delivery">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
-                                                <i class="fas fa-truck text-primary me-2"></i>
+                                                <i class="fas fa-truck  color_e31e24 me-2"></i>
                                                 <strong>Livraison express</strong>
-                                                <span class="d-block text-muted small">Livraison sous 24-48h</span>
+                                                <span class="d-block text-muted small">Livraison sous 6-12h</span>
                                             </div>
-                                            <span id="delivery-price" class="text-primary fw-bold">30.00 DH</span>
+                                            <span id="delivery-price" class=" color_e31e24 fw-bold">30.00 DH</span>
                                         </div>
                                     </label>
                                 </div>
@@ -370,6 +385,131 @@
 </div>
 
 <style>
+/* Mobile Cart Item Cards */
+.mobile-cart-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px;
+    background: #fff;
+}
+
+.mobile-cart-item:last-child {
+    border-bottom: none;
+}
+
+.mobile-cart-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.mobile-cart-item-info {
+    flex: 1;
+}
+
+.mobile-cart-item-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
+
+.mobile-cart-item-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #e31e24;
+    margin-bottom: 8px;
+}
+
+.mobile-cart-item-quantity {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.mobile-cart-item-quantity button {
+    background: #f8f9fa;
+    border: none;
+    padding: 5px 12px;
+    font-size: 16px;
+    color: #495057;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.mobile-cart-item-quantity button:hover {
+    background: #e9ecef;
+}
+
+.mobile-cart-item-quantity button:active {
+    background: #dee2e6;
+}
+
+.mobile-cart-item-quantity button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f8f9fa;
+}
+
+.mobile-cart-item-quantity span {
+    padding: 5px 15px;
+    font-weight: 600;
+    min-width: 40px;
+    text-align: center;
+}
+
+.mobile-cart-item-remove {
+    background: #fff;
+    border: 1px solid #dc3545;
+    color: #dc3545;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mobile-cart-item-remove:hover {
+    background: #dc3545;
+    color: #fff;
+}
+
+.mobile-cart-item-subtotal {
+    font-size: 14px;
+    color: #6c757d;
+    margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+
+
+
+    .checkout-stepper-container {
+        padding: 0;
+    }
+
+    .card {
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+
+    .card-title {
+        font-size: 16px;
+    }
+
+    .d-flex.justify-content-between.mt-4 {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .d-flex.justify-content-between.mt-4 .btn {
+        width: 100%;
+    }
+}
 
 </style>
 @endsection

@@ -149,7 +149,7 @@
         <!-- Products Grid -->
         <div class="col-md-9 mb-4">
             <!-- Sorting and Results Count -->
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex justify-content-between align-items-center mt-2 mb-4">
                 <div>
                     <strong>{{ $pieces->total() }}</strong> produit(s) trouvé(s)
                 </div>

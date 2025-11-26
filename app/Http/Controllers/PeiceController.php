@@ -132,27 +132,31 @@ class PeiceController extends Controller
             ]);
         }
 
-        // Search brands
         $brands = Brand::where('is_active', true)
             ->where('label', 'LIKE', "%{$query}%")
-            ->limit(5)
+            ->limit(8)
             ->get(['id', 'label', 'image']);
 
-        // Search categories
         $categories = CatalogCategory::where('is_active', true)
             ->where('title', 'LIKE', "%{$query}%")
-            ->limit(5)
+            ->limit(8)
             ->get(['id', 'title']);
 
-        // Search pieces
         $pieces = Piece::where('is_active', true)
             ->where(function($q) use ($query) {
                 $q->where('name', 'LIKE', "%{$query}%")
-                  ->orWhere('reference', 'LIKE', "%{$query}%");
+                  ->orWhere('reference', 'LIKE', "%{$query}%")
+                  ->orWhere('description', 'LIKE', "%{$query}%")
+                  ->orWhereHas('brand', function($brandQuery) use ($query) {
+                      $brandQuery->where('label', 'LIKE', "%{$query}%");
+                  })
+                  ->orWhereHas('category', function($catQuery) use ($query) {
+                      $catQuery->where('title', 'LIKE', "%{$query}%");
+                  });
             })
             ->with('brand:id,label')
-            ->limit(5)
-            ->get(['id', 'name', 'reference', 'price', 'image', 'brand_id']);
+            ->limit(12)
+            ->get(['id', 'name', 'reference', 'price', 'image', 'brand_id', 'category_id']);
 
         return response()->json([
             'brands' => $brands,

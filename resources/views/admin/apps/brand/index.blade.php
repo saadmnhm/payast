@@ -19,6 +19,11 @@
             @foreach($brands as $brand)
                 <div class="col-md-3">
                     <div class="card h-100 pt-4 align-items-center">
+                        @if($brand->is_active)
+                            <span class="badge badge-light-success">actif</span>
+                        @else
+                            <span class="badge badge-light-danger">inactif</span>
+                        @endif
                         @if($brand->image)
                             <img src="{{ asset('uploads/'.$brand->image) }}" class="card-img-top" alt="{{ $brand->label}}" style="height:160px;width: 200px;object-fit:contain;">
                         @endif

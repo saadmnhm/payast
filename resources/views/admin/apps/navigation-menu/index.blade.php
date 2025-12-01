@@ -155,35 +155,40 @@
     </div>
 
     @push('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Toggle status
-                document.querySelectorAll('.toggle-status').forEach(function(checkbox) {
-                    checkbox.addEventListener('change', function() {
-                        const menuId = this.dataset.menuId;
-                        const isActive = this.checked;
-                        
-                        fetch(`/navigation-menu/${menuId}/toggle-status`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                toastr.success('Statut mis à jour avec succès');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            toastr.error('Erreur lors de la mise à jour du statut');
-                            checkbox.checked = !isActive;
-                        });
+    <script>
+        window.routes = {
+            toggleStatus: "{{ route('apps.navigation-menu.toggle-status', ['navigationMenu' => '__MENU_ID__']) }}"
+        };
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.toggle-status').forEach(function(checkbox) {
+                checkbox.addEventListener('change', function() {
+                    const menuId = this.dataset.menuId;
+                    const isActive = this.checked;
+                    
+                    const statusUrl = window.routes.toggleStatus.replace('__MENU_ID__', menuId);
+                    
+                    fetch(statusUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            toastr.success('Statut mis à jour avec succès');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        toastr.error('Erreur lors de la mise à jour du statut');
+                        checkbox.checked = !isActive;
                     });
                 });
             });
-        </script>
+        });
+    </script>
     @endpush
 </x-default-layout>

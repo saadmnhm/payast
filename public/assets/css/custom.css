@@ -11,3 +11,10 @@
 table.dataTable>thead .dt-ordering-asc:after, table.dataTable>thead .dt-ordering-desc:after{
     display: none !important;
 }
+
+.profil-user{
+    border: 1px solid #cecece;
+    border-radius: 45px;
+    padding: 11px;
+    background: white;
+}

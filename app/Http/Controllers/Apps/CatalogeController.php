@@ -156,7 +156,6 @@ class CatalogeController extends Controller
         return redirect()->route('apps.cataloge.categories.index')->with('success', 'Catégorie supprimée avec succès');
     }
 
-    // ===== PIECES =====
     public function piecesIndex()
     {
         $pieces = Piece::with(['brand', 'category', 'constructeur'])

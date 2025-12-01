@@ -109,22 +109,6 @@
                     <!--end::Col-->
                 </div>
 
-                <div class="row mb-6">
-                    <!--begin::Label-->
-                    <label class="col-lg-3 col-form-label fw-semibold fs-6"></label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-9">
-                        <div class="form-check form-switch form-check-custom form-check-solid">
-                            <input class="form-check-input" type="checkbox" name="is_active" value="1" id="is_active" 
-                                   {{ old('is_active', $navigationMenu->is_active) ? 'checked' : '' }} />
-                            <label class="form-check-label" for="is_active">
-                                Menu Actif
-                            </label>
-                        </div>
-                    </div>
-                    <!--end::Col-->
-                </div>
 
                 <div class="row mb-6">
                     <!--begin::Label-->
@@ -136,7 +120,7 @@
                             <input class="form-check-input" type="checkbox" name="is_dropdown" value="1" id="is_dropdown" 
                                    {{ old('is_dropdown', $navigationMenu->is_dropdown) ? 'checked' : '' }} />
                             <label class="form-check-label" for="is_dropdown">
-                                Menu Déroulant (Dropdown)
+                                Menu Déroulant 
                             </label>
                         </div>
                         <div class="form-text">Cochez si ce menu contient des sous-menus</div>

@@ -39,9 +39,9 @@
     <!--begin::User menu-->
 	<div class="app-navbar-item ms-1 ms-md-4" id="kt_header_user_menu_toggle">
         <!--begin::Menu wrapper-->
-		<div class="cursor-pointer symbol symbol-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+		<div class="cursor-pointer profil-user symbol symbol-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
             @if(Auth::user()->profile_photo_url)
-                <img src="{{ \Auth::user()->profile_photo_url }}" class="rounded-3" alt="user" />
+                <img src="{{ \Auth::user()->profile_photo_url }}" class="rounded-3" alt="user" style="    object-fit: contain;" />
             @else
                 <div class="symbol-label fs-3 {{ app(\App\Actions\GetThemeType::class)->handle('bg-light-? text-?', Auth::user()->name) }}">
                     {{ substr(Auth::user()->name, 0, 1) }}
@@ -54,9 +54,9 @@
     <div class="menu-item px-3">
         <div class="menu-content d-flex align-items-center px-3">
             <!--begin::Avatar-->
-            <div class="symbol symbol-50px me-5">
+            <div class="symbol profil-user symbol-50px me-5">
                 @if(Auth::user()->profile_photo_url)
-                    <img alt="Logo" src="{{ Auth::user()->profile_photo_url }}"/>
+                    <img alt="Logo" src="{{ Auth::user()->profile_photo_url }}" style="    object-fit: contain;"/>
                 @else
                     <div class="symbol-label fs-3 {{ app(\App\Actions\GetThemeType::class)->handle('bg-light-? text-?', Auth::user()->name) }}">
                         {{ substr(Auth::user()->name, 0, 1) }}

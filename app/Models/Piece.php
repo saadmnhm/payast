@@ -37,6 +37,10 @@ class Piece extends Model
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
+    public function constructeur(): BelongsTo
+    {
+        return $this->belongsTo(Constructeur::class, 'constructeur_id');
+    }
 
     public function promotions(): HasMany
     {

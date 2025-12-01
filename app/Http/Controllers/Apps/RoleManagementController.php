@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Apps;
 
-use App\DataTables\UsersAssignedRoleDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Models\User;
 
 class RoleManagementController extends Controller
 {
@@ -36,10 +36,14 @@ class RoleManagementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Role $role, UsersAssignedRoleDataTable $dataTable)
+    public function show(Role $role)
     {
-        return $dataTable->with('role', $role)
-            ->render('admin/apps.user-management.roles.show', compact('role'));
+        $users = User::role($role->name)
+            ->with('roles')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
+        return view('admin/apps.user-management.roles.show', compact('role', 'users'));
     }
 
     /**

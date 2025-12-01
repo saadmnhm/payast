@@ -220,20 +220,23 @@
                 
                 @foreach($promotionPieces as $piece)
                     <div class="product-card">
-                        <span class="product-badge">EN PROMOTION</span>
-                        <img class="product-image" src="uploads/{{ $piece->image }}" alt="{{ $piece->name }}">
-                        <h3>{{ $piece->name }}</h3>
-                        @if($piece->activePromotion)
-                            <p class="price">
-                                <span style="text-decoration: line-through; color: #999; font-size: 14px;">{{ number_format($piece->price, 2) }} DH</span>
-                                <span style="color: #e31e24; font-weight: bold;">{{ number_format($piece->activePromotion->price_promo, 2) }} DH</span>
-                            </p>
-                        @else
-                            <p class="price">{{ number_format($piece->price, 2) }} DH</p>
-                        @endif
-                        <button class="add-to-cart" onclick="addToCart('{{ addslashes($piece->name) }}', '{{ $piece->image_url }}', {{ $piece->activePromotion ? $piece->activePromotion->price_promo : $piece->price }}, '{{ $piece->reference }}')">
-                            <i class="fas fa-cart-plus"></i> Ajouter
-                        </button>
+                        <a href="{{ route('front.piece.show', $piece->id) }}" class="text-decoration-none" style="color:#e31e24">
+
+                            <span class="product-badge">EN PROMOTION</span>
+                            <img class="product-image" src="uploads/{{ $piece->image }}" alt="{{ $piece->name }}">
+                            <h3>{{ $piece->name }}</h3>
+                            @if($piece->activePromotion)
+                                <p class="price">
+                                    <span style="text-decoration: line-through; color: #999; font-size: 14px;">{{ number_format($piece->price, 2) }} DH</span>
+                                    <span style="color: #e31e24; font-weight: bold;">{{ number_format($piece->activePromotion->price_promo, 2) }} DH</span>
+                                </p>
+                            @else
+                                <p class="price">{{ number_format($piece->price, 2) }} DH</p>
+                            @endif
+                            <button class="add-to-cart" onclick="addToCart('{{ addslashes($piece->name) }}', '{{ $piece->image_url }}', {{ $piece->activePromotion ? $piece->activePromotion->price_promo : $piece->price }}, '{{ $piece->reference }}')">
+                                <i class="fas fa-cart-plus"></i> Ajouter
+                            </button>
+                        </a>
                     </div>
                 @endforeach
                 

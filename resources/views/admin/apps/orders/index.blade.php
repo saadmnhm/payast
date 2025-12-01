@@ -50,14 +50,127 @@
             </div>
         </div>
         <div class="card-body py-4">
-            {{ $dataTable->table() }}
+            <div class="table-responsive">
+                <table class="table align-middle table-row-dashed fs-6 gy-5" id="orders-table">
+                    <thead>
+                        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                            <th class="min-w-100px">N° Commande</th>
+                            <th class="min-w-150px">Client</th>
+                            <th class="min-w-100px text-end">Montant</th>
+                            <th class="min-w-125px">Date</th>
+                            <th class="min-w-100px text-center">Statut</th>
+                            <th class="min-w-100px text-center">Paiement</th>
+                            <th class="text-end min-w-100px">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 fw-semibold">
+                        @forelse($orders as $order)
+                            <tr>
+                                <td>
+                                    <a href="{{ route('apps.orders.show', $order) }}" class="text-gray-800 text-hover-primary">
+                                        #{{ $order->order_number }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <span class="text-gray-800">{{ $order->customer_name }}</span>
+                                        <span class="text-muted fs-7">{{ $order->customer_email }}</span>
+                                    </div>
+                                </td>
+                                <td class="text-end">{{ number_format($order->total_amount, 2) }} MAD</td>
+                                <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
+                                <td class="text-center">
+                                    @php
+                                        $statusColors = [
+                                            'pending' => 'warning',
+                                            'confirmed' => 'info',
+                                            'processing' => 'primary',
+                                            'shipped' => 'success',
+                                            'delivered' => 'success',
+                                            'cancelled' => 'danger'
+                                        ];
+                                        $statusLabels = [
+                                            'pending' => 'En attente',
+                                            'confirmed' => 'Confirmée',
+                                            'processing' => 'En préparation',
+                                            'shipped' => 'Expédiée',
+                                            'delivered' => 'Livrée',
+                                            'cancelled' => 'Annulée'
+                                        ];
+                                    @endphp
+                                    <span class="badge badge-light-{{ $statusColors[$order->status] ?? 'secondary' }}">
+                                        {{ $statusLabels[$order->status] ?? $order->status }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    @php
+                                        $paymentColors = ['pending' => 'warning', 'paid' => 'success', 'failed' => 'danger'];
+                                        $paymentLabels = ['pending' => 'En attente', 'paid' => 'Payé', 'failed' => 'Échoué'];
+                                    @endphp
+                                    <span class="badge badge-light-{{ $paymentColors[$order->payment_status] ?? 'secondary' }}">
+                                        {{ $paymentLabels[$order->payment_status] ?? $order->payment_status }}
+                                    </span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="{{ route('apps.orders.show', $order) }}" class="btn btn-sm btn-light btn-active-light-primary">
+                                        {!! getIcon('eye', 'fs-5', '', 'i') !!}
+                                        Voir
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-light btn-active-light-danger" data-kt-action="delete_order" data-kt-order-id="{{ $order->id }}">
+                                        {!! getIcon('trash', 'fs-5', '', 'i') !!}
+                                        Supprimer
+                                    </button>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7" class="text-center text-muted py-10">
+                                    Aucune commande disponible
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     @push('scripts')
-        {{ $dataTable->scripts() }}
         
         <script>
+        // Search functionality
+        document.querySelector('[data-kt-order-table-filter="search"]')?.addEventListener('keyup', function(e) {
+            const searchText = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('#orders-table tbody tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchText) ? '' : 'none';
+            });
+        });
+
+        // Filter by status
+        document.querySelector('[data-kt-order-table-filter="filter"]')?.addEventListener('click', function() {
+            const status = document.querySelector('[data-kt-order-table-filter="status"]').value.toLowerCase();
+            const rows = document.querySelectorAll('#orders-table tbody tr');
+            
+            rows.forEach(row => {
+                if (!status) {
+                    row.style.display = '';
+                } else {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(status) ? '' : 'none';
+                }
+            });
+        });
+
+        // Reset filter
+        document.querySelector('[data-kt-order-table-filter="reset"]')?.addEventListener('click', function() {
+            document.querySelector('[data-kt-order-table-filter="status"]').value = '';
+            const rows = document.querySelectorAll('#orders-table tbody tr');
+            rows.forEach(row => row.style.display = '');
+        });
+        
         // Handle status update forms
         document.querySelectorAll('[id^="kt_modal_update_status_form_"]').forEach(function(form) {
             form.addEventListener('submit', function(e) {
@@ -88,8 +201,7 @@
                             confirmButtonText: 'OK',
                             confirmButtonColor: '#e31e24'
                         }).then(() => {
-                            window.LaravelDataTables['orders-table'].ajax.reload();
-                            bootstrap.Modal.getInstance(document.getElementById('kt_modal_update_status_' + orderId)).hide();
+                            location.reload();
                         });
                     }
                 })
@@ -141,7 +253,7 @@
                                     icon: 'success',
                                     confirmButtonText: 'OK'
                                 }).then(() => {
-                                    window.LaravelDataTables['orders-table'].ajax.reload();
+                                    location.reload();
                                 });
                             }
                         });

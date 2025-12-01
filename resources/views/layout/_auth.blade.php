@@ -37,7 +37,7 @@
             <!--end::Body-->
 
             <!--begin::Aside-->
-            <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center order-1 order-lg-2" style="background-image: url({{ asset('pper/images/logos/logo-almond.svg') }})">
+            <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center order-1 order-lg-2" style="background-image: url({{ asset('images/pyasat-test.png') }})">
                
 
                    

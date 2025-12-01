@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\CatalogCategory;
 use App\Models\Piece;
 use App\Models\NavigationMenu;
-use App\DataTables\CatalogCategoriesDataTable;
-use App\DataTables\PiecesDataTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -25,9 +23,14 @@ class CatalogeController extends Controller
     }
 
     // ===== CATEGORIES =====
-    public function categoriesIndex(CatalogCategoriesDataTable $dataTable)
+    public function categoriesIndex()
     {
-        return $dataTable->render('admin.apps.cataloge.categories.list');
+        $categories = CatalogCategory::with('parent')
+            ->orderBy('order')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
+        return view('admin.apps.cataloge.categories.list', compact('categories'));
     }
 
     public function createCategory()
@@ -154,9 +157,13 @@ class CatalogeController extends Controller
     }
 
     // ===== PIECES =====
-    public function piecesIndex(PiecesDataTable $dataTable)
+    public function piecesIndex()
     {
-        return $dataTable->render('admin.apps.cataloge.pieces.list');
+        $pieces = Piece::with(['brand', 'category', 'constructeur'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
+        return view('admin.apps.cataloge.pieces.list', compact('pieces'));
     }
 
     public function createPiece()

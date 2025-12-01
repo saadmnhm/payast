@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Apps;
 
-use App\DataTables\PermissionsDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
 class PermissionManagementController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(PermissionsDataTable $dataTable)
+    public function index()
     {
-        return $dataTable->render('admin/apps.user-management.permissions.list');
+        $permissions = Permission::orderBy('name')->get();
+        return view('admin/apps.user-management.permissions.list', compact('permissions'));
     }
 
     /**

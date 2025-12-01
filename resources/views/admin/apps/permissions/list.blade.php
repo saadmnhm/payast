@@ -58,7 +58,38 @@
         <div class="card-body py-4">
             <!--begin::Table-->
             <div class="table-responsive">
-                {{ $dataTable->table() }}
+                <table class="table align-middle table-row-dashed fs-6 gy-5" id="permissions-table">
+                    <thead>
+                        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                            <th class="min-w-300px">Permission</th>
+                            <th class="min-w-150px">Guard</th>
+                            <th class="min-w-150px">Created Date</th>
+                            <th class="text-end min-w-100px">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 fw-semibold">
+                        @forelse($permissions as $permission)
+                            <tr>
+                                <td>{{ $permission->name }}</td>
+                                <td>
+                                    <span class="badge badge-light-primary">{{ $permission->guard_name }}</span>
+                                </td>
+                                <td>{{ $permission->created_at->format('d M Y, h:i a') }}</td>
+                                <td class="text-end">
+                                    <button class="btn btn-sm btn-light btn-active-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_update_permission" data-permission-id="{{ $permission->id }}">
+                                        Edit
+                                    </button>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center text-muted py-10">
+                                    No permissions available
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
             <!--end::Table-->
         </div>
@@ -68,15 +99,21 @@
     <livewire:permission.permission-modal></livewire:permission.permission-modal>
 
     @push('scripts')
-        {{ $dataTable->scripts() }}
         <script>
-            document.getElementById('mySearchInput').addEventListener('keyup', function () {
-                window.LaravelDataTables['permissions-table'].search(this.value).draw();
+            document.getElementById('mySearchInput')?.addEventListener('keyup', function () {
+                const searchText = this.value.toLowerCase();
+                const rows = document.querySelectorAll('#permissions-table tbody tr');
+                
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(searchText) ? '' : 'none';
+                });
             });
+            
             document.addEventListener('livewire:init', function () {
                 Livewire.on('success', function () {
                     $('#kt_modal_update_permission').modal('hide');
-                    window.LaravelDataTables['permissions-table'].ajax.reload();
+                    location.reload();
                 });
             });
         </script>

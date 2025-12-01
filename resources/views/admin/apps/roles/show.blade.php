@@ -83,7 +83,54 @@
                     <div class="card-body pt-0">
                         <!--begin::Table-->
                         <div class="table-responsive">
-                            {{ $dataTable->table() }}
+                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="users-table">
+                                <thead>
+                                    <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                                        <th class="min-w-300px">User</th>
+                                        <th class="min-w-150px">Joined Date</th>
+                                        <th class="text-end min-w-100px">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-600 fw-semibold">
+                                    @forelse($users as $user)
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                                        <div class="symbol-label">
+                                                            @if($user->profile_photo_path)
+                                                                <img src="{{ asset('storage/' . $user->profile_photo_path) }}" alt="{{ $user->name }}" class="w-100">
+                                                            @else
+                                                                <div class="symbol-label fs-3 bg-light-primary text-primary">
+                                                                    {{ strtoupper(substr($user->first_name ?? 'U', 0, 1)) }}
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-column">
+                                                        <a href="{{ route('apps.users.show', $user) }}" class="text-gray-800 text-hover-primary mb-1">
+                                                            {{ $user->first_name }} {{ $user->last_name }}
+                                                        </a>
+                                                        <span class="text-muted">{{ $user->email }}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{{ $user->created_at->format('d M Y') }}</td>
+                                            <td class="text-end">
+                                                <a href="{{ route('apps.users.show', $user) }}" class="btn btn-sm btn-light btn-active-light-primary">
+                                                    View
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="3" class="text-center text-muted py-10">
+                                                No users assigned to this role
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                         <!--end::Table-->
                     </div>
@@ -100,9 +147,5 @@
     <!--begin::Modal-->
     <livewire:permission.role-modal></livewire:permission.role-modal>
     <!--end::Modal-->
-
-    @push('scripts')
-        {{ $dataTable->scripts() }}
-    @endpush
 
 </x-default-layout>

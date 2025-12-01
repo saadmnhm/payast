@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Apps;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use App\DataTables\OrdersDataTable;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index(OrdersDataTable $dataTable)
+    public function index()
     {
-        return $dataTable->render('admin.apps.orders.index');
+        $orders = Order::with(['items.piece'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
+        return view('admin.apps.orders.index', compact('orders'));
     }
 
     public function show(Order $order)

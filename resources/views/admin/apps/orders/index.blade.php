@@ -65,7 +65,7 @@
                     </thead>
                     <tbody class="text-gray-600 fw-semibold">
                         @forelse($orders as $order)
-                            <tr>
+                            <tr data-status="{{ $order->status }}" data-payment-status="{{ $order->payment_status }}">
                                 <td>
                                     <a href="{{ route('apps.orders.show', $order) }}" class="text-gray-800 text-hover-primary">
                                         #{{ $order->order_number }}
@@ -73,11 +73,11 @@
                                 </td>
                                 <td>
                                     <div class="d-flex flex-column">
-                                        <span class="text-gray-800">{{ $order->customer_name }}</span>
-                                        <span class="text-muted fs-7">{{ $order->customer_email }}</span>
+                                        <span class="text-gray-800">{{ $order->first_name }} {{ $order->last_name }}</span>
+                                        <span class="text-muted fs-7">{{ $order->email }}</span>
                                     </div>
                                 </td>
-                                <td class="text-end">{{ number_format($order->total_amount, 2) }} MAD</td>
+                                <td class="text-end">{{ number_format($order->total) }} MAD</td>
                                 <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
                                 <td class="text-center">
                                     @php
@@ -137,39 +137,43 @@
 
     @push('scripts')
         
-        <script>
-        // Search functionality
-        document.querySelector('[data-kt-order-table-filter="search"]')?.addEventListener('keyup', function(e) {
-            const searchText = e.target.value.toLowerCase();
-            const rows = document.querySelectorAll('#orders-table tbody tr');
-            
-            rows.forEach(row => {
-                const text = row.textContent.toLowerCase();
-                row.style.display = text.includes(searchText) ? '' : 'none';
-            });
-        });
+    <script>
+    // Refs
+    const searchInput = document.querySelector('[data-kt-order-table-filter="search"]');
+    const statusSelect = document.querySelector('[data-kt-order-table-filter="status"]');
+    const rows = document.querySelectorAll('#orders-table tbody tr');
 
-        // Filter by status
-        document.querySelector('[data-kt-order-table-filter="filter"]')?.addEventListener('click', function() {
-            const status = document.querySelector('[data-kt-order-table-filter="status"]').value.toLowerCase();
-            const rows = document.querySelectorAll('#orders-table tbody tr');
-            
-            rows.forEach(row => {
-                if (!status) {
-                    row.style.display = '';
-                } else {
-                    const text = row.textContent.toLowerCase();
-                    row.style.display = text.includes(status) ? '' : 'none';
-                }
-            });
-        });
+    function filterRows() {
+        const searchText = (searchInput?.value || '').toLowerCase().trim();
+        const status = (statusSelect?.value || '').toLowerCase().trim();
 
-        // Reset filter
-        document.querySelector('[data-kt-order-table-filter="reset"]')?.addEventListener('click', function() {
-            document.querySelector('[data-kt-order-table-filter="status"]').value = '';
-            const rows = document.querySelectorAll('#orders-table tbody tr');
-            rows.forEach(row => row.style.display = '');
+        rows.forEach(row => {
+            const rowStatus = (row.getAttribute('data-status') || '').toLowerCase();
+            const rowText = (row.textContent || '').toLowerCase();
+
+            const matchesStatus = !status || rowStatus === status;
+            const matchesSearch = !searchText || rowText.includes(searchText);
+
+            row.style.display = (matchesStatus && matchesSearch) ? '' : 'none';
         });
+    }
+
+    // Search
+    searchInput?.addEventListener('keyup', function() {
+        filterRows();
+    });
+
+    // Filter button
+    document.querySelector('[data-kt-order-table-filter="filter"]')?.addEventListener('click', function() {
+        filterRows();
+    });
+
+    // Reset
+    document.querySelector('[data-kt-order-table-filter="reset"]')?.addEventListener('click', function() {
+        if (statusSelect) statusSelect.value = '';
+        if (searchInput) searchInput.value = '';
+        rows.forEach(row => row.style.display = '');
+    });
         
         // Handle status update forms
         document.querySelectorAll('[id^="kt_modal_update_status_form_"]').forEach(function(form) {
@@ -183,7 +187,7 @@
                 submitButton.setAttribute('data-kt-indicator', 'on');
                 submitButton.disabled = true;
                 
-                fetch(`/orders/${orderId}/status`, {
+                fetch(`{{ route('apps.orders.update-status', '') }}/${orderId}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',

@@ -15,7 +15,8 @@
                     <h2>Commande #{{ $order->order_number }}</h2>
                 </div>
                 <div class="card-toolbar">
-                    <span class="badge badge-light-{{ $order->status_badge }}">{{ $order->status_label }}</span>
+                    <span class="badge badge-light-{{ $order->status_badge }} me-3">{{ $order->status_label }}</span>
+                    <span class="badge badge-light-{{ $order->payment_badge }}">{{ $order->payment_label }}</span>
                 </div>
             </div>
             <div class="card-body pt-0">
@@ -108,10 +109,28 @@
             </div>
             @endif
 
-            <div class="card card-flush">
+            <div class="card card-flush mb-6">
                 <div class="card-header">
                     <div class="card-title">
-                        <h2>Actions</h2>
+                        <h2>Paiement</h2>
+                    </div>
+                </div>
+                <div class="card-body pt-0">
+                    <select class="form-select mb-3" id="payment-status" data-order-id="{{ $order->id }}">
+                        <option value="pending" {{ $order->payment_status === 'pending' ? 'selected' : '' }}>En attente</option>
+                        <option value="paid" {{ $order->payment_status === 'paid' ? 'selected' : '' }}>Payé</option>
+                        <option value="failed" {{ $order->payment_status === 'failed' ? 'selected' : '' }}>Échoué</option>
+                    </select>
+                    <button type="button" class="btn btn-success w-100" id="update-payment-btn">
+                        Mettre à jour le paiement
+                    </button>
+                </div>
+            </div>
+
+            <div class="card card-flush mb-5">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h2>Statut de la commande</h2>
                     </div>
                 </div>
                 <div class="card-body pt-0">
@@ -128,20 +147,27 @@
                     </button>
                 </div>
             </div>
+
         </div>
     </div>
 
     @push('scripts')
     <script>
+    // Update order status
     document.getElementById('update-status-btn').addEventListener('click', function() {
         const orderId = document.getElementById('order-status').dataset.orderId;
         const status = document.getElementById('order-status').value;
+        const button = this;
         
-        fetch(`/orders/${orderId}/status`, {
+        button.disabled = true;
+        button.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mise à jour...';
+        
+        fetch(`{{ url('orders') }}/${orderId}/status`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json'
             },
             body: JSON.stringify({ status })
         })
@@ -149,14 +175,73 @@
         .then(data => {
             if (data.success) {
                 Swal.fire({
-                    text: data.message,
+                    text: data.message || 'Statut mis à jour avec succès',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#e31e24'
+                }).then(() => {
+                    window.location.href = "{{ route('apps.orders.index') }}";
+                });
+            } else {
+                throw new Error(data.message || 'Erreur lors de la mise à jour');
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                text: error.message || 'Une erreur est survenue',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        })
+        .finally(() => {
+            button.disabled = false;
+            button.innerHTML = 'Mettre à jour le statut';
+        });
+    });
+
+    // Update payment status
+    document.getElementById('update-payment-btn').addEventListener('click', function() {
+        const orderId = document.getElementById('payment-status').dataset.orderId;
+        const paymentStatus = document.getElementById('payment-status').value;
+        const button = this;
+        
+        button.disabled = true;
+        button.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mise à jour...';
+        
+        fetch(`{{ url('orders') }}/${orderId}/payment-status`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ payment_status: paymentStatus })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                Swal.fire({
+                    text: data.message || 'Statut de paiement mis à jour avec succès',
                     icon: 'success',
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#e31e24'
                 }).then(() => {
                     location.reload();
                 });
+            } else {
+                throw new Error(data.message || 'Erreur lors de la mise à jour');
             }
+        })
+        .catch(error => {
+            Swal.fire({
+                text: error.message || 'Une erreur est survenue',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        })
+        .finally(() => {
+            button.disabled = false;
+            button.innerHTML = 'Mettre à jour le paiement';
         });
     });
     </script>

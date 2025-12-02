@@ -46,7 +46,6 @@
                         <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                             <th class="min-w-125px">Titre</th>
                             <th class="min-w-125px">URL</th>
-                            <th class="min-w-100px text-center">Ordre</th>
                             <th class="min-w-100px text-center">Statut</th>
                             <th class="text-end min-w-100px">Actions</th>
                         </tr>
@@ -69,9 +68,6 @@
                                 </td>
                                 <td>
                                     <span class="text-muted">{{ $menu->url ?? '-' }}</span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="badge badge-light">{{ $menu->order }}</span>
                                 </td>
                                 <td class="text-center">
                                     <div class="form-check form-switch form-check-custom form-check-solid justify-content-center">
@@ -111,9 +107,6 @@
                                         </td>
                                         <td>
                                             <span class="text-muted">{{ $child->url ?? '-' }}</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="badge badge-light">{{ $child->order }}</span>
                                         </td>
                                         <td class="text-center">
                                             <div class="form-check form-switch form-check-custom form-check-solid justify-content-center">

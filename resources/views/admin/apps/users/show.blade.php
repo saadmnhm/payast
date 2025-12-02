@@ -68,17 +68,21 @@
                         </div>
                         <form action="{{ route('apps.users.toggle-status', $user) }}" method="POST" class="d-inline">
                             @csrf
-                            @if($user->is_active)
-                                <button type="submit" class="btn btn-light danger my-1 me-2"
-                                        onclick="return confirm('Êtes-vous sûr de vouloir bloquer cet utilisateur? Il ne pourra plus se connecter.')">
-                                    Bloquer l'utilisateur
-                                </button>
-                            @else
-                                <button type="submit" class="btn btn-light success my-1 me-2"
-                                        onclick="return confirm('Êtes-vous sûr de vouloir débloquer cet utilisateur?')">
-                                    Débloquer l'utilisateur
-                                </button>
+                            @if(Auth::user()->id != $user->id)
+                                @if($user->is_active)
+                                    <button type="submit" class="btn btn-light danger my-1 me-2"
+                                            onclick="return confirm('Êtes-vous sûr de vouloir bloquer cet utilisateur? Il ne pourra plus se connecter.')">
+                                        Bloquer l'utilisateur
+                                    </button>
+                                @else
+                                    <button type="submit" class="btn btn-light success my-1 me-2"
+                                            onclick="return confirm('Êtes-vous sûr de vouloir débloquer cet utilisateur?')">
+                                        Débloquer l'utilisateur
+                                    </button>
+                                @endif
                             @endif
+                            
+                           
                         </form>
                 </div>
                     <!--end::User Info-->
@@ -124,6 +128,7 @@
                     <a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#kt_user_view_overview_security">Mot de passe</a>
                 </li>
                 <!--end:::Tab item-->
+            @if(Auth::user()->id != $user->id)
                 <li class="nav-item ms-auto">
                     <!--begin::Action menu-->
                     <a href="#" class="btn btn-primary ps-7" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">Actions 
@@ -140,6 +145,7 @@
                     <!--end::Menu-->
                     <!--end::Menu-->
                 </li>
+            @endif
                 <!--end:::Tab item-->
             </ul>
             <!--end:::Tabs-->

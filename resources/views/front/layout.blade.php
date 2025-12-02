@@ -15,10 +15,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/site/css/modern-effects.css') }}">
+
 
     <link rel="shortcut icon" href="{{ asset('assets/site/image/icon.png')}}" type="image/x-icon">
 </head>
 <body>
+    <div class="scroll-progress"></div>
     <!-- Top Bar -->
     <div class="top-bar desktop-menu">
         <div class="container ">
@@ -426,6 +429,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/plugins/ModifiersPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+    <script src="{{ asset('assets/site/js/modern-effects.js')}}"></script>
     <script src="{{ asset('assets/site/js/script.js')}}"></script>
     <script src="{{ asset('assets/site/js/addtocart.js')}}"></script>
     @yield('scripts')

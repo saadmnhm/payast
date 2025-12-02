@@ -77,6 +77,27 @@ class Order extends Model
         return $labels[$this->status] ?? $this->status;
     }
 
+    public function getPaymentBadgeAttribute()
+    {
+        $badges = [
+            'pending' => 'warning',
+            'paid' => 'success',
+            'failed' => 'danger',
+        ];
+        
+        return $badges[$this->payment_status] ?? 'secondary';
+    }
+    public function getPaymentLabelAttribute()
+    {
+        $labels = [
+            'pending' => 'En attente',
+            'paid' => 'Payé',
+            'failed' => 'Échoué',
+        ];
+        
+        return $labels[$this->payment_status] ?? $this->payment_status;
+    }
+
     protected static function boot()
     {
         parent::boot();

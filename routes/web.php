@@ -35,7 +35,6 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/{user}/update-password', 'updatePassword')->name('update-password');
             Route::post('/{user}/update-avatar', 'updateAvatar')->name('update-avatar');
             Route::post('/{user}/toggle-status', 'toggleStatus')->name('toggle-status');
-
             // Resource routes
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
@@ -46,9 +45,8 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/{user}', 'destroy')->name('destroy');
         });
 
-        // Role and permission routes
-        Route::resource('roles', RoleManagementController::class)->names('apps.roles');
-        Route::resource('permissions', PermissionManagementController::class)->names('apps.permissions');
+        // Route::resource('roles', RoleManagementController::class)->names('apps.roles');
+        // Route::resource('permissions', PermissionManagementController::class)->names('apps.permissions');
 
 
         // Contact routes

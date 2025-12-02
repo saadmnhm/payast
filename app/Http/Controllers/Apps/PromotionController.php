@@ -36,7 +36,6 @@ class PromotionController extends Controller
             'is_active' => 'nullable|boolean',
         ]);
 
-        // Generate unique slug
         $slug = Str::slug($data['title']);
         $count = 1;
         $originalSlug = $slug;

@@ -36,8 +36,8 @@
                                 <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                     <th>Titre</th>
                                     <th>Pièce</th>
+                                    <th>Prix</th>
                                     <th>Prix Promo</th>
-                                    <th>Ordre</th>
                                     <th>Statut</th>
                                     <th class="text-end">Actions</th>
                                 </tr>
@@ -66,10 +66,10 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <span class="text-success fw-bold">{{ $promotion->formatted_price }}</span>
+                                            <span class="badge badge-light">{{ $promotion->piece->price}}</span>
                                         </td>
                                         <td>
-                                            <span class="badge badge-light">{{ $promotion->order }}</span>
+                                            <span class="text-success fw-bold">{{ $promotion->formatted_price }}</span>
                                         </td>
                                         <td>
                                             @if($promotion->is_active)

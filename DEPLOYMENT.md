@@ -1,19 +1,28 @@
 # 🚀 Deployment Guide
 
-## ⚠️ Important: No SSH Access
+## ⚠️ Important: FTP-Only Access
 
-Your server does not allow SSH (port 22 blocked). Use **cPanel** instead!
+Your server only has FTP access (no SSH, no cPanel terminal).
 
-👉 **See [CPANEL-SETUP.md](CPANEL-SETUP.md) for step-by-step instructions**
+👉 **See [FTP-ONLY-SETUP.md](FTP-ONLY-SETUP.md) for complete instructions**
 
 ---
 
-## Quick Start via cPanel
+## Quick Start (FTP Only)
 
-1. **Access cPanel**: https://prod.blinkagency.ma:2083
-2. **Open Terminal** (if available) or use **File Manager**
-3. **Navigate to project**: `cd domains/pyasat`
-4. **Run setup commands** (see CPANEL-SETUP.md)
+1. **Prepare locally**: Generate keys, install dependencies
+2. **Configure .env**: Copy from `.env.production` with your credentials  
+3. **Push to GitHub**: `git push origin main` - GitHub Actions uploads via FTP
+4. **Setup database**: Use phpMyAdmin or ask hosting support
+5. **Test**: Visit https://pyasat.blinkagency.ma
+
+---
+
+## GitHub Actions Auto-Deployment
+
+✅ Every push to `main` automatically uploads to FTP
+✅ No manual FTP needed for regular updates
+✅ Just code → commit → push → deployed!
 
 ---
 

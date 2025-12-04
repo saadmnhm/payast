@@ -80,10 +80,8 @@ class PromotionController extends Controller
                 'image' => 'nullable|image|max:2048',
                 'description' => 'nullable|string',
             ]);
-            // Generate slug only if title changed
             $newSlug = Str::slug($validated['title']);
             if ($newSlug !== $promotion->slug) {
-                // Check if slug exists for other promotions
                 $count = 1;
                 $originalSlug = $newSlug;
                 while (Promotion::where('slug', $newSlug)->where('id', '!=', $promotion->id)->whereNull('deleted_at')->exists()) {
@@ -93,10 +91,8 @@ class PromotionController extends Controller
                 $validated['slug'] = $newSlug;
             }
             
-            // Handle is_active checkbox
             $validated['is_active'] = $request->has('is_active') ? 1 : 0;
 
-            // Handle image upload
             if ($request->hasFile('image')) {
                 if ($promotion->image) {
                     Storage::disk('public')->delete($promotion->image);
@@ -104,7 +100,6 @@ class PromotionController extends Controller
                 $validated['image'] = $request->file('image')->store('promotions', 'public');
             }
 
-            // Update promotion
             $promotion->update($validated);
 
             return redirect()->route('apps.promotions.index')->with('success', 'Promotion mise à jour avec succès');

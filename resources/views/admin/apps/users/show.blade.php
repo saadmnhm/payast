@@ -33,7 +33,7 @@
                     <div class="d-flex flex-center flex-column py-5">
                         <div class="symbol symbol-100px symbol-circle mb-7">
                             @if($user->profile_photo_url)
-                                <img src="{{ $user->profile_photo_url }}" alt="image"/>
+                                <img src="{{ $user->profile_photo_url }}" alt="image" style="    object-fit: contain;"/>
                             @else
                                 <div class="symbol-label fs-3 {{ app(\App\Actions\GetThemeType::class)->handle('bg-light-? text-?', $user->name) }}">
                                     {{ substr($user->name, 0, 1) }}
@@ -489,7 +489,7 @@
                     <div class="text-center mb-7">
                         <div class="image-input image-input-outline image-input-placeholder mb-4" data-kt-image-input="true">
                             @if($user->profile_photo_url)
-                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $user->profile_photo_url }})"></div>
+                                <div class="image-input-wrapper w-125px h-125px" style="background: url('{{ $user->profile_photo_url }}') center / contain no-repeat;" ></div>
                             @else
                                 <div class="image-input-wrapper w-125px h-125px"></div>
                             @endif

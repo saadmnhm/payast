@@ -29,18 +29,19 @@ Route::middleware(['auth'])->group(function () {
 
         // User management routes
         Route::prefix('users')->name('apps.users.')->controller(UserManagementController::class)->group(function () {
+            // Special routes first
             Route::get('/trashed', 'trashed')->name('trashed');
             Route::post('/{id}/restore', 'restore')->name('restore');
+            Route::post('/{user}/toggle-status', 'toggleStatus')->name('toggle-status');
+            Route::post('/{user}/update-avatar', 'updateAvatar')->name('update-avatar');
             Route::put('/{user}/update-field', 'updateField')->name('update-field');
             Route::put('/{user}/update-password', 'updatePassword')->name('update-password');
-            Route::post('/{user}/update-avatar', 'updateAvatar')->name('update-avatar');
-            Route::post('/{user}/toggle-status', 'toggleStatus')->name('toggle-status');
-            // Resource routes
+            Route::put('/{user}/update-role', 'updateRole')->name('update-role');
+            
+            // Standard CRUD routes
             Route::get('/', 'index')->name('index');
-            Route::get('/create', 'create')->name('create');
             Route::post('/', 'store')->name('store');
             Route::get('/{user}', 'show')->name('show');
-            Route::get('/{user}/edit', 'edit')->name('edit');
             Route::put('/{user}', 'update')->name('update');
             Route::delete('/{user}', 'destroy')->name('destroy');
         });

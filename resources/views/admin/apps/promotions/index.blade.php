@@ -14,12 +14,12 @@
                     <div class="card-title">
                         <h2>Liste des Promotions</h2>
                     </div>
-                    <div class="card-toolbar">
+                    <!-- <div class="card-toolbar">
                         <a href="{{ route('apps.promotions.create') }}" class="btn btn-sm btn-primary">
                             {!! getIcon('plus', 'fs-2') !!}
                             Nouvelle Promotion
                         </a>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="card-body pt-0">

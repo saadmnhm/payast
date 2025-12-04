@@ -33,31 +33,11 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'npm'
-      
-      - name: Install NPM dependencies
-        run: npm install --legacy-peer-deps
-      
-      - name: Build assets
-        run: npm run prod
-        env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
-      
       - name: Create storage directories
         run: |
           mkdir -p storage/framework/{sessions,views,cache}
           mkdir -p storage/logs
           mkdir -p bootstrap/cache
-      
-      - name: Clean up before deploy
-        run: |
-          rm -rf node_modules
-          rm -rf tests
-          rm -rf .git
       
       - name: 📂 Deploy to FTP Server
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
@@ -82,3 +62,4 @@ jobs:
             **/storage/framework/cache/**
             **/storage/framework/sessions/**
             **/storage/framework/views/**
+            **/abdo (4).sql

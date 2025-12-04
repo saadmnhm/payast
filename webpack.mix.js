@@ -5,22 +5,15 @@ const mix = require('laravel-mix');
  | Mix Asset Management
  |--------------------------------------------------------------------------
  |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel applications. By default, we are compiling the CSS
- | file for the application as well as bundling up all the JS files.
+ | This project uses Metronic pre-built assets.
+ | No compilation needed - all assets are in public/assets/
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
-    .sourceMaps();
+// Dummy compilation to satisfy Laravel Mix requirement
+mix.setPublicPath('public');
 
-// Admin theme assets (if you have custom resources)
+// Copy any custom assets if needed
 if (mix.inProduction()) {
     mix.version();
-} else {
-    mix.webpackConfig({
-        devtool: 'source-map'
-    })
-    .sourceMaps();
 }

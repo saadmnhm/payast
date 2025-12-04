@@ -19,25 +19,45 @@ jobs:
           php-version: '8.2'
           extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, dom, filter, gd, json
       
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+      
       - name: Install Composer dependencies
-        run: composer install --no-dev --optimize-autoloader --no-interaction
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
       
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'npm'
       
       - name: Install NPM dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps
       
       - name: Build assets
-        run: npm run production
+        run: npm run prod
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
       
       - name: Create storage directories
         run: |
           mkdir -p storage/framework/{sessions,views,cache}
           mkdir -p storage/logs
           mkdir -p bootstrap/cache
+      
+      - name: Clean up before deploy
+        run: |
+          rm -rf node_modules
+          rm -rf tests
+          rm -rf .git
       
       - name: 📂 Deploy to FTP Server
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
@@ -46,13 +66,19 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /pyasat/
+          timeout: 600000
+          log-level: verbose
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
             **/tests/**
             **/.github/**
+            **/.env
             **/.env.example
             **/phpunit.xml
             **/README.md
             **/storage/logs/**
+            **/storage/framework/cache/**
+            **/storage/framework/sessions/**
+            **/storage/framework/views/**

@@ -1,27 +1,23 @@
 # 🚀 Deployment Guide
 
+## ⚠️ Important: No SSH Access
+
+Your server does not allow SSH (port 22 blocked). Use **cPanel** instead!
+
+👉 **See [CPANEL-SETUP.md](CPANEL-SETUP.md) for step-by-step instructions**
+
+---
+
+## Quick Start via cPanel
+
+1. **Access cPanel**: https://prod.blinkagency.ma:2083
+2. **Open Terminal** (if available) or use **File Manager**
+3. **Navigate to project**: `cd domains/pyasat`
+4. **Run setup commands** (see CPANEL-SETUP.md)
+
+---
+
 ## First-Time Server Setup
-
-### 1. SSH into your server
-
-```bash
-ssh u583576698@prod.blinkagency.ma
-```
-
-### 2. Navigate to project directory
-
-```bash
-cd /home/u583576698/domains/pyasat
-```
-
-### 3. Run the setup script
-
-```bash
-chmod +x deploy-setup.sh
-./deploy-setup.sh
-```
-
-### 4. Configure environment variables
 
 ```bash
 nano .env

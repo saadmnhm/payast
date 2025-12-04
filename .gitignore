@@ -2,8 +2,8 @@
 /public/build
 /public/hot
 /public/mix-manifest.json
-/storage/*.key
 /vendor
+.env
 .env.backup
 .phpunit.result.cache
 Homestead.json
@@ -13,3 +13,13 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+/storage/*.key
+/storage/logs/*
+!/storage/logs/.gitignore
+/storage/framework/cache/*
+!/storage/framework/cache/.gitignore
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+*.sql

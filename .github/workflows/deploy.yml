@@ -37,10 +37,7 @@ jobs:
         run: |
           mkdir -p storage/framework/{sessions,views,cache}
           mkdir -p storage/logs
-          mkdir -p storage/app/public
           mkdir -p bootstrap/cache
-          mkdir -p public/uploads/{avatars,pieces,brands,categories}
-          chmod -R 775 storage bootstrap/cache
       
       - name: 📂 Deploy to FTP Server
         uses: SamKirkland/FTP-Deploy-Action@4.3.3

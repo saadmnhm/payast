@@ -3,43 +3,47 @@ name: Deploy to Production
 on:
   push:
     branches: [ main ]
-  workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
           extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, dom, filter, gd, json
-      
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      
-      - name: Cache Composer dependencies
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-      
-      - name: Install Composer dependencies
-        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
-      
-      - name: Create storage directories
+
+      - name: Install Composer Dependencies
+        run: composer install --no-dev --optimize-autoloader --prefer-dist --no-interaction
+
+      - name: Prepare Laravel build
         run: |
           mkdir -p storage/framework/{sessions,views,cache}
           mkdir -p storage/logs
           mkdir -p bootstrap/cache
-      
-      - name: 📂 Deploy to FTP Server
+
+          # 🔥 Move public content to root/deploy folder
+          mkdir deploy
+          cp -R public/* deploy/
+
+          # 🔥 Move app files to /laravel (so code not exposed)
+          mkdir deploy/laravel
+          rsync -av --exclude=public --exclude=node_modules --exclude=vendor . deploy/laravel/
+
+          # 🔥 Add vendor inside /laravel
+          cp -R vendor deploy/laravel/vendor
+
+          # 🔥 Fix index.php paths
+          sed -i "s#../vendor/autoload.php#laravel/vendor/autoload.php#g" deploy/index.php
+          sed -i "s#../bootstrap/app.php#laravel/bootstrap/app.php#g" deploy/index.php
+
+      - name: 🟦 Upload to FTP (Safe Deploy)
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -48,18 +52,15 @@ jobs:
           server-dir: /pyasat/
           timeout: 600000
           log-level: verbose
+          local-dir: ./deploy
           exclude: |
             **/.git*
-            **/.git*/**
+            **/.github/**
             **/node_modules/**
             **/tests/**
-            **/.github/**
-            **/.env
-            **/.env.example
-            **/phpunit.xml
             **/README.md
             **/storage/logs/**
-            **/storage/framework/cache/**
             **/storage/framework/sessions/**
+            **/storage/framework/cache/**
             **/storage/framework/views/**
-            **/abdo (4).sql
+            **/.env

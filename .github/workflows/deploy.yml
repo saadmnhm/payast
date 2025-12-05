@@ -64,3 +64,4 @@ jobs:
             **/storage/framework/cache/**
             **/storage/framework/views/**
             **/.env
+            

@@ -30,9 +30,7 @@ class Brand extends Model
                 return $this->image;
             }
             
-            if (file_exists(public_path('uploads/' . $this->image))) {
-                return asset('uploads/' . $this->image);
-            }
+            return asset('uploads/' . $this->image);
         }
 
         return asset('assets/media/svg/files/blank-image.svg');

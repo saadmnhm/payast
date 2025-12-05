@@ -64,25 +64,7 @@ class User extends Authenticatable
     public function getProfilePhotoUrlAttribute()
     {
         if ($this->profile_photo_path) {
-            // Check if it's already a full URL
-            if (filter_var($this->profile_photo_path, FILTER_VALIDATE_URL)) {
-                return $this->profile_photo_path;
-            }
-
-            // Check for uploads path (new system)
-            if (file_exists(public_path('uploads/' . $this->profile_photo_path))) {
-                return asset('uploads/' . $this->profile_photo_path);
-            }
-
-            // Check if it uses the asset path format (legacy)
-            if (strpos($this->profile_photo_path, 'assets/') === 0) {
-                return asset($this->profile_photo_path);
-            }
-
-            // Fallback to storage path (old system)
-            if (file_exists(public_path('storage/' . $this->profile_photo_path))) {
-                return asset('storage/' . $this->profile_photo_path);
-            }
+            return asset('uploads/' . $this->profile_photo_path);
         }
 
         // Default avatar with initials

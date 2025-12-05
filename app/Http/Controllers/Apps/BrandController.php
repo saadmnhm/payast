@@ -29,9 +29,15 @@ class BrandController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
+            $uploadPath = public_path('uploads/brands');
+            
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+            
             $image = $request->file('image');
             $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/brands'), $filename);
+            $image->move($uploadPath, $filename);
             $data['image'] = 'brands/' . $filename;
         }
 
@@ -57,14 +63,18 @@ class BrandController extends Controller
 
 
         if ($request->hasFile('image')) {
-            // Delete old image
             if ($brand->image && file_exists(public_path('uploads/' . $brand->image))) {
                 unlink(public_path('uploads/' . $brand->image));
             }
             
+            $uploadPath = public_path('uploads/brands');
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+            
             $image = $request->file('image');
             $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/brands'), $filename);
+            $image->move($uploadPath, $filename);
             $data['image'] = 'brands/' . $filename;
         }
 

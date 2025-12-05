@@ -97,7 +97,6 @@ class UserManagementController extends Controller
                 'is_active' => true,
             ];
             
-            // Handle avatar upload
             if ($request->hasFile('avatar')) {
                 $userData['profile_photo_path'] = $this->uploadAvatar($request->file('avatar'));
             }
@@ -152,14 +151,11 @@ class UserManagementController extends Controller
                 'role_id' => $validated['role_id'],
             ];
             
-            // Update password if provided
             if (!empty($validated['password'])) {
                 $userData['password'] = Hash::make($validated['password']);
             }
             
-            // Handle avatar upload
             if ($request->hasFile('avatar')) {
-                // Delete old avatar
                 if ($user->profile_photo_path) {
                     $this->deleteAvatar($user->profile_photo_path);
                 }
@@ -188,7 +184,6 @@ class UserManagementController extends Controller
         $field = $request->input('field');
         $value = $request->input('value');
         
-        // Liste des champs autorisés
         $allowedFields = ['first_name', 'last_name', 'email', 'phone'];
         
         if (!in_array($field, $allowedFields)) {
@@ -196,7 +191,6 @@ class UserManagementController extends Controller
         }
         
         try {
-            // Validation spécifique selon le champ
             $rules = [
                 'email' => 'required|email|unique:users,email,' . $user->id,
                 'first_name' => 'required|string|max:255',
@@ -208,7 +202,6 @@ class UserManagementController extends Controller
             
             $user->$field = $value;
             
-            // Update name if first_name or last_name changed
             if (in_array($field, ['first_name', 'last_name'])) {
                 $user->name = $user->first_name . ' ' . $user->last_name;
             }
@@ -277,12 +270,10 @@ class UserManagementController extends Controller
                 'avatar.max' => 'La taille maximale est de 2MB.',
             ]);
             
-            // Delete old avatar
             if ($user->profile_photo_path) {
                 $this->deleteAvatar($user->profile_photo_path);
             }
             
-            // Upload new avatar
             $avatarPath = $this->uploadAvatar($request->file('avatar'));
             
             $user->profile_photo_path = $avatarPath;
@@ -336,7 +327,6 @@ class UserManagementController extends Controller
     public function toggleStatus(User $user)
     {
         try {
-            // Prevent disabling self
             if ($user->id === Auth::id()) {
                 return redirect()->back()
                     ->with('error', 'Vous ne pouvez pas désactiver votre propre compte.');
@@ -362,7 +352,6 @@ class UserManagementController extends Controller
     public function destroy(User $user)
     {
         try {
-            // Prevent deleting self
             if ($user->id === Auth::id()) {
                 return redirect()->back()
                     ->with('error', 'Vous ne pouvez pas supprimer votre propre compte.');
@@ -389,21 +378,15 @@ class UserManagementController extends Controller
      */
     protected function uploadAvatar($file)
     {
-        $directory = 'uploads/avatars';
-        $publicPath = public_path($directory);
+        $uploadPath = public_path('uploads/avatars');
         
-        // Create directory if it doesn't exist
-        if (!file_exists($publicPath)) {
-            mkdir($publicPath, 0755, true);
+        if (!file_exists($uploadPath)) {
+            mkdir($uploadPath, 0755, true);
         }
         
-        // Generate unique filename
         $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $file->move($uploadPath, $filename);
         
-        // Move file to public directory
-        $file->move($publicPath, $filename);
-        
-        // Return relative path for database
         return 'avatars/' . $filename;
     }
 
@@ -416,7 +399,6 @@ class UserManagementController extends Controller
     protected function deleteAvatar($path)
     {
         $fullPath = public_path('uploads/' . $path);
-        
         if (file_exists($fullPath) && !str_contains($path, 'http')) {
             @unlink($fullPath);
         }
@@ -434,7 +416,6 @@ class UserManagementController extends Controller
         if ($e instanceof \Illuminate\Database\QueryException) {
             $errorCode = $e->errorInfo[1] ?? null;
             
-            // Duplicate entry error (MySQL code 1062)
             if ($errorCode == 1062) {
                 preg_match("/Duplicate entry '(.+)' for key '(.+)'/", $e->getMessage(), $matches);
                 $value = $matches[1] ?? 'une valeur';
@@ -452,14 +433,12 @@ class UserManagementController extends Controller
                 return redirect()->to($redirect)->with('error', $message);
             }
             
-            // Foreign key constraint error (MySQL code 1451)
             if ($errorCode == 1451) {
                 return redirect()->to($redirect)->with('error', 
                     'Impossible de supprimer cet utilisateur car il est lié à d\'autres enregistrements.');
             }
         }
         
-        // Generic error
         return redirect()->to($redirect)->with('error', 'Une erreur est survenue: ' . $e->getMessage());
     }
 }

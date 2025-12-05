@@ -36,7 +36,15 @@ class Promotion extends Model
 
     public function getImageUrlAttribute()
     {
-        return $this->image ? Storage::url($this->image) : null;
+        if ($this->image) {
+            if (filter_var($this->image, FILTER_VALIDATE_URL)) {
+                return $this->image;
+            }
+            
+            return asset('uploads/' . $this->image);
+        }
+        
+        return null;
     }
 
     public function getFormattedPriceAttribute()

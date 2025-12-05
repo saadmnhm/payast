@@ -28,9 +28,15 @@ class ConstructeurController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
+            $uploadPath = public_path('uploads/constructeurs');
+            
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+            
             $image = $request->file('image');
             $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/constructeurs'), $filename);
+            $image->move($uploadPath, $filename);
             $data['image'] = 'constructeurs/' . $filename;
         }
 
@@ -54,14 +60,18 @@ class ConstructeurController extends Controller
         $data['is_active'] = $request->has('is_active') ? 1 : 0;
 
         if ($request->hasFile('image')) {
-            // Delete old image
             if ($constructeur->image && file_exists(public_path('uploads/' . $constructeur->image))) {
                 unlink(public_path('uploads/' . $constructeur->image));
             }
             
+            $uploadPath = public_path('uploads/constructeurs');
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+            
             $image = $request->file('image');
             $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/constructeurs'), $filename);
+            $image->move($uploadPath, $filename);
             $data['image'] = 'constructeurs/' . $filename;
         }
 

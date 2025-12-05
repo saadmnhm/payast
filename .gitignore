@@ -8,6 +8,9 @@
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
+/uploads/*
+!/uploads/.gitignore
+!/uploads/.htaccess
 auth.json
 npm-debug.log
 yarn-error.log

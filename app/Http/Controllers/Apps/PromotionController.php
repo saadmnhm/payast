@@ -48,7 +48,16 @@ class PromotionController extends Controller
         $data['is_active'] = $request->has('is_active');
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('promotions', 'public');
+            $uploadPath = public_path('uploads/promotions');
+            
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+            
+            $image = $request->file('image');
+            $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move($uploadPath, $filename);
+            $data['image'] = 'promotions/' . $filename;
         }
 
         Promotion::create($data);
@@ -94,10 +103,19 @@ class PromotionController extends Controller
             $validated['is_active'] = $request->has('is_active') ? 1 : 0;
 
             if ($request->hasFile('image')) {
-                if ($promotion->image) {
-                    Storage::disk('public')->delete($promotion->image);
+                if ($promotion->image && file_exists(public_path('uploads/' . $promotion->image))) {
+                    unlink(public_path('uploads/' . $promotion->image));
                 }
-                $validated['image'] = $request->file('image')->store('promotions', 'public');
+                
+                $uploadPath = public_path('uploads/promotions');
+                if (!file_exists($uploadPath)) {
+                    mkdir($uploadPath, 0755, true);
+                }
+                
+                $image = $request->file('image');
+                $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->move($uploadPath, $filename);
+                $validated['image'] = 'promotions/' . $filename;
             }
 
             $promotion->update($validated);
@@ -110,8 +128,8 @@ class PromotionController extends Controller
 
     public function destroy(Promotion $promotion)
     {
-        if ($promotion->image) {
-            Storage::disk('public')->delete($promotion->image);
+        if ($promotion->image && file_exists(public_path('uploads/' . $promotion->image))) {
+            unlink(public_path('uploads/' . $promotion->image));
         }
 
         $promotion->delete();

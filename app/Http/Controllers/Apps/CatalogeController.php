@@ -65,9 +65,15 @@ class CatalogeController extends Controller
         $data['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('image')) {
+            $uploadPath = public_path('uploads/categories');
+            
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+            
             $image = $request->file('image');
             $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/categories'), $filename);
+            $image->move($uploadPath, $filename);
             $data['image'] = 'categories/' . $filename;
         }
 
@@ -128,9 +134,14 @@ class CatalogeController extends Controller
                 unlink(public_path('uploads/' . $category->image));
             }
             
+            $uploadPath = public_path('uploads/categories');
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+            
             $image = $request->file('image');
             $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/categories'), $filename);
+            $image->move($uploadPath, $filename);
             $data['image'] = 'categories/' . $filename;
         }
 
@@ -189,9 +200,15 @@ class CatalogeController extends Controller
         $data['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('image')) {
+            $uploadPath = public_path('uploads/pieces');
+            
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+            
             $image = $request->file('image');
             $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/pieces'), $filename);
+            $image->move($uploadPath, $filename);
             $data['image'] = 'pieces/' . $filename;
         }
 
@@ -235,9 +252,14 @@ class CatalogeController extends Controller
                 unlink(public_path('uploads/' . $piece->image));
             }
             
+            $uploadPath = public_path('uploads/pieces');
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+            
             $image = $request->file('image');
             $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/pieces'), $filename);
+            $image->move($uploadPath, $filename);
             $data['image'] = 'pieces/' . $filename;
         }
 

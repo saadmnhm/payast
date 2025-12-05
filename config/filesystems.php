@@ -42,11 +42,9 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-        'public_uploads' => [
+        'uploads' => [
             'driver' => 'local',
-            'root' => public_path('assets/images/avatars'),
-            'url' => env('APP_URL').'/assets/images/avatars',
-            'visibility' => 'public',
+            'root' => public_path('uploads'),
         ],
 
         's3' => [

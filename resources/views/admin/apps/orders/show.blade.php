@@ -10,6 +10,7 @@
     <div class="d-flex flex-column flex-xl-row gap-7 gap-lg-10">
         {{-- Order Details --}}
         <div class="card card-flush flex-row-fluid">
+
             <div class="card-header">
                 <div class="card-title">
                     <h2>Commande #{{ $order->order_number }}</h2>
@@ -127,7 +128,7 @@
                 </div>
             </div>
 
-            <div class="card card-flush mb-5">
+            <div class="card card-flush mb-6">
                 <div class="card-header">
                     <div class="card-title">
                         <h2>Statut de la commande</h2>
@@ -145,6 +146,16 @@
                     <button type="button" class="btn btn-primary w-100" id="update-status-btn">
                         Mettre à jour le statut
                     </button>
+                </div>
+            </div>
+            <div class="card card-flush mb-6">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h2>Export PDF</h2>
+                    </div>
+                </div>
+                <div class="card-body pt-0">
+                    <a href="{{ route('apps.devis.pdf', ['id' => $order->id]) }}" target="_blank" class="btn btn-danger w-100">Export PDF</a>
                 </div>
             </div>
 

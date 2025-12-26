@@ -15,10 +15,9 @@
             </div>
             <div class="card-toolbar">
                 <div class="d-flex justify-content-end" data-kt-piece-table-toolbar="base">
-                    <a href="{{ route('apps.cataloge.pieces.create') }}" class="btn btn-primary">
-                        {!! getIcon('plus', 'fs-2') !!}
-                        Ajouter une pièce
-                    </a>
+                    <a href="{{ route('pieces.excel') }}" class="btn btn-success me-3">Export Pieces (Excel)</a>
+                    <a href="{{ route('apps.cataloge.pieces.create') }}" class="btn btn-primary">{!! getIcon('plus', 'fs-2') !!} Ajouter une pièce</a>
+
                 </div>
             </div>
         </div>

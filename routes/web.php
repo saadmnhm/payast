@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\PeiceController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Apps\PermissionManagementController;
 use App\Http\Controllers\Apps\RoleManagementController;
 use App\Http\Controllers\Apps\UserManagementController;
@@ -9,12 +15,8 @@ use App\Http\Controllers\Apps\ConstructeurController;
 use App\Http\Controllers\Apps\CatalogeController;
 use App\Http\Controllers\Apps\NavigationMenuController;
 use App\Http\Controllers\Apps\PromotionController;
-use App\Http\Controllers\Auth\SocialiteController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ContactFormController;
-use App\Http\Controllers\PeiceController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Apps\ExportPdfController;
+use App\Http\Controllers\Apps\ExportPieceController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -145,7 +147,10 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/{promotion}', 'update')->name('update');
             Route::delete('/{promotion}', 'destroy')->name('destroy');
         });
-    
+        
+        Route::get('exportdevis/{id}/pdf', [ExportPdfController::class, 'exportDevisPdf'])->name('apps.devis.pdf');
+        Route::get('/export/pieces/excel', [ExportPieceController::class, 'exportPiecesExcel'])->name('pieces.excel');
+
     });
 });
 

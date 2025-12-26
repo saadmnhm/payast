@@ -951,6 +951,8 @@ a{
 }
 
 .price {
+    display: grid;
+    justify-content: center;
     color: #e31e24;
     font-size: 22px;
     font-weight: bold;

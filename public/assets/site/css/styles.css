@@ -2588,15 +2588,9 @@ input[type=number]::-webkit-outer-spin-button {
     }
 }
 
-.line-promo:after{
-    content: "";
-    background-color: red;
-    display: block;
-    width: 100%;
-    height: 3px;
-    border-radius: 24px;
-    position: relative;
-    bottom: 19px;
+.line-promo{
+    text-decoration: line-through;
+
 
 }
 
